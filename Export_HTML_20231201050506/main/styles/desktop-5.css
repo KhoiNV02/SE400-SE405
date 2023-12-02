@@ -1,0 +1,228 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 144rem;
+}.desktop-5-yJ5 {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  background-color: #010101;
+}
+.desktop-5-yJ5 .headeringame-6tV {
+  margin-bottom: 0.4rem;
+  box-sizing: border-box;
+  padding: 0.8rem 2.495rem 0.4rem 1.3rem;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #e9ac37;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .headeringame-6tV .code-kofm-1kZ {
+  margin-right: 120rem;
+  font-size: 3.2rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #ffffff;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .headeringame-6tV .vector-kCM {
+  margin-bottom: 0.5rem;
+  width: 4.0051rem;
+  height: 3.2rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK {
+  margin-left: 7.4rem;
+  width: calc(100% - 7.4rem);
+  height: 84.6rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-zuq1-xpD {
+  margin: 4.9rem 3rem 11.1rem 0rem;
+  width: 90.4rem;
+  height: calc(100% - 16rem);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-zuq1-xpD .waiting-for-1-player-to-start-eS9 {
+  margin: 0rem 3.3rem 2.2rem 0rem;
+  font-size: 4.8rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #ffffff;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-zuq1-xpD .detectiveword-1-A9b {
+  margin-bottom: 2.4223rem;
+  width: 90.4rem;
+  height: 50.3777rem;
+  object-fit: cover;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-zuq1-xpD .auto-group-ybzk-gNq {
+  margin: 0rem 20.1rem 0rem 29.3rem;
+  width: calc(100% - 49.4rem);
+  height: 6.9rem;
+  text-align: center;
+  font-size: 3.2744rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #000000;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #90ed47;
+  border-radius: 2.7768rem;
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 {
+  box-sizing: border-box;
+  padding-bottom: 0.6rem;
+  width: 44.7rem;
+  height: 100%;
+  background-color: rgba(31, 24, 24, 0.6899999976);
+  flex-shrink: 0;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .chat-room-G69 {
+  margin: 0rem 0rem 4rem 11.5rem;
+  font-size: 4.8rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #ffffff;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .usernam1-hello-naH {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .username2-hello-bro-uuo {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .usernam1-hello-dqo {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .username2-hello-bro-Aaq {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .usernam1-hello-6Db {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .username2-hello-bro-Dp1 {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .usernam1-hello-9Sm {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .username2-hello-bro-UV3 {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .usernam1-hello-nkd {
+  margin: 0rem 0rem 2.5rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .username2-hello-bro-vM3 {
+  margin: 0rem 0rem 6.6rem 1.8rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.desktop-5-yJ5 .auto-group-fvib-fKK .auto-group-jttj-YR3 .auto-group-cy9v-qyo {
+  box-sizing: border-box;
+  padding: 3.4rem 1.4rem 2.6rem 1.4rem;
+  width: 43.1rem;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #0f0f0f;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+}

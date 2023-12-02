@@ -1,0 +1,52 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 144rem;
+}.footer-im3 {
+  box-sizing: border-box;
+  padding: 2.8rem 1.9rem 0.6rem 40.7rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  background-color: #dadada;
+}
+.footer-im3 .lab-1-qKs {
+  margin-right: 1.6577rem;
+  width: 6.0423rem;
+  height: 8.1rem;
+  object-fit: cover;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.footer-im3 .hope-you-enjoy-the-game-NKo {
+  margin: 0rem 21.1rem 1.1rem 0rem;
+  font-size: 4.5rem;
+  font-weight: 400;
+  line-height: 1.345;
+  color: rgba(0, 0, 0, 0.3300000131);
+  font-family: Leckerli One, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.footer-im3 .nhm-se400-4iR {
+  margin-bottom: 0.1rem;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.345;
+  color: rgba(0, 0, 0, 0.2800000012);
+  font-family: Leckerli One, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}

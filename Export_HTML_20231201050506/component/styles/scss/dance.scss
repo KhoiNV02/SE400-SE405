@@ -1,0 +1,108 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 19.3rem;
+}.dance-NAy {
+  padding: 2rem 2rem 1.4rem 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  position: relative;
+  align-items: center;
+  border: dashed 0.1rem #9747ff;
+  overflow: hidden;
+
+  .property-1default-VWV {
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 20.5rem;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+
+    .rectangle-5-qKT {
+      width: 15.3rem;
+      height: 20.2rem;
+      position: absolute;
+      left: 0;
+      top: 0.3rem;
+      background-color: #eeb037;
+      border-radius: 2.5rem;
+    }
+    .harvestfestival-1-AMj {
+      width: 14.6rem;
+      height: 17rem;
+      position: absolute;
+      left: 0.4rem;
+      top: 0;
+      object-fit: cover;
+      vertical-align: top;
+    }
+    .harvest-festival-tYd {
+      width: 14.1rem;
+      height: 2.8rem;
+      position: absolute;
+      font-size: 2rem;
+      color: #000000;
+      font-family: Spicy Rice, 'Source Sans Pro';
+      white-space: nowrap;
+      left: 0.6rem;
+      top: 16.9rem;
+      font-weight: 400;
+      line-height: 1.3775;
+    }
+  }
+  .property-1variant2-PEV {
+    width: 100%;
+    height: 20.5rem;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+
+    .rectangle-5-w17 {
+      border-radius: 2.5rem;
+      width: 15.3rem;
+      height: 20.2rem;
+      position: absolute;
+      left: 0;
+      top: 0.3rem;
+      background-color: #eeb037;
+    }
+    .harvest-1-4rR {
+      width: 15.6rem;
+      height: 17.4rem;
+      position: absolute;
+      left: -0.2rem;
+      top: -0.2rem;
+      object-fit: cover;
+      vertical-align: top;
+    }
+    .harvest-festival-zVB {
+      position: absolute;
+      font-size: 2rem;
+      line-height: 1.3775;
+      color: #000000;
+      font-family: Spicy Rice, 'Source Sans Pro';
+      width: 14.1rem;
+      height: 2.8rem;
+      left: 0.6rem;
+      top: 16.9rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+  }
+}

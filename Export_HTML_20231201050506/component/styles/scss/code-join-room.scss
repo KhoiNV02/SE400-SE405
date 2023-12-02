@@ -1,0 +1,97 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 57.6rem;
+}.code-join-room-u4y {
+  padding: 1rem 0rem 8rem 0.8rem;
+  flex-direction: column;
+  border: dashed 0.1rem #000000;
+  background-color: #f9f4d8;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  border-radius: 2.5rem;
+
+  .join-private-room-dFs {
+    margin-bottom: 2.6rem;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 1.3775;
+    color: #ed6112;
+    font-family: Spicy Rice, 'Source Sans Pro';
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .auto-group-eimh-MBs {
+    margin-left: 0.6rem;
+    height: 5.8rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    .code--tBo {
+      font-weight: 400;
+      line-height: 1.3775;
+      color: #000000;
+      font-family: Spicy Rice, 'Source Sans Pro';
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin: 0.1rem 0.8rem 0rem 0rem;
+      font-size: 3.2rem;
+    }
+    .rectangle-10-c7o {
+      border-radius: 1rem;
+      flex-shrink: 0;
+      margin-right: 2.1rem;
+      width: 29.4rem;
+      height: 5.8rem;
+      border: solid 0.1rem #000000;
+      box-sizing: border-box;
+      background-color: #ffffff;
+    }
+    .group-9-Knu {
+      border-radius: 1.6458rem;
+      flex-shrink: 0;
+      width: 16.7rem;
+      height: 100%;
+      position: relative;
+
+      .rectangle-10-HDw {
+        border-radius: 1.6458rem;
+        width: 15.1rem;
+        height: 5.8rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #a2e85c;
+      }
+      .join-room-E9B {
+        white-space: nowrap;
+        width: 14.1rem;
+        height: 4.5rem;
+        position: absolute;
+        font-weight: 400;
+        line-height: 1.3775;
+        color: #000000;
+        left: 0.3rem;
+        top: 0.8rem;
+        font-size: 3.2rem;
+        font-family: Spicy Rice, 'Source Sans Pro';
+      }
+    }
+  }
+}
