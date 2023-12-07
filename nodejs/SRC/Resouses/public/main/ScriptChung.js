@@ -19,7 +19,6 @@ chat.onkeydown= function handleKeyDown(event) {
     // Kiểm tra xem phím Enter đã được nhấn hay không (keyCode 13 hoặc key "Enter")
     if (event.key === "Enter" || event.keyCode === 13) {
       // Thực hiện các hành động khi người dùng nhấn Enter ở đây
-     
       socket.emit("send-hello",chat.value);
       // addParagraph(chat.value);
       chat.value="";

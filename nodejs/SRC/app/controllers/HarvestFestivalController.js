@@ -1,4 +1,4 @@
-const room = require('../models/RoomModel');
+const Room = require('../models/RoomModel');
 const {mongooseToObject, mutipleMongooseToObject}=require('../../ultil/mongoose');
 class MeController {
   //[get]/news
@@ -17,10 +17,30 @@ res.render('HarvestFestival/HarvestFestivalStartRoom',{idPlayer,UserName,Loca});
   }
   Save1(req,res)
   {
-    const data = req.body;
-    console.log(typeof(data));
-    res.send(data);
-  }
+    var data = req.body;
+    var keys=`[`;
+     keys += Object.keys(data);
+     keys+=`]`;
+      var dataArray = JSON.parse(keys);
+    console.log(dataArray.length);
+    
+    for (var i=0;i<dataArray.length;i++)
+    {
+      var bien={
+        Code:dataArray[i].id,
+        Room:dataArray[i].Room,
+      }
+      console.log(bien);
+    const room=new Room(bien);
+   room.save()
+    .then(()=>{
+    console.log("lưu thành công");
+    // console.log(dataArray[i].id);
+  })
+    .catch((error)=>{
+     res.send(error);
+    })
+  }}
 
 
 }

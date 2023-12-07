@@ -21,15 +21,16 @@ io.on("connection",function(socket){
 console.log("có người đã đăng nhập với id là "+ socket.id);
 socket.on("Create-Room",function(data){
   r=data;
-  socket.join(data);
-  socket.room=data;
+  socket.join(data.RoomName);
+  socket.room=data.RoomName;
   console.log(socket.adapter.rooms);
   var Rooms=[];
-  for (var room of socket.adapter.rooms.keys()) {
+  for ( room of socket.adapter.rooms.keys()) {
     var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
     var object1={
       id:randomNumber,
-      room:room
+      UserName:data.UserName,
+      Room:room,
     };
     Rooms.push(object1);
   }
@@ -37,10 +38,10 @@ io.sockets.emit("Server-Send-Room",Rooms);
 socket.on("send-hello",function(data){
   data+=" ";
   data+=socket.id;
-  io.sockets.in("Username1's Room").emit("send-hello-e",data);
+  io.sockets.in(socket.room).emit("send-hello-e",data);
 })
 
-})
+});
 
 
 });

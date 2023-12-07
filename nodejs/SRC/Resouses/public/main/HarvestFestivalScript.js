@@ -26,44 +26,43 @@
 // js của startRoom
 // Instead of import axios from 'axios';
 // import {axios} from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
-
-
+function decodeHtmlEntity(encodedString) {
+    var doc = new DOMParser().parseFromString(encodedString, 'text/html');
+    return doc.documentElement.textContent;
+}
+var decodedString = decodeHtmlEntity(idPlayer1);
+console.log(decodedString);
 try
 { 
     var Location=Loca;
     console.log(Location);
     if (Location=='my')
     {  
-    socket.emit("Create-Room",UserName+"'s Room");
+    // socket.emit("Create-Room",UserName+"'s Room");
+    socket.emit("Create-Room", { UserName: UserName, RoomName: UserName + "'s Room" });
     socket.on("Server-Send-Room",function(data)
     {
-        console.log(data);
-        // Gửi yêu cầu POST với dữ liệu trong phần thân
-        // Dữ liệu bạn muốn gửi
-        const params = {
-            param1: 'value1',
-            param2: 'value2',
-            // Thêm các tham số khác tùy thuộc vào API của bạn
-          };
-          
+     
+            // console.log(data);
+        if (data[0].UserName === UserName)
+        {
+        alert(UserName);
         data=JSON.stringify(data);
-        // Gửi yêu cầu POST với dữ liệu trong phần thân
         axios.post(`http://localhost:3000/HarvestFestival/edit`,data)
             .then(response => {
             console.log('Dữ liệu nhận được sau khi gửi POST request:', response.data);
             })
             .catch(error => {
             console.error('Lỗi khi gửi POST request:', error);
-            });
-        var id=1;
-       
-
+            }); 
+        }
     })  
     }
     else
     if (Location="your")
     {   
-        socket.emit("Create-Room","Username1's Room");
+        
+        socket.emit("Create-Room",decodedString);
     }
 
 }

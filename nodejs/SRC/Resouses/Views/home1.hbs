@@ -68,7 +68,7 @@
       <!-- Xong 4 mode game qua phần tiếp theo là tạo room mới -->
       <div class="auto-group-gh23-wdF">
         <!-- input nhập mã room mới, randome ko cho người dùng nhập -->
-        <input type="text" class="rectangle-6-EsF"  value="{{Username}}'s room" >
+        <input type="text" class="rectangle-6-EsF"  value="{{Username.Username}}'s room" >
         <!-- chọn room public hay private -->
         <div class="public-private-7RF">
           <!-- Khối bên trái màn hình -->
@@ -139,7 +139,7 @@
       <div class="auto-group-5zpd-Cy3">
         <img class="ei-user-v8M" src="main/assets/ei-user.png"/>
         <!-- <p class="username1-MzM">username1</p> -->
-        <input type="text" class="username1-MzM" placeholder="UserName1" maxlength="12" value="{{Username}}">
+        <input type="text" class="username1-MzM" placeholder="UserName1" maxlength="12" value="{{Username.Username}}">
       </div>
     </div>
 
@@ -233,7 +233,8 @@
             <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
             <p class="bombparrty-english-gcd">BombParrty (English)</p>
             <p class="fmhk-m8H">FMHK</p>
-            <p class="username1s-room-gFF">UserName1’s Room</p>
+             <p class="username1s-room-gFF">UserName1’s Room</p>
+            {{!-- <p class="username1s-room-gFF">{{rooms}}</p> --}}
           </div>    
        
         
@@ -249,7 +250,8 @@
   </div>
 </div>
 <script>
-var Username = {{{json Username}}};
+var rooms = {{{json rooms}}};
+var Username={{{json Username}}}.Username;
 </script>
 <script src="socket.io/socket.io.js"></script>
 <script src="main/Room-after-login.js">

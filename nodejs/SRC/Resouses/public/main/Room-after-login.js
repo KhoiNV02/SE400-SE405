@@ -86,8 +86,18 @@ joinRoom.onclick=function()
    if (codeJoinRoom.value=='')
    alert("Vui lòng nhập mã code để tham gia phòng");
     else
-    {   var idplayer=2;
-        window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
+    {   
+        var idplayer;
+        for (var i=0;i<rooms.length;i++)
+        {
+            if (codeJoinRoom.value===rooms[i].Code)
+        {   
+            idplayer=rooms[i].Room;
+            alert(idplayer);
+            window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
+        }
+        }
+      
     }
 
 }
