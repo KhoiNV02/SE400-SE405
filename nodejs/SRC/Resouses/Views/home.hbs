@@ -11,7 +11,7 @@
 <body>
     <div class="tran">
     <div class="transition-container">
-        <audio  id="audio" preload="auto" autoplay="auto" loop  >
+        <audio  id="audio" preload="auto" loop  >
             <source type="audio/mp3" src="asset-begin-page/creepy-devil-dance-166764.mp3">
         </audio>
         <video  autoplay muted loop id="myVideo" width="100%" height="720px" >
@@ -33,7 +33,7 @@
        
     </div>
     <script>
-     
+      var variableValue=document.querySelector("#text");
         var btn=document.querySelector("#nut");
         var img=document.querySelector("#img");
         var i=0;
@@ -63,10 +63,10 @@
     document.querySelector('.transition-container').style.opacity = '0';
 
   }, 1000);
-  
+ 
   // Redirects to the next page after the transition effect finishes
   setTimeout(function () {
-    window.location.href = 'http://localhost:3000/home';
+    window.location.href = `http://localhost:3000/home?variable=${variableValue.value}`;
   }, 2000); // Change 2000 to match the total duration of your transition effect
         }
 

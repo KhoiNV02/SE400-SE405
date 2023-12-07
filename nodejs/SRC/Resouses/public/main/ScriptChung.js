@@ -19,26 +19,32 @@ chat.onkeydown= function handleKeyDown(event) {
     // Kiểm tra xem phím Enter đã được nhấn hay không (keyCode 13 hoặc key "Enter")
     if (event.key === "Enter" || event.keyCode === 13) {
       // Thực hiện các hành động khi người dùng nhấn Enter ở đây
-      addParagraph(chat.value);
+     
+      socket.emit("send-hello",chat.value);
+      // addParagraph(chat.value);
       chat.value="";
     }
   }
+  socket.on("send-hello-e",function(data)
+  {
+    addParagraph(data);
+  })
 
 
 
 
-  var btn=document.querySelector("#nut");
+  var audio=document.querySelector("#nut");
   var i=0;
-  btn.onclick=function() {
+ audio.onclick=function() {
       var p=document.querySelector("#audio");
       if (i%2==0)
       {
-          btn.setAttribute("src","./assets/vector-5s3.png");
+          audio.setAttribute("src","../main/assets/vector-5s3.png");
       p.play();
       }
   else
   {
-      btn.setAttribute("src","assets/volumne1.png");
+      audio.setAttribute("src","../main/assets/volumne1.png");
   p.pause();
   }
 i++;

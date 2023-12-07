@@ -25,7 +25,7 @@
       <!-- 4 mode game ở đây -->
       <div class="auto-group-xee7-pEZ">
         <!-- mode game 1 -->
-        <div class="group-2-7Df">
+        <div class="group-2-7Df choose">
           <div class="rectangle-3-cw7">
           </div>
           <p class="randomize-t1T">Randomize</p>
@@ -36,7 +36,7 @@
         <div class="auto-group-5oz3-euj">
 
            <!-- mode game 2 -->
-          <div class="group-1-LGm">
+          <div class="group-1-LGm choose">
             <div class="rectangle-2-DLZ">
             </div>
             <img class="bombparty-1-KeV" src="main/assets/bombparty-1.png"/>
@@ -48,7 +48,7 @@
             <p class="party-K2D">Party</p>
           </div>
            <!-- mode game 3 -->
-          <div class="group-3-oxy">
+          <div class="group-3-oxy choose">
             <div class="rectangle-4-uWD">
             </div>
             <p class="detective-DG1">Detective</p>
@@ -56,7 +56,7 @@
             <img class="detective-1-pFo" src="main/assets/detective-1.png"/>
           </div>
            <!-- mode game 4 -->
-          <div class="dance-YSh">
+          <div class="dance-YSh choose">
             <div class="rectangle-5-4R3">
             </div>
             <img id="Dance" class="harvestfestival-1-NwX" src="main/assets/harvestfestival-1.png"/>
@@ -68,7 +68,7 @@
       <!-- Xong 4 mode game qua phần tiếp theo là tạo room mới -->
       <div class="auto-group-gh23-wdF">
         <!-- input nhập mã room mới, randome ko cho người dùng nhập -->
-        <input type="text" inputmode="numeric" class="rectangle-6-EsF" maxlength="6" value="568495">
+        <input type="text" class="rectangle-6-EsF"  value="{{Username}}'s room" >
         <!-- chọn room public hay private -->
         <div class="public-private-7RF">
           <!-- Khối bên trái màn hình -->
@@ -91,9 +91,9 @@
             <p class="private-ZCh">Private</p>
           </div>
         </div>
-      </div>
+      </div> 
       <!-- button tạo mới room -->
-      <div class="auto-group-pycs-sUH">Let Start The Game</div>
+      <div class="auto-group-pycs-sUH" id="createNewRoom">Let Start The Game</div>
     </div>
       <!-- banner  -->
     <img class="banner2-1-f9F" src="main/assets/banner2-1.png"/>
@@ -103,11 +103,11 @@
       <!-- textbox nhập mã code với button join room -->
       <div class="auto-group-kybh-n7P">
         <p class="code--JrR">code:</p>
-        <input type="text" class="rectangle-10-dNu" maxlength="6" placeholder="??????">
+        <input id="codeJoinRoom" type="text" class="rectangle-10-dNu" maxlength="4" placeholder="????">
         <div class="group-9-jwj">
           <div class="rectangle-10-h7s">
           </div>
-          <p class="join-room-dGR">Join Room</p>
+          <p class="join-room-dGR" id="joinRoom">Join Room</p>
         </div>
       </div>
     </div>
@@ -131,7 +131,7 @@
     <div class="header-gC5">
       <!-- Logo -->
       <div class="auto-group-uqwj-Nqb">
-        <a href="https://thuviensach.vn/pdf/viewer.php?id=2b233d"  class="explosive-w-rd-hcy">Explosive W &nbsprd</a>
+        <a href="/"  class="explosive-w-rd-hcy">Explosive W &nbsprd</a>
         <img class="bm-1-oAD" src="main/assets/bm-1-Mss.png"/>
       </div>
       <img class="dog-1-tBf" src="main/assets/dog-1.png"/>
@@ -139,7 +139,7 @@
       <div class="auto-group-5zpd-Cy3">
         <img class="ei-user-v8M" src="main/assets/ei-user.png"/>
         <!-- <p class="username1-MzM">username1</p> -->
-        <input type="text" class="username1-MzM" placeholder="UserName1" maxlength="12" value="UserName1">
+        <input type="text" class="username1-MzM" placeholder="UserName1" maxlength="12" value="{{Username}}">
       </div>
     </div>
 
@@ -248,5 +248,11 @@
     <p class="nhm-se400-Zem">Nhóm..... SE400</p>
   </div>
 </div>
-<script src="Room-after-login.js"></script>
+<script>
+var Username = {{{json Username}}};
+</script>
+<script src="socket.io/socket.io.js"></script>
+<script src="main/Room-after-login.js">
+</script>
+
 </body>

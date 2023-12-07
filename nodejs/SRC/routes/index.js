@@ -1,12 +1,12 @@
 //trang điều phối chung đến các trang 
 const homeRouter = require('./Home1');
 const sitesRouter = require('./site');
-const detailRouter = require('./detail');
-const meRouter = require('./me');
+const bombPartyRouter = require('./bombParty');
+const HarvestFestival = require('./HarvestFestival');
 function route(app) {
     app.use('/home', homeRouter);
-    app.use('/me', meRouter);
-    app.use('/detail', detailRouter);
+    app.use('/HarvestFestival', HarvestFestival);
+    app.use('/bombParty', bombPartyRouter);
     app.use('/', sitesRouter);
 }
 module.exports = route;

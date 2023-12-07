@@ -13,7 +13,8 @@ input {
 	border: none;
 }
 body {
-  width: 151.9rem;
+  width: 151.9rem;  
+ 
 }.room-after-login-pgV {
   width: 100%;
   overflow: hidden;
@@ -21,6 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 168, 0, 0.6000000238);
+
 }
 .clear
 {
@@ -67,6 +69,7 @@ body {
   height: 100%;
   position: relative;
   flex-shrink: 0;
+  cursor: pointer;
 }
 .room-after-login-pgV .auto-group-vjm9-453 .start-the-game-V3s .auto-group-xee7-pEZ .group-2-7Df .rectangle-3-cw7 {
   width: 15.3rem;
@@ -115,6 +118,7 @@ body {
   height: calc(100% - 0.4rem);
   position: relative;
   flex-shrink: 0;
+  cursor: pointer;
 }
 .room-after-login-pgV .auto-group-vjm9-453 .start-the-game-V3s .auto-group-xee7-pEZ .auto-group-5oz3-euj .group-1-LGm .rectangle-2-DLZ {
   width: 15.3rem;
@@ -166,6 +170,7 @@ body {
   height: calc(100% - 0.4rem);
   position: relative;
   flex-shrink: 0;
+  cursor: pointer;
 }
 .room-after-login-pgV .auto-group-vjm9-453 .start-the-game-V3s .auto-group-xee7-pEZ .auto-group-5oz3-euj .group-3-oxy .rectangle-4-uWD {
   width: 15.3rem;
@@ -336,11 +341,12 @@ body {
 .room-after-login-pgV .auto-group-vjm9-453 .start-the-game-V3s .auto-group-gh23-wdF .public-private-7RF .group-6-D6u .public-1Hf {
   font-size: 3.2744rem;
   font-weight: 400;
-  line-height: 1.3775;
+  line-height: 0.7775;
   color: #000000;
   font-family: Spicy Rice, 'Source Sans Pro';
   white-space: nowrap;
   flex-shrink: 0;
+  text-align: center;
 }
 .room-after-login-pgV .auto-group-vjm9-453 .start-the-game-V3s .auto-group-gh23-wdF .public-private-7RF .group-5-vfX {
   box-sizing: border-box;

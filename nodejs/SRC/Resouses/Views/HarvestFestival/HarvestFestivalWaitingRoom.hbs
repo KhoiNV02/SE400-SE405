@@ -10,16 +10,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito%3A400"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono%3A400"/>
-  <link rel="stylesheet" href="./styles/desktop-9.css"/>
+  <link rel="stylesheet" href="../main/styles/desktop-9.css"/>
 </head>
 <body>
   <audio  id="audio" preload="auto" autoplay="auto" loop  >
-    <source type="audio/mp3" src="assets/creepy-devil-dance-166764.mp3">
+    <source type="audio/mp3" src="../main/assets/creepy-devil-dance-166764.mp3">
 </audio>
 <div class="desktop-3-gxM">
   <div class="headeringame-Eiy">
     <p class="code-kofm-MYh">Code:  KOFM</p>
-    <img class="vector-Gff" id="nut" src="./assets/vector-HXT.png"/>
+    <img class="vector-Gff" id="nut" src="../main/assets/vector-HXT.png"/>
   </div>
   <div class="auto-group-49mm-bT3">
     <div class="auto-group-vegk-w17">
@@ -27,26 +27,26 @@
       <div class="auto-group-avlb-zEH">
           <!-- player 1 -->
         <div class="auto-group-cmzm-CUm" id="player1">
-        <img class="mokey-1-JEy" src="./assets/mokey-1-WKP.png"/>
-        <p class="username4-XtR">Username4</p>
+        <img class="mokey-1-JEy" src="../main/assets/mokey-1-WKP.png"/>
+        <p class="username4-XtR" id="Player1-name">Username4</p>
         </div>
 
         <div class="auto-group-nt3h-rfo">
           <!-- player2 -->
           <div class="auto-group-cmzm-CUm" id="player2">
-            <img class="bat-1-jDo" src="./assets/bat-1-T1o.png"/>
+            <img class="bat-1-jDo" src="../main/assets/bat-1-T1o.png"/>
             <p class="username3-rZK">Username3</p>
           </div>
-          <img class="bm-2-ytq"  src="./assets/harvestroom-1.png"/>
+          <img class="bm-2-ytq"  src="../main/assets/harvestroom-1.png"/>
           <!-- player 3 -->
           <div class="auto-group-dw1z-hZw" id="player3">
             <p class="username1-3do">Username1</p>
-            <img class="baby-1-MPb" src="./assets/baby-1-8Ym.png"/>
+            <img class="baby-1-MPb" src="../main/assets/baby-1-8Ym.png"/>
           </div>
         </div>
         <!-- player 4 -->
         <div class="auto-group-cmzm-CUm" id="player4">
-        <img class="chicken-1-4oo" src="./assets/chicken-1-n6Z.png"/>
+        <img class="chicken-1-4oo" src="../main/assets/chicken-1-n6Z.png"/>
         <p class="username2-zSZ">Username2</p>
         </div>
         <!-- <div class="auto-group-kboh-idT">Leave</div> -->
@@ -67,13 +67,12 @@
   </div>
 </div>
 </body>
-<script src="ScriptChung.js"></script>
+<script src="../socket.io/socket.io.js"></script>
+<script src="../main/ScriptChung.js"></script>
+
 <script>
-  // sự kiện nhân vật xuất hiện
-// var player1=document.querySelector("#player2");
-// player1.style.display="none";
-// var player1=document.querySelector("#player3");
-// player1.style.display="none";
-// var player1=document.querySelector("#player4");
-// player1.style.display="none";
+var log=`{{id}}`;
+
 </script>
+
+<script src="../main/HarvestFestivalScript.js"></script>

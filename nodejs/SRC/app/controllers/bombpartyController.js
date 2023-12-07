@@ -1,21 +1,19 @@
 const Course = require('../models/CourseModel');
+const room = require('../models/RoomModel');
 const {mongooseToObject}=require('../../ultil/mongoose');
 class detailController {
   //[get]/news
 
-  show(req, res,next) {
-    Course.findOne({slug:req.params.slug})
-    .then(course=>{
-      res.render('./detail/detail',{
-        course:mongooseToObject(course)
-      });
-    })
-    .catch(error=>next(error));
-  }
+    show(req, res,next) {
+      var idPlayer=req.query.idplayer;
+      var UserName=req.query.Username;
+        res.render('./bombParty/bombParty-1',{idPlayer,UserName});
+    }
 
-  create(req,res,next)
+ JoinRoom(req,res,next)
   {
-    res.render('detail/create');
+    var code=req.params.id;
+    res.render('./bombParty/bombParty-joinRoom',{code});
   }
 
   store(req,res,next)
