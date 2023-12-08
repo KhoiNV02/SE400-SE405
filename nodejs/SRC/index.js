@@ -57,6 +57,7 @@ socket.on("Create-Room",function(data){
       UserName:data.UserName,
       Room:room1,
     };
+    if (object1.UserName+"'s Room"===object1.Room)
     Rooms.push(object1);
   }
   }
