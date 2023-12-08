@@ -18,7 +18,8 @@
 </audio>
 <div class="desktop-2-6zR">
   <div class="headeringame-2NH">
-    <p class="code-kofm-XZw">Code:  KOFM</p>
+       <p class="code-kofm-XZw">Code: KOFM</p>
+   
     <img class="vector-SB7" id="nut" src="../main/assets/vector-5s3.png"/>
   </div>
   <div class="auto-group-hebm-LnH">
@@ -33,17 +34,20 @@
         <p class="usernam1-hello-DmX">Usernam1: Hello</p>
        
       </div>
-      
-      <input id="chatbar" class="auto-group-pvek-1sj" placeholder="Type Here to chat">
+       
+  <input id="chatbar" class="auto-group-pvek-1sj" placeholder="Type Here to chat">
+
+     
     </div>
   </div>
 </div>
 <script src="../socket.io/socket.io.js"></script>
 <script>
 var joinTheGame=document.querySelector("#joinTheGame");
-var idPlayer1=`{{idPlayer}}`;
-var UserName=`{{UserName}}`;
-var Loca=`{{Loca}}`;
+
+var UserName={{{json Username}}}.UserName;
+var idPlayer1={{{json idPlayer}}}.idPlayer;
+var Loca={{{json Loca}}}.Loca;
 var Mang=[idPlayer1,UserName];
 joinTheGame.onclick=function(){
  window.location.href = `http://localhost:3000/HarvestFestival/${Mang}`; 

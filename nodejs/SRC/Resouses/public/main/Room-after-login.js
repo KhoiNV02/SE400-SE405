@@ -74,7 +74,8 @@ window.location.href = `http://localhost:3000/bombparty?idplayer=${idplayer}&Use
     else
     if (GameMode==3)
     {
-        var idplayer=1;
+        var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
+        var idplayer=randomNumber;
         window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;  
     }
 }
@@ -93,9 +94,12 @@ joinRoom.onclick=function()
             if (codeJoinRoom.value===rooms[i].Code)
         {   
             idplayer=rooms[i].Room;
-            alert(idplayer);
+
+
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
         }
+        else
+        alert("Mã Code không tồn tại");
         }
       
     }

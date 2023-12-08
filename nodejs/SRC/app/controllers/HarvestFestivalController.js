@@ -3,45 +3,57 @@ const {mongooseToObject, mutipleMongooseToObject}=require('../../ultil/mongoose'
 class MeController {
   //[get]/news
 
-  JoinRoom(req, res) {
-    var idPlayer=req.query.idplayer;
-      var UserName=req.query.Username;
-      var Loca=req.query.Loca;
-res.render('HarvestFestival/HarvestFestivalStartRoom',{idPlayer,UserName,Loca});
-  }
+  JoinRoom(req, res,next) {
+    var idPlayer={idPlayer:req.query.idplayer};
+      var UserName={UserName:req.query.Username};
+      var Loca={Loca:req.query.Loca};
+
+   res.render('HarvestFestival/HarvestFestivalStartRoom',{
+     idPlayer:idPlayer,
+     Username:UserName,
+     Loca:Loca
+ })
+
+
+       }
   JoinGame(req,res)
   { 
     var id=req.params.id;
     console.log(id);
     res.render('HarvestFestival/HarvestFestivalWaitingRoom',{id});
   }
-  Save1(req,res)
-  {
+  Save1(req, res) {
     var data = req.body;
-    var keys=`[`;
-     keys += Object.keys(data);
-     keys+=`]`;
-      var dataArray = JSON.parse(keys);
-    console.log(dataArray.length);
+    var keys = `[`;
+    keys += Object.keys(data);
+    keys += `]`;
+    var dataArray = JSON.parse(keys);
+    // console.log(dataArray);
+  
+    // Xóa toàn bộ dữ liệu trong collection trước khi thêm mới
+    Room.deleteMany({})
+      .then(() => {
+        console.log("Đã xóa toàn bộ dữ liệu thành công!");
+  
+        // Thêm dữ liệu mới
+        return Promise.all(
+          dataArray.map((item) => {
+            var bien = {
+              Code: item.id,
+              Room: item.Room,
+            };
+  
+            const room = new Room(bien);
+            return room.save();
+          })
+        );
+      })
+      .then(() => {
     
-    for (var i=0;i<dataArray.length;i++)
-    {
-      var bien={
-        Code:dataArray[i].id,
-        Room:dataArray[i].Room,
-      }
-      console.log(bien);
-    const room=new Room(bien);
-   room.save()
-    .then(()=>{
-    console.log("lưu thành công");
-    // console.log(dataArray[i].id);
-  })
-    .catch((error)=>{
-     res.send(error);
-    })
-  }}
-
-
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }
 module.exports = new MeController();

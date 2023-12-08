@@ -26,6 +26,7 @@ chat.onkeydown= function handleKeyDown(event) {
   }
   socket.on("send-hello-e",function(data)
   {
+  
     addParagraph(data);
   })
 
