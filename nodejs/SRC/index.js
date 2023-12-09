@@ -17,13 +17,14 @@ var io=require("socket.io")(server);
 server.listen(3000);
 // xử lý server
 var Rooms=[];
+var Players=[];
 io.on("connection",function(socket){
 console.log("có người đã đăng nhập với id là "+ socket.id);
 // begin tạo room
 socket.on("disconnect",function(){
   console.log("Có người đã out room"+ socket.id);
   Rooms=Rooms.filter(item=>item.ids!==socket.id);
-  // console.log(Rooms);
+  Players=Players.filter(item=>item.id!==socket.id);
   io.sockets.emit("Server-Send-Room",Rooms);
 })
 
@@ -38,6 +39,30 @@ socket.on("Create-Room",function(data){
   // console.log(socket.adapter.rooms);
   // console.log("phòng trong server trước khi add");
   // console.log(Rooms);
+  // begin gửi số lượng người về phòng
+  socket.on("Create-Player",function()
+  {
+    for (const [room, roomInfo] of socket.adapter.rooms) {
+      // Lấy số lượng người trong phòng
+      const numberOfUsers = roomInfo.size;
+      if (`${room}`===data.RoomName)
+      {
+        var p={
+          Room:data.RoomName,
+          Use:data.UserName,
+          id:socket.id,
+              }
+              if (! Players.includes(p)) {
+                Players.push(p);
+            }
+           
+      io.sockets.in(socket.room).emit("Player-At-TheMoment",Players.filter(item=>item.Room===data.RoomName));
+      }
+  }
+  });
+ 
+console.log(Players);
+// end gửi số lượng người về phòng
   for ( room1 of socket.adapter.rooms.keys()) {
       // console.log(room1);
    var existingRoom = Rooms.find((r) => r.Room === room1);
@@ -62,7 +87,7 @@ socket.on("Create-Room",function(data){
   }
   }
   // console.log("phòng trong server sau khi add");
-  console.log(Rooms);
+  // console.log(Rooms);
   // begin gửi room về cho mọi người
 io.sockets.emit("Server-Send-Room",Rooms);
 // end gửi room về cho mọi người
@@ -75,6 +100,7 @@ socket.on("send-hello",function(chat){
   io.sockets.in(socket.room).emit("send-hello-e",chatt);
 })
 // end gửi dữ liệu chat
+
 });
 // end tạo room
 

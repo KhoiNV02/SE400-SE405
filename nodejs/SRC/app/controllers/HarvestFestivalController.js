@@ -7,19 +7,18 @@ class MeController {
     var idPlayer={idPlayer:req.query.idplayer};
       var UserName={UserName:req.query.Username};
       var Loca={Loca:req.query.Loca};
-
+      var Of={Of:req.query.Of};
    res.render('HarvestFestival/HarvestFestivalStartRoom',{
      idPlayer:idPlayer,
      Username:UserName,
-     Loca:Loca
+     Loca:Loca,
+     Of:Of,
  })
-
-
        }
   JoinGame(req,res)
   { 
     var id=req.params.id;
-    console.log(id);
+    // console.log(id);
     res.render('HarvestFestival/HarvestFestivalWaitingRoom',{id});
   }
   Save1(req, res) {

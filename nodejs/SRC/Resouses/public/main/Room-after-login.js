@@ -76,7 +76,7 @@ window.location.href = `http://localhost:3000/bombparty?idplayer=${idplayer}&Use
     {
         var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
         var idplayer=randomNumber;
-        window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;  
+        window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}`;  
     }
 }
 var joinRoom=document.querySelector("#joinRoom");
@@ -93,10 +93,9 @@ joinRoom.onclick=function()
         {
             if (codeJoinRoom.value===rooms[i].Code)
         {   
-            idplayer=rooms[i].Room;
-
-
-            window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
+            idplayer=rooms[i].Code;
+            var Of=rooms[i].Room;
+            window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
         }
         else
         alert("Mã Code không tồn tại");
