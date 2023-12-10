@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="/favicon.ico" />
+  {{!-- <link rel="icon" href="/favicon.ico" /> --}}
+  
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Desktop - 9</title>
@@ -26,32 +27,32 @@
       <p class="waiting-for-1-player-to-start-TVF">Waiting for 1 Player to start</p>
       <div class="auto-group-avlb-zEH">
           <!-- player 1 -->
-        <div class="auto-group-cmzm-CUm" id="player1" style="display: none;">
+        <div class="auto-group-cmzm-CUm player" id="player1" style="display: none;">
         <img class="mokey-1-JEy" src="../main/assets/mokey-1-WKP.png"/>
-        <p class="username4-XtR" id="Player1-name">Username4</p>
+        <p class="username4-XtR playerName" id="Player1-name">Username4</p>
         </div>
 
         <div class="auto-group-nt3h-rfo">
           <!-- player2 -->
-          <div class="auto-group-cmzm-CUm" id="player2" style="display: none;">
+          <div class="auto-group-cmzm-CUm player" id="player2" style="display: none;">
             <img class="bat-1-jDo" src="../main/assets/bat-1-T1o.png"/>
-            <p class="username3-rZK" id="Player2-name">Username3</p>
+            <p class="username3-rZK playerName" id="Player2-name">Username3</p>
           </div>
           <img class="bm-2-ytq"  src="../main/assets/harvestroom-1.png"/>
           <!-- player 3 -->
-          <div class="auto-group-dw1z-hZw" id="player3" style="display: none;">
-            <p class="username1-3do" id="Player3-name">Username1</p>
-            <img class="baby-1-MPb" src="../main/assets/baby-1-8Ym.png"/>
+          <div class="auto-group-dw1z-hZw player" id="player3" style="display: none;">
+            <p class="username1-3do playerName" id="Player3-name">Username1</p>
+            <img class="baby-1-MPb " src="../main/assets/baby-1-8Ym.png"/>
           </div>
         </div>
         <!-- player 4 -->
-        <div class="auto-group-cmzm-CUm" id="player4" style="display: none;">
+        <div class="auto-group-cmzm-CUm player" id="player4" style="display: none;">
         <img class="chicken-1-4oo" src="../main/assets/chicken-1-n6Z.png"/>
-        <p class="username2-zSZ" id="Player4-name">Username2</p>
+        <p class="username2-zSZ playerName" id="Player4-name">Username2</p>
         </div>
         <!-- <div class="auto-group-kboh-idT">Leave</div> -->
       </div>
-      <div class="auto-group-kboh-idT">Leave</div>
+      <div class="auto-group-kboh-idT" id="Leave">Leave</div>
     </div>
     <div class="auto-group-skfq-yJV">
       <p class="chat-room-gyb">Chat Room</p>
@@ -70,9 +71,17 @@
 
 
 <script>
+var Leave=document.querySelector("#Leave");
+Leave.onclick=function(){
+  window.history.back();
+}
 var log=`{{id}}`;
 // js của Waiting-Room
+ var myDiv = document.getElementById("chat");
+ myDiv.innerHTML = '';
 var socket=io("http://localhost:3000");
+
+
  var player1=document.querySelector("#player1");
  var player2=document.querySelector("#player2");
  var player3=document.querySelector("#player3");
@@ -111,8 +120,7 @@ i++;
         var doc = new DOMParser().parseFromString(encodedString, 'text/html');
         return doc.documentElement.textContent;
     }
-    var decodedString = decodeHtmlEntity(Of);
-{{!-- console.log(idPlayer); --}}
+    Of = decodeHtmlEntity(Of);
   if (Loca==='my')
     {  
     // socket.emit("Create-Room",UserName+"'s Room");
@@ -120,57 +128,74 @@ i++;
     socket.emit("Create-Room", { UserName: UserName, RoomName: UserName + "'s Room",Code:code1 });
     socket.emit("Create-Player");
     socket.on("Player-At-TheMoment",function(data){
-  console.log(data);
+      console.log(data);
+      disPlayer(data);
        });
    
     }
     else
     if (Loca==="your")
     {   
-        socket.emit("Create-Room",{UserName: UserName, RoomName:decodedString});
+        socket.emit("Create-Room",{UserName: UserName, RoomName:Of});
          socket.emit("Create-Player");
          socket.on("Player-At-TheMoment",function(data){
-        console.log(data); });
+           console.log(data);
+      disPlayer(data);
+       });
     }
 
 var code=document.querySelector("#code");
 code.textContent+='Code: ';
 code.textContent+=code1;
+var UI=document.querySelectorAll(".player");
+var UI_name=document.querySelectorAll(".playerName");
 // sự kiện nhân vật xuất hiện
-{{!-- function disPlayer(idPlayer)
+function disPlayer(idPlayer)
 {
-  for (var i=0;i<idPlayer.length;i++)
+  var i;
+  for (i=0;i<idPlayer.length;i++)
   {
- if (i+1=='1')
- {
- player1.style.display="block";
- var PlayerName=document.querySelector("#Player1-name");
- PlayerName.textContent=idPlayer[i].Use;
- }
- if (i+1=='2')
- {
-
-player2.style.display="block";
- var PlayerName=document.querySelector("#Player2-name");
- PlayerName.textContent=idPlayer[i].Use;
- }
- else
- if (i+1=='3')
- {
- player3.style.display="block";
-  var PlayerName=document.querySelector("#Player3-name");
- PlayerName.textContent=idPlayer[i].Use;
- }
- else
- if (i+1=='4')
- {
-player4.style.display="block";
- var PlayerName=document.querySelector("#Player4-name");
- PlayerName.textContent=idPlayer[i].Use;
- }
+    UI[i].style.display="Block";
+    console.log(idPlayer[i].Use);
+    UI_name[i].textContent=idPlayer[i].Use;
+    if (idPlayer[i].Use===UserName)
+    {
+      UI_name[i].style.color="Green";
+    }
+    else
+    {
+      UI_name[i].style.color="white";
+    }
   }
+for (;i<UI.length;i++)
+{
+  UI[i].style.display="none";
+}
+}
 
-} --}}
+//nội dung chat cũ
+  var chat=document.querySelector("#chatbar");
+function addParagraph(mes) {
+    // Tạo một thẻ <p>
+    var newParagraph = document.createElement("p");
+    newParagraph.classList.add("usernam1-hello-DmX");
+    // Thêm nội dung cho thẻ <p> (có thể sửa đổi dòng này để thêm nội dung mong muốn)
+    var paragraphContent = document.createTextNode(mes);
+    newParagraph.appendChild(paragraphContent);
+
+    // Lấy thẻ <div> dựa trên ID
+    var myDiv = document.getElementById("chat");
+
+    // Thêm thẻ <p> vào bên trong thẻ <div>
+    myDiv.appendChild(newParagraph);
+    myDiv.scrollTop = myDiv.scrollHeight;
+  }
+  socket.on("chat-text",function(data){
+     myDiv.innerHTML = '';
+    for (var i=0;i<data.length;i++)
+    addParagraph(data[i].chat);
+  })
+  //end chat nội dung cũ
 </script>
 
 <script src="../main/ScriptChung.js"></script>

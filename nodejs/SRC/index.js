@@ -18,24 +18,45 @@ server.listen(3000);
 // xử lý server
 var Rooms=[];
 var Players=[];
+var Chats=[];
+
 io.on("connection",function(socket){
 console.log("có người đã đăng nhập với id là "+ socket.id);
 // begin tạo room
 socket.on("disconnect",function(){
   console.log("Có người đã out room"+ socket.id);
+  for (var i=0;i<Chats.length;i++)
+  {
+    var c=Chats[i].Room;
+    var Check = Rooms.some(item => item.Room === Chats[i].Room);
+    if(!Check)
+    {
+    
+    Chats=Chats.filter(item=>item.Room!==c);
+  }
+  }
+  
   Rooms=Rooms.filter(item=>item.ids!==socket.id);
+
   Players=Players.filter(item=>item.id!==socket.id);
+
+  // Chats=Chats.filter(item=>item.Room!==data.RoomName)
+
+  // console.log(Players);
+  // console.log(Chats);
   io.sockets.emit("Server-Send-Room",Rooms);
 })
 
 socket.on("Create-Room",function(data){
-  // dữ liệu được gửi từ client khi tạo room
+ //  dữ liệu được gửi từ client khi tạo room
   // console.log(data);
+socket.on("disconnect",function(){
+ 
+  io.sockets.in(socket.room).emit("Player-At-TheMoment",Players.filter(item=>item.Room===data.RoomName));
 
+})
   socket.join(data.RoomName);
   socket.room=data.RoomName;
-
- 
   // console.log(socket.adapter.rooms);
   // console.log("phòng trong server trước khi add");
   // console.log(Rooms);
@@ -55,13 +76,14 @@ socket.on("Create-Room",function(data){
               if (! Players.includes(p)) {
                 Players.push(p);
             }
-           
       io.sockets.in(socket.room).emit("Player-At-TheMoment",Players.filter(item=>item.Room===data.RoomName));
       }
   }
+  console.log(Players);
+ 
+  io.sockets.in(socket.room).emit("chat-text",Chats.filter(item=>item.Room===data.RoomName));
   });
  
-console.log(Players);
 // end gửi số lượng người về phòng
   for ( room1 of socket.adapter.rooms.keys()) {
       // console.log(room1);
@@ -87,20 +109,24 @@ console.log(Players);
   }
   }
   // console.log("phòng trong server sau khi add");
-  // console.log(Rooms);
+
+
   // begin gửi room về cho mọi người
 io.sockets.emit("Server-Send-Room",Rooms);
 // end gửi room về cho mọi người
 // begin gửi dữ liệu chat
 socket.on("send-hello",function(chat){
-  var chatt=data.UserName+': '+chat;
+   chat.chat=data.UserName+': '+chat.chat;
+  
   // data+=" ";
   // data+=socket.id;
- 
-  io.sockets.in(socket.room).emit("send-hello-e",chatt);
+  Chats.push(chat);
+  io.sockets.in(socket.room).emit("send-hello-e",chat.chat);
 })
 // end gửi dữ liệu chat
-
+// console.log(Players);
+//   console.log("fa");
+//   console.log(Chats);
 });
 // end tạo room
 

@@ -1,3 +1,9 @@
+function decodeHtmlEntity(encodedString) {
+  var doc = new DOMParser().parseFromString(encodedString, 'text/html');
+  return doc.documentElement.textContent;
+}
+var decodedString = decodeHtmlEntity(Of);
+
 var chat=document.querySelector("#chatbar");
 function addParagraph(mes) {
     // Tạo một thẻ <p>
@@ -19,14 +25,28 @@ chat.onkeydown= function handleKeyDown(event) {
     // Kiểm tra xem phím Enter đã được nhấn hay không (keyCode 13 hoặc key "Enter")
     if (event.key === "Enter" || event.keyCode === 13) {
       // Thực hiện các hành động khi người dùng nhấn Enter ở đây
-      socket.emit("send-hello",chat.value);
+     var chat1;
+      if (Loca==="my")
+   {  chat1={
+    Room:decodedString+"'s Room",
+    chat:chat.value
+    }
+  }
+    else
+    if (Loca==='your')
+{
+  chat1={
+    Room:decodedString,
+    chat:chat.value
+    }
+}
+      socket.emit("send-hello",chat1);
       // addParagraph(chat.value);
       chat.value="";
     }
   }
   socket.on("send-hello-e",function(data)
   {
-  
     addParagraph(data);
   })
 

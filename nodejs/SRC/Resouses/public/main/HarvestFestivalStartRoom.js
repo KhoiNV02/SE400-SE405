@@ -29,12 +29,7 @@
 
 try
 { 
-    function decodeHtmlEntity(encodedString) {
-        var doc = new DOMParser().parseFromString(encodedString, 'text/html');
-        return doc.documentElement.textContent;
-    }
-    var decodedString = decodeHtmlEntity(Of);
-console.log(Of);
+  
     function DeleteRoomInDatabase(data)
     {   
         data=JSON.stringify(data);
@@ -64,7 +59,7 @@ console.log(Of);
     else
     if (Location=="your")
     {   
-        socket.emit("Create-Room",{UserName: UserName, RoomName:decodedString });
+        socket.emit("Create-Room",{UserName: UserName, RoomName:Of });
     }
 
 }
