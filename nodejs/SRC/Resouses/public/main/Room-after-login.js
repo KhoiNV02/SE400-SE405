@@ -94,6 +94,7 @@ joinRoom.onclick=function()
             console.log('Dữ liệu nhận được sau khi gửi request xem room mới nhất:');
             rooms=response.data;
              var idplayer;
+             
              var check=false;
         for (var i=0;i<rooms.length;i++)
         {
