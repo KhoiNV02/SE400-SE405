@@ -24,7 +24,7 @@
   </div>
   <div class="auto-group-hebm-LnH">
     <div class="auto-group-bsnx-sXK">
-      <p class="waiting-for-1-player-to-start-PEm">Waiting for 1 Player to start</p>
+      <p class="waiting-for-1-player-to-start-PEm" id="Count-Player" >Waiting for 1 Player to start</p>
       <img class="bombpartyroom-1-rPF"  src="../main/assets/Harvest1.png">
       <div class="auto-group-ewup-xx5" id="joinTheGame">Join The Game</div>
     </div>
@@ -54,12 +54,10 @@ var Of={{{json Of}}}.Of;
         return doc.documentElement.textContent;
     }
     Of = decodeHtmlEntity(Of);
-  
-    var Mang=[idPlayer1,UserName,Loca,Of];
-      console.log(Of);
-joinTheGame.onclick=function(){
- window.location.href = `http://localhost:3000/HarvestFestival/${Mang}`; 
-}
+
+   
+   
+         
     var socket=io("http://localhost:3000");
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

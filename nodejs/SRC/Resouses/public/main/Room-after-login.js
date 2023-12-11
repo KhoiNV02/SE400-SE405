@@ -88,41 +88,28 @@ joinRoom.onclick=function()
    alert("Vui lòng nhập mã code để tham gia phòng");
     else
     {   
-    
+        // call API để lấy được data mới nhất
         axios.get(`http://localhost:3000/home/edit`)
             .then(response => {
-            console.log('Dữ liệu nhận được sau khi gửi POST request:');
+            console.log('Dữ liệu nhận được sau khi gửi request xem room mới nhất:');
             rooms=response.data;
              var idplayer;
+             var check=false;
         for (var i=0;i<rooms.length;i++)
         {
             if (codeJoinRoom.value===rooms[i].Code)
-        {   
+        {   check=true;
             idplayer=rooms[i].Code;
             var Of=rooms[i].Room;
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
         }
-        else
-        alert("Mã Code không tồn tại");
         }
+        if (check===false)
+    alert("Mã Code không tồn tại");
             })
             .catch(error => {
-            console.error('Lỗi khi gửi POST request:');
-            }); 
-
-        // var idplayer;
-        // for (var i=0;i<rooms.length;i++)
-        // {
-        //     if (codeJoinRoom.value===rooms[i].Code)
-        // {   
-        //     idplayer=rooms[i].Code;
-        //     var Of=rooms[i].Room;
-        //     window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
-        // }
-        // else
-        // alert("Mã Code không tồn tại");
-        // }
-      
+            console.error('Lỗi khi gửi get request:');
+            });   
     }
 
 }

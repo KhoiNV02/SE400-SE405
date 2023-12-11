@@ -62,9 +62,30 @@ try
         socket.emit("Create-Room",{UserName: UserName, RoomName:Of });
     }
 
+      //bắt đầu gửi số lượng người còn thiếu
+    var countPlayer=document.querySelector("#Count-Player");
+    var rn;
+    if (Loca==='my')
+    rn=Of+"'s Room";
+else
+    rn=Of;
+var t=0;
+var Mang=[];
+    socket.emit("iWantToKnowMember",rn);
+    socket.on("memberWating",function(data){
+         t=4-data;
+        // console.log(t);
+        countPlayer.textContent=`Waiting for ${t.toString()} Player to start`;
+        Mang=[idPlayer1,UserName,Loca,Of];
+       
+         });
+         //gửi số lượng người còn thiếu
+
+         joinTheGame.onclick=function(){
+            window.location.href = `http://localhost:3000/HarvestFestival/${Mang}`; 
+           }
 }
 catch
 {
 
 }
-

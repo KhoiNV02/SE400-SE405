@@ -374,3 +374,14 @@ z-index: 3;
 .chat::-webkit-scrollbar {
   display: none;
 }
+
+@keyframes beautifulText {
+  0% {
+    opacity: 0.5;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgb(208, 155, 80);
+  }
+}

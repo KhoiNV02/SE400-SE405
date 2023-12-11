@@ -24,7 +24,7 @@
   </div>
   <div class="auto-group-49mm-bT3">
     <div class="auto-group-vegk-w17">
-      <p class="waiting-for-1-player-to-start-TVF">Waiting for 1 Player to start</p>
+      <p class="waiting-for-1-player-to-start-TVF" id="Count-Player">Waiting for 1 Player to start</p>
       <div class="auto-group-avlb-zEH">
           <!-- player 1 -->
         <div class="auto-group-cmzm-CUm player" id="player1" style="display: none;">
@@ -68,6 +68,7 @@
 </div>
 </body>
 <script src="../socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script>
@@ -80,6 +81,27 @@ var log=`{{id}}`;
  var myDiv = document.getElementById("chat");
  myDiv.innerHTML = '';
 var socket=io("http://localhost:3000");
+
+  function DeleteRoomInDatabase(data)
+    {   
+        data=JSON.stringify(data);
+        axios.post(`http://localhost:3000/HarvestFestival/edit`,data)
+            .then(response => {
+            console.log('Dữ liệu nhận được sau khi gửi POST request:', response.data);
+            })
+            .catch(error => {
+            console.error('Lỗi khi gửi POST request:', error);
+            }); 
+    }
+       socket.on("Server-Send-Room",function(data)
+    { 
+  
+        if (data[data.length-1].UserName === UserName)
+        {          
+            DeleteRoomInDatabase(data); 
+    
+        }
+    }) 
 
 
  var player1=document.querySelector("#player1");
@@ -115,7 +137,7 @@ while (i<log.length&&log[i]!=',')
 Of+=log[i];
 i++;
 }
-i++;
+
  function decodeHtmlEntity(encodedString) {
         var doc = new DOMParser().parseFromString(encodedString, 'text/html');
         return doc.documentElement.textContent;
@@ -128,7 +150,6 @@ i++;
     socket.emit("Create-Room", { UserName: UserName, RoomName: UserName + "'s Room",Code:code1 });
     socket.emit("Create-Player");
     socket.on("Player-At-TheMoment",function(data){
-      console.log(data);
       disPlayer(data);
        });
    
@@ -139,7 +160,6 @@ i++;
         socket.emit("Create-Room",{UserName: UserName, RoomName:Of});
          socket.emit("Create-Player");
          socket.on("Player-At-TheMoment",function(data){
-           console.log(data);
       disPlayer(data);
        });
     }
@@ -149,6 +169,18 @@ code.textContent+='Code: ';
 code.textContent+=code1;
 var UI=document.querySelectorAll(".player");
 var UI_name=document.querySelectorAll(".playerName");
+var countPlayer=document.querySelector("#Count-Player");
+   var rn;
+    if (Loca==='my')
+    rn=Of+"'s Room";
+else
+    rn=Of;
+ socket.emit("iWantToKnowMember",rn);
+    socket.on("memberWating",function(data){
+         t=4-data;
+        // console.log(t);
+        countPlayer.textContent=`Waiting for ${t.toString()} Player to start`;
+         });
 // sự kiện nhân vật xuất hiện
 function disPlayer(idPlayer)
 {
@@ -156,15 +188,14 @@ function disPlayer(idPlayer)
   for (i=0;i<idPlayer.length;i++)
   {
     UI[i].style.display="Block";
-    console.log(idPlayer[i].Use);
     UI_name[i].textContent=idPlayer[i].Use;
     if (idPlayer[i].Use===UserName)
     {
-      UI_name[i].style.color="Green";
+       UI_name[i].style.animation="beautifulText 0.4s ease-in-out infinite alternate";
     }
     else
     {
-      UI_name[i].style.color="white";
+    UI_name[i].style.animation="none";
     }
   }
 for (;i<UI.length;i++)
@@ -196,6 +227,8 @@ function addParagraph(mes) {
     addParagraph(data[i].chat);
   })
   //end chat nội dung cũ
+  //xóa room khi out lần cuối
+   
 </script>
 
 <script src="../main/ScriptChung.js"></script>

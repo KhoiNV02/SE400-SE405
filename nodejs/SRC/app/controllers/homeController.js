@@ -2,20 +2,14 @@ const Room = require('../models/RoomModel');
 const {mongooseToObject, mutipleMongooseToObject}=require('../../ultil/mongoose');
 class NewsController {
   //[get]/news
+  // hiển thị trang web 
   index(req, res,next) {
     
     const Username = { Username: req.query.variable };
-   Room.find({})
-   .then(rooms =>
-    {
-      res.render('home1',{
-        rooms:mutipleMongooseToObject(rooms),
-        Username:Username
-      });
-    })
-   .catch(error => next(error));
+   
+      res.render('home1',{Username});
   }
-  show(req, res,next) {
+ getNewRoom(req, res,next) {
     Room.find({})
       .then((rooms) => {
         if (!rooms) {
