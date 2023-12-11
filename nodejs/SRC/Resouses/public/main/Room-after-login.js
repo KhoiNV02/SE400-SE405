@@ -57,6 +57,7 @@ Public.onclick =function(){
 var Loca;
 // biến để biết là người dùng đang tạo room mới hay là vừa join room
 // bắt sự kiện tạo mới room 
+// tạo mới room có gì không
 var createNewRoom=document.querySelector("#createNewRoom");
 createNewRoom.onclick=function()
 { 
