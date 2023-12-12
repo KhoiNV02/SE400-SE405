@@ -159,10 +159,10 @@ body {
   /* margin: 0.6rem 200rem 0rem 0rem; */
   position: absolute;
   margin: auto;
-  top:230px;
-  left:230px;
+  top:240px;
+  left:240px;
   width: 13.9rem;
-  height: 13.6328rem;
+  height: 12.6328rem;
   object-fit: cover;
   vertical-align: top;
   flex-shrink: 0;
@@ -429,7 +429,7 @@ z-index: 3;
   width: auto;
   height: 100%;
 }
-.player-Name{
+.Player-name{
   height: 30%;
   width: 100%;
  
@@ -437,7 +437,7 @@ display: flex;
 justify-content: center;
 align-items: center;  
 }
-.player-Name p
+.Player-name p
 {
   font-size: 2.4rem;
   font-weight: 400;

@@ -70,6 +70,7 @@ socket.on("disconnect",function(){
   // console.log(Players);
   // console.log(Chats);
   io.sockets.emit("Server-Send-Room",Rooms);
+  io.sockets.in(socket.room).emit("Check-people");
 })
 // begin tạo room
 socket.on("Create-Room",function(data){
