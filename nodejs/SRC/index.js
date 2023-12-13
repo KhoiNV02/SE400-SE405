@@ -72,6 +72,9 @@ socket.on("disconnect",function(){
   io.sockets.emit("Server-Send-Room",Rooms);
   io.sockets.in(socket.room).emit("Check-people");
 })
+// end disconect
+//begin vào phòng game
+
 // begin tạo room
 socket.on("Create-Room",function(data){
  //  dữ liệu được gửi từ client khi tạo room
@@ -81,6 +84,7 @@ socket.on("disconnect",function(){
 })
   socket.join(data.RoomName);
   socket.room=data.RoomName;
+  console.log("có người tạo hoặc join room");
   // console.log(socket.adapter.rooms);
   // console.log("phòng trong server trước khi add");
   // console.log(Rooms);

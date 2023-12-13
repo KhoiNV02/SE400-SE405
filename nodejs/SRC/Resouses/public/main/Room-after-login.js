@@ -103,8 +103,10 @@ joinRoom.onclick=function()
         {   check=true;
             idplayer=rooms[i].Code;
             var Of=rooms[i].Room;
+            alert("chuyển hướng thành công");
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
-        }
+            break;
+         }
         }
         if (check===false)
     alert("Mã Code không tồn tại");
