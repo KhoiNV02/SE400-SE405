@@ -549,6 +549,7 @@ align-items: center;
   overflow: hidden;
   opacity: 1;
   animation: appearEffect 1s ease-out forwards;
+  
 }
 
 
@@ -559,6 +560,24 @@ align-items: center;
   margin: 0 auto; /* Để giữ ảnh ở giữa khối mẹ */
 }
 
+.icon2 {
+
+  display: none;
+  position: absolute;
+  width: 23%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  animation: appearEffect 1s ease-out forwards;
+}
+.icon2 img
+{
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+/* tạo hiệu ứng đẹp cho đối tượng lời khen sau khi người chơi trả lời đúng */
 @keyframes appearEffect {
   0% {
     opacity: 0;
@@ -571,5 +590,29 @@ align-items: center;
   100% {
     opacity: 1;
     width: 100%;
+  }
+}
+
+
+.icon1.hide,.icon2.hide {
+  animation: disappearEffect 1s ease-out forwards;
+}
+
+
+@keyframes disappearEffect {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) ;
+    width: 110%;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    width: 80%;
   }
 }

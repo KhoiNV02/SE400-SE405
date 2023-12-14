@@ -129,11 +129,29 @@ function start()
         });
     }, 15000);   
 }
+var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png'];
+var backGame=[];
+
+function Congratulation()
+{
+    audio2.play();
+    icon1.querySelector('img').setAttribute("src",iconsGame[rand(9,0)]);
+    icon1.style.display='block';
+    icon2.style.display='block';
+    icon1.classList.remove('hide');
+    icon2.classList.remove('hide');
+    setTimeout(() => {
+        icon1.classList.add('hide');
+        icon2.classList.add('hide');
+
+    }, 1000);
+}
 gQues='hello';
+var o=0;
 var audio2=document.querySelector("#audio2");
 var icon1=document.querySelector("#icon1");
-console.log(audio2);
-console.log(icon1);
+var icon2=document.querySelector("#icon2");
+
 var typeAnswer=document.querySelector("#typeAnswer");
 console.log(typeAnswer);
 typeAnswer.onkeydown=function(event){
@@ -141,8 +159,7 @@ typeAnswer.onkeydown=function(event){
    {
     if (typeAnswer.value===gQues)
   {
-    audio2.play();
-    icon1.style.display='block';
+   Congratulation(); 
   }
    }
 }
