@@ -19,6 +19,61 @@ server.listen(3000);
 var Rooms=[];
 var Players=[];
 var Chats=[];
+var Result=[];
+var GameQues=[];
+function rand(max,min)
+{
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function makeRandomPosition(arr) {
+  for (let i = arr.length - 2; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]]; // Dùng destructuring để hoán đổi giá trị
+  }
+  return arr;
+}
+function mix(data)
+{
+  var strings=[];
+  var string='';
+  for (var i=0;i<data.length;i+=2)
+  {
+      if (i%2==0)
+      {
+          if (i===data.length-1)
+          {
+              strings.push(data[i]);  
+          }
+          else
+          {
+          string+=data[i];
+          string+=data[i+1];
+          string+='/';
+          strings.push(string);
+          }
+          string='';
+      }
+  }
+  makeRandomPosition(strings);
+  for (var i=0;i<strings.length;i++)
+  string+=strings[i];
+return string;
+} 
+function AddQuess(array)
+{
+  var NewsArray=[];
+  for (var i=0;i<array.length;i++)
+  {
+var ob=
+{
+  root:array[i],
+  question:mix(array[i]),
+}
+NewsArray.push(ob);
+  }
+  return NewsArray;
+}
+
 io.on("connection",function(socket){
 console.log("có người đã đăng nhập với id là "+ socket.id);
 
@@ -77,6 +132,7 @@ socket.on("disconnect",function(){
 
 // begin tạo room
 socket.on("Create-Room",function(data){
+ 
  //  dữ liệu được gửi từ client khi tạo room
   // console.log(data);
 socket.on("disconnect",function(){
@@ -144,6 +200,57 @@ socket.on("send-hello",function(chat){
 // console.log(Players);
 //   console.log("fa");
 //   console.log(Chats);
+
+// bắt đầu game
+socket.on("GameEnd",function(){
+  GameQues=GameQues.filter(item=>item.Room!==data.RoomName)
+})
+socket.on("StartGame",function(data){
+  if (data.round===1)
+  {
+
+    var Check = GameQues.some(item => item.Room === data.room);
+    if (!Check)
+  {
+    var VocabularyArray=AddQuess(data.ques);
+    for (var i=0;i<33;i++)
+    {
+      var roundInfor={
+        turn:data.round,
+        sc:rand(99,20),
+        gPoint:rand(32,0),
+        qu:rand(32-i,0),
+        VocabularyArray:VocabularyArray,
+      }
+      var ob={
+        roundInfor:roundInfor,
+        Room:data.room
+      }
+      GameQues.push(ob);
+    }
+  }
+  }
+  // kết thúc tạo ques
+ io.sockets.in(data.room).emit("RoundInfor",GameQues[data.round-1].roundInfor);
+
+})
+socket.on("IAmRight",function(data){
+  var Check = Result.some(item => (item.room === data.room&&item.turn===data.turn));
+  if (!Check)
+  {
+    var re=
+    {
+      winner:data.username,
+      room:data.room,
+      turn:data.turn,
+      score:data.score,
+    }
+    Result.push(re);
+  }
+  console.log(Result);
+  io.sockets.in(data.room).emit("TheWinner",data.username);
+})
+//kết thúc game
 });
 // end tạo roomF
 socket.on("iWantToKnowMember",function(data){

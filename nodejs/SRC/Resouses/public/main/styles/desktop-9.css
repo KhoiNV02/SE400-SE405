@@ -495,7 +495,7 @@ align-items: center;
 {
   height: 50%;
   width: 100%;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.3775;
   color: #0f0f0f;
@@ -510,9 +510,9 @@ align-items: center;
 .question p
 {
   white-space: normal;
-  width: fit-content;
+  width: 80px;
   height: auto;
-  overflow:auto;
+  /* overflow:auto; */
   box-sizing: border-box;
   word-wrap:break-word;
   overflow-wrap: break-word;
@@ -543,7 +543,7 @@ align-items: center;
   display: none;
   width: 23%;
   position: absolute;
-  top: 40%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
@@ -564,7 +564,7 @@ align-items: center;
 
   display: none;
   position: absolute;
-  width: 23%;
+  /* width: 23%; */
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);

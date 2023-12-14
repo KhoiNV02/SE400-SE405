@@ -29,7 +29,7 @@
     <img class="vector-Gff" id="nut" src="../main/assets/volumne1.png"/>
   </div>
   <div class="auto-group-49mm-bT3">
-    <div class="auto-group-vegk-w17" id="Wating" style="display: none;"  >
+    <div class="auto-group-vegk-w17" id="Wating" style="display: block;"   >
       <p class="waiting-for-1-player-to-start-TVF" id="Count-Player">Waiting for 1 Player to start</p>
       <div class="auto-group-avlb-zEH">
           <!-- player 1 -->
@@ -61,7 +61,7 @@
       <div class="auto-group-kboh-idT" id="Leave">Leave</div>
     </div>
     <!-- phần vào game -->
-    <div class="GameRoomK" id="Starting" style="display: block;" >
+    <div class="GameRoomK" id="Starting" style="display: none;"  >
      <div class="PlayersK">
       <div class="Player1K">
         <div class="PlayerK player" id="player1" style="display: none;">
@@ -486,8 +486,8 @@ i++;
     socket.on("Player-At-TheMoment",function(data){
       disPlayer(data);
       
-      {{!-- if (data.length===4)
-      ZoGame(true); --}}
+      if (data.length===2)
+      ZoGame(true);
        });
    
     }
@@ -499,8 +499,8 @@ i++;
          socket.on("Player-At-TheMoment",function(data){
       disPlayer(data);
 
-      {{!-- if (data.length===4)
-      ZoGame(true); --}}
+      if (data.length===2)
+      ZoGame(true);
        });
     }
 //xử lý hiển thị người chơi gia nhập
@@ -581,7 +581,50 @@ function ZoGame(check)
  
   Wating.style.display='none';
   Starting.style.display='block';
-}, 12000); // Dừng sau 5 giây  
+ var beforeVocabularyArray = [
+    "Sun",
+    "Clouds",
+    "Ocean",
+    "Mountains",
+    "Rose",
+    "Piano",
+    "Books",
+    "Mobile phone",
+    "Earth",
+    "Hero",
+    "Moon",
+    "City",
+    "Family",
+    "Park",
+    "Street lights",
+    "Artist",
+    "Delicious food",
+    "Computer",
+    "Northern lights",
+    "Travel",
+    "Adventure",
+    "Fireworks",
+    "Coffee",
+    "Rainbow",
+    "Waves",
+    "Laughter",
+    "Dreams",
+    "Butterfly",
+    "Serenity",
+    "Galaxy",
+    "Magic",
+    "Journey",
+    "Harmony"
+  ]; 
+   var roundInfor;
+    roundInfor={
+        ques:beforeVocabularyArray,
+        round:1,
+        room:rn,
+    }
+      socket.emit("StartGame",roundInfor);
+ //gửi send bắt đầu room ở đây nè :v mọe
+}, 3000); // Dừng sau 5 giây  
   }
 }
 //nội dung chat cũ

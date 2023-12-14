@@ -1,50 +1,25 @@
-var Starting=document.querySelector("#Starting");
-var Games;
-// English vocabulary array
-const beforeVocabularyArray = [
-    "Sun",
-    "Clouds",
-    "Ocean",
-    "Mountains",
-    "Rose",
-    "Piano",
-    "Books",
-    "Mobile phone",
-    "Earth",
-    "Hero",
-    "Moon",
-    "City",
-    "Family",
-    "Park",
-    "Street lights",
-    "Artist",
-    "Delicious food",
-    "Computer",
-    "Northern lights",
-    "Travel",
-    "Adventure",
-    "Fireworks",
-    "Coffee",
-    "Rainbow",
-    "Waves",
-    "Laughter",
-    "Dreams",
-    "Butterfly",
-    "Serenity",
-    "Galaxy",
-    "Magic",
-    "Journey",
-    "Harmony"
-  ];  
-  function rand(max,min)
-  {
-    return Math.floor(Math.random() * (max - min + 1)) + 1;
-  }
-if (Starting.style.display==='block')
+try
 {
+ 
+    // English vocabulary array++
+      var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png'];
+      var backGame=['../main/assets/bumchiu.gif','../main/assets/flow.gif','../main/assets/lolo.gif','../main/assets/tede.gif','../main/assets/money.gif'];
+      var VocabularyArray;
+      function rand(max,min)
+      {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      var Starting=document.querySelector("#Starting");
+      var Games;
+      var reduce;
+    // gửi về cho server biết là vào game rồi và truyền độ dài của mảng, nếu bằng 33-32 thì chạy round đầu, còn ko thì chạy round 2 hết
     var Questions=document.querySelectorAll(".cell");
     var Score=document.querySelectorAll(".Score");
     var Ques=document.querySelectorAll(".question");
+    var audio2=document.querySelector("#audio2");
+    var icon1=document.querySelector("#icon1");
+    var icon2=document.querySelector("#icon2");
+    var typeAnswer=document.querySelector("#typeAnswer");
     function runEffect(i) {
         if (i < Questions.length)
         {
@@ -64,12 +39,14 @@ if (Starting.style.display==='block')
         Questions[i].style.zIndex='1';
         }
     }
+    var turn;
 var gPoint;
 var gScore;
 var gQues;
-function StartRound() {
-    gScore='';
-    gQues='';
+// hàm để bắt đầu vòng chơi mới.
+function StartRound(data) {
+    gScore='fkaoksfaoksfokasf';
+    gQues='kfaoskfoaksfkasfo';
     return new Promise(function (resolve) {
         var au = document.querySelector("#audio1");
         au.play();
@@ -89,19 +66,19 @@ function StartRound() {
             var i = 0;
             var intervalId = setInterval(function () {
                 if (i <= 33) {
-                    gPoint = rand(33, 1);
+                    gPoint = rand(32, 0);
                     runEffect(gPoint);
                     i++;
                 } else {
-                    var sc=rand(99,20);
-                    // lấy chiều dài hiện tại của mảng
-                    var qu=rand(vocabularyArray.length-1,0);
-                
-                    Score[gPoint].textContent = sc.toString();
-                    
-                    Ques[gPoint].textContent = beforeVocabularyArray[qu];
+                    runEffect(data.gPoint);
+                        // gọi runEffect với gPoint được server gửi về
+                        gPoint=data.gPoint;
+                    var sc=data.sc;
+                    var qu=data.qu;
+                    Score[gPoint].querySelector('p').textContent = sc.toString();
+                    Ques[gPoint].querySelector('p').textContent=VocabularyArray[qu].question;
                     gScore=sc.toString();
-                    gQues=beforeVocabularyArray[qu];
+                    gQues=VocabularyArray[qu].root;
                     clearInterval(intervalId);
                     resolve();
                 }
@@ -109,60 +86,113 @@ function StartRound() {
         });
     });
 }
+// server gửi về đây là oke, chạy hiệu ứng trận đầu tiên đi và truyền về gồm có sc,qu,gPoint
 // đây là round đầu tiên
-// StartRound().then(function(){
-//     setTimeout(function(){
-//         Score[gPoint].textContent = '??';
-//         Ques[gPoint].textContent = '!!/!!/!!';
-//     },8000);
-// })
-// bắt đầu round mới ở đây nè
-function start()
+var cReduce=true;
+socket.on("RoundInfor",function(data)
+{   turn=data.turn;
+    VocabularyArray=data.VocabularyArray;
+if(data.turn===1)
 {
-    Games=setInterval(function () {
-        StartRound().then(function () {
-            setTimeout(function(){
-                Score[gPoint].textContent = '??';
-                Ques[gPoint].textContent = '!!/!!/!!';
-            },10000)
-          
-        });
-    }, 15000);   
+    StartRound(data).then(function(){
+      var  reduce1=setInterval(function(){
+       if (cReduce===true)    Score[gPoint].textContent =(parseInt(Score[gPoint].textContent)-5).toString();
+    else
+if (cReduce===false) clearInterval(reduce1);
+        
+       },3000);
+     
+       setTimeout(function(){
+           Score[gPoint].textContent = '??';
+           Ques[gPoint].textContent = '!!/!!/!!';
+           clearInterval(reduce);
+       },10000);
+   })
 }
-var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png'];
-var backGame=[];
+})
 
-function Congratulation()
+// bắt đầu round mới ở đây nè
+// function start()
+// {   
+//     Games=setInterval(function () {
+//         StartRound().then(function () {
+//              reduce=setInterval(function(){
+//                 Score[gPoint].textContent =(parseInt(Score[gPoint].textContent)-10).toString();
+//             },3000);
+//             setTimeout(function(){
+//                 clearInterval(reduce);
+//                 Score[gPoint].textContent = '??';
+//                 Ques[gPoint].textContent = '!!/!!/!!';
+            
+//             },10000)
+          
+//         });
+//     }, 15000);   
+// }
+
+
+
+function Congratulation(choise)
 {
+   typeAnswer.value='';
+   var i1=rand(8,0);
+   var i2=rand(4,0);
+   if(choise===1)
+   {
+    icon1.querySelector('img').setAttribute("src",iconsGame[i1]);
+   }
+   else
+   {
+    icon1.querySelector('img').setAttribute("src", '../main/assets/dontgiveup.png');
+   
+   }
+    icon2.querySelector('img').setAttribute("src",backGame[i2]);
+    icon1.style.zIndex='3';
+    icon2.style.zIndex='3';
     audio2.play();
-    icon1.querySelector('img').setAttribute("src",iconsGame[rand(9,0)]);
     icon1.style.display='block';
     icon2.style.display='block';
     icon1.classList.remove('hide');
     icon2.classList.remove('hide');
+
     setTimeout(() => {
         icon1.classList.add('hide');
         icon2.classList.add('hide');
 
-    }, 1000);
+    }, 1500);
 }
-gQues='hello';
-var o=0;
-var audio2=document.querySelector("#audio2");
-var icon1=document.querySelector("#icon1");
-var icon2=document.querySelector("#icon2");
-
-var typeAnswer=document.querySelector("#typeAnswer");
-console.log(typeAnswer);
 typeAnswer.onkeydown=function(event){
     if (event.key === "Enter" || event.keyCode === 13)
    {
-    if (typeAnswer.value===gQues)
+    if (typeAnswer.value.toUpperCase()==='1')
+    socket.emit("GameEnd");
+    if (typeAnswer.value.toUpperCase()===gQues.toUpperCase())
   {
-   Congratulation(); 
+    gQues='kfaoskfoaksfkasfo';
+    var right={
+        username:UserName,
+        room:rn,
+        turn:turn,
+        score:parseInt(Score[gPoint].textContent) ,
+    }
+    socket.emit("IAmRight",right);
+   
+//    gửi req về server tôi đã đúng để chặn những người chơi khác lại, sau đó server phải gửi về lại là ai đúng, rồi chạy hiệu ứng chúc
+//mừng cho người đó, còn những người kia sẽ hiển thị you not lucky
   }
    }
 }
-// clearInterval(Games);
+socket.on("TheWinner",function(data)
+{
+   cReduce=false;
+    if (data===UserName)
+    Congratulation(1);
+else
+Congratulation(0);
+})
+
+}
+catch(error)
+{
 
 }
