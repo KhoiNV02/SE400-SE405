@@ -114,6 +114,7 @@ socket.on("disconnect",function(){
   if (dem===1&&num1===-1)
   {
     Chats=Chats.filter(item=>item.Room!==rn);
+    GameQues=GameQues.filter(item=>item.Room!==rn);
   }
   
   Rooms=Rooms.filter(item=>item.ids!==socket.id);
@@ -202,13 +203,18 @@ socket.on("send-hello",function(chat){
 //   console.log(Chats);
 
 // bắt đầu game
-socket.on("GameEnd",function(){
-  GameQues=GameQues.filter(item=>item.Room!==data.RoomName)
-})
 socket.on("StartGame",function(data){
+  if (data.round>33)
+  {
+    //end game bên kia bắt được thì phải hiển thị giao diện endgame
+    //chưa xử lý khi mọi người out hết thì phải xóa bộ dữ liệu 
+    io.sockets.in(data.room).emit("EndGame");
+  }
+  else
+  {
   if (data.round===1)
   {
-
+      // nếu là round đầu tiên thì tiến hành tạo GameQues lần đầu
     var Check = GameQues.some(item => item.Room === data.room);
     if (!Check)
   {
@@ -219,9 +225,10 @@ socket.on("StartGame",function(data){
         turn:data.round,
         sc:rand(99,20),
         gPoint:rand(32,0),
-        qu:rand(32-i,0),
-        VocabularyArray:VocabularyArray,
+        qu:rand(VocabularyArray.length-1,0),
       }
+      roundInfor['VocabularyArray'] = VocabularyArray[roundInfor.qu];
+     VocabularyArray=VocabularyArray.filter(item=>item.root!==roundInfor.VocabularyArray.root) ;
       var ob={
         roundInfor:roundInfor,
         Room:data.room
@@ -230,25 +237,42 @@ socket.on("StartGame",function(data){
     }
   }
   }
+  else
+  {
+    // nếu không phải đầu tiên thì tiến hành cập nhật lại turn 
+    for (var i=0;i<GameQues.length;i++)
+    {
+      if (GameQues.Room===data.room){
+        GameQues.roundInfor.turn=data.round;
+      }
+    }
+  }
+  var loca=GameQues.findIndex(function(item){
+    return item.Room===data.room;
+  });
+  
+   io.sockets.in(data.room).emit("RoundInfor",GameQues[data.round-1+loca].roundInfor);
+}
+  // xem lại gửi room nào ra room đó oke
   // kết thúc tạo ques
- io.sockets.in(data.room).emit("RoundInfor",GameQues[data.round-1].roundInfor);
+
+//  sau khi truyền đi thì xóa từ đó ra khỏi mảng
 
 })
-socket.on("IAmRight",function(data){
-  var Check = Result.some(item => (item.room === data.room&&item.turn===data.turn));
+socket.on("IAmRight",function(data1){
+  var Check = Result.some(item => (item.room === data1.room&&item.turn===data1.turn));
   if (!Check)
   {
     var re=
     {
-      winner:data.username,
-      room:data.room,
-      turn:data.turn,
-      score:data.score,
+      winner:data1.username,
+      room:data1.room,
+      turn:data1.turn,
+      score:data1.score,
     }
     Result.push(re);
   }
-  console.log(Result);
-  io.sockets.in(data.room).emit("TheWinner",data.username);
+  io.sockets.in(data1.room).emit("TheWinner",data1.username);
 })
 //kết thúc game
 });
@@ -264,7 +288,6 @@ var num2=0;
      num2=numberOfUsers;
     }
 }
-console.log(num2);
 io.sockets.in(data).emit("memberWating",num2);
 })
 });

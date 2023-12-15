@@ -74,7 +74,7 @@
         </div>
         <div class="PlayerK player" id="player2" style="display: none;">
           <div class="Player-avatar">
-            <img src=" ../main/assets/baby-1.png" alt="">
+            <img src=" ../main/assets/bat-1.png" alt="">
            </div>
            <div class="player-Name">
             <p class="playerName">UserName4</p>
@@ -84,7 +84,7 @@
       <div class="Player1K">
         <div class="PlayerK player" id="player3" style="display: none;">
           <div class="Player-avatar" style="transform: scale(0.9);">
-            <img src="../main/assets/bat-1.png" alt="">
+            <img src="../main/assets/baby-1.png" alt="">
            </div>
            <div class="player-Name">
             <p class="playerName">UserName2</p>
@@ -393,6 +393,15 @@
         <img  src="../main/assets/lolo.gif" alt="">
      </div>
     </div>
+  <div id="Ranking" style="display: none;">
+    <div id="Winner">
+      <img src="../main/assets/baby-1.png" alt="">
+    </div>
+    <div id="NameWinner">
+      <p>UserName1</p>
+    </div>
+  </div>
+
     <!-- phần chat nè -->
     <div class="auto-group-skfq-yJV">
       <p class="chat-room-gyb">Chat Room</p>
@@ -410,6 +419,7 @@
 
 
 <script>
+
 var Leave=document.querySelector("#Leave");
 Leave.onclick=function(){
   window.history.back();
@@ -486,7 +496,7 @@ i++;
     socket.on("Player-At-TheMoment",function(data){
       disPlayer(data);
       
-      if (data.length===2)
+      if (data.length===1)
       ZoGame(true);
        });
    
@@ -499,7 +509,7 @@ i++;
          socket.on("Player-At-TheMoment",function(data){
       disPlayer(data);
 
-      if (data.length===2)
+      if (data.length===1)
       ZoGame(true);
        });
     }
@@ -531,7 +541,7 @@ else
            socket.emit("iWantToKnowMember",rn);
          })
 // sự kiện nhân vật xuất hiện
-
+   var roundInfor;
 function disPlayer(idPlayer)
 {
   if (idPlayer.length!=4)
@@ -543,8 +553,8 @@ function disPlayer(idPlayer)
   var i,j;
   for (i=0;i<idPlayer.length;i++)
   {
-    UI[i].style.display="Block";
-    UI[i+4].style.display="Block";
+    UI[i].style.display="block";
+    UI[i+4].style.display="block";
     UI_name[i].textContent=idPlayer[i].Use;
      UI_name[i+4].textContent=idPlayer[i].Use;
     if (idPlayer[i].Use===UserName)
@@ -589,25 +599,25 @@ function ZoGame(check)
     "Rose",
     "Piano",
     "Books",
-    "Mobile phone",
+    "Mobile",
     "Earth",
     "Hero",
     "Moon",
     "City",
     "Family",
     "Park",
-    "Street lights",
+    "Street",
     "Artist",
-    "Delicious food",
+    "food",
     "Computer",
-    "Northern lights",
+    "lights",
     "Travel",
     "Adventure",
-    "Fireworks",
+    "worker",
     "Coffee",
     "Rainbow",
     "Waves",
-    "Laughter",
+    "nice",
     "Dreams",
     "Butterfly",
     "Serenity",
@@ -616,7 +626,7 @@ function ZoGame(check)
     "Journey",
     "Harmony"
   ]; 
-   var roundInfor;
+
     roundInfor={
         ques:beforeVocabularyArray,
         round:1,

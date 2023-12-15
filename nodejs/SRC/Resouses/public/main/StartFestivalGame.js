@@ -2,7 +2,7 @@ try
 {
  
     // English vocabulary array++
-      var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png'];
+      var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png','../main/assets/congratulation.png'];
       var backGame=['../main/assets/bumchiu.gif','../main/assets/flow.gif','../main/assets/lolo.gif','../main/assets/tede.gif','../main/assets/money.gif'];
       var VocabularyArray;
       function rand(max,min)
@@ -12,10 +12,15 @@ try
       var Starting=document.querySelector("#Starting");
       var Games;
       var reduce;
+      var Check0=true;
     // gửi về cho server biết là vào game rồi và truyền độ dài của mảng, nếu bằng 33-32 thì chạy round đầu, còn ko thì chạy round 2 hết
     var Questions=document.querySelectorAll(".cell");
     var Score=document.querySelectorAll(".Score");
     var Ques=document.querySelectorAll(".question");
+    console.log(Score.length);
+    console.log(Ques.length);
+    for (var i=0;i<Score.length;i++)
+
     var audio2=document.querySelector("#audio2");
     var icon1=document.querySelector("#icon1");
     var icon2=document.querySelector("#icon2");
@@ -75,10 +80,22 @@ function StartRound(data) {
                         gPoint=data.gPoint;
                     var sc=data.sc;
                     var qu=data.qu;
+                    // console.log('gPoint lỗi hay là Score[gPoint]')
+                    // console.log(gPoint);
+                    // console.log(Score[gPoint]);
+                    if (Score[gPoint].querySelector('p')!=null)
+                    {
                     Score[gPoint].querySelector('p').textContent = sc.toString();
-                    Ques[gPoint].querySelector('p').textContent=VocabularyArray[qu].question;
+                    Ques[gPoint].querySelector('p').textContent=data.VocabularyArray.question;    
+                }
+                else
+                {
+                console.log("Lỗi");
+            clearInterval(intervalId);    
+            }
+               
                     gScore=sc.toString();
-                    gQues=VocabularyArray[qu].root;
+                    gQues=data.VocabularyArray.root;
                     clearInterval(intervalId);
                     resolve();
                 }
@@ -89,46 +106,41 @@ function StartRound(data) {
 // server gửi về đây là oke, chạy hiệu ứng trận đầu tiên đi và truyền về gồm có sc,qu,gPoint
 // đây là round đầu tiên
 var cReduce=true;
+var cGame=true;
 socket.on("RoundInfor",function(data)
-{   turn=data.turn;
+{   check0=true;
+    // console.log("dữ liệu trận này");
+    // console.log(data);
+    turn=data.turn;
     VocabularyArray=data.VocabularyArray;
-if(data.turn===1)
-{
+
     StartRound(data).then(function(){
       var  reduce1=setInterval(function(){
-       if (cReduce===true)    Score[gPoint].textContent =(parseInt(Score[gPoint].textContent)-5).toString();
+        if ((parseInt(Score[gPoint].querySelector('p').textContent)-30)<=0&&check0===true)
+        {
+            Score[gPoint].querySelector('p').textContent ='0';
+            gQues='kfaoskfoaksfkasfo';
+            var right={
+                username:'NoBody',
+                room:rn,
+                turn:roundInfor.round,
+                score:0 ,
+            }
+            socket.emit("IAmRight",right);
+            clearInterval(reduce1);
+        }
+        else
+        {
+       if (cReduce===true)    Score[gPoint].querySelector('p').textContent =(parseInt(Score[gPoint].querySelector('p').textContent)-30).toString();
     else
 if (cReduce===false) clearInterval(reduce1);
-        
+        }
        },3000);
      
-       setTimeout(function(){
-           Score[gPoint].textContent = '??';
-           Ques[gPoint].textContent = '!!/!!/!!';
-           clearInterval(reduce);
-       },10000);
    })
-}
 })
 
 // bắt đầu round mới ở đây nè
-// function start()
-// {   
-//     Games=setInterval(function () {
-//         StartRound().then(function () {
-//              reduce=setInterval(function(){
-//                 Score[gPoint].textContent =(parseInt(Score[gPoint].textContent)-10).toString();
-//             },3000);
-//             setTimeout(function(){
-//                 clearInterval(reduce);
-//                 Score[gPoint].textContent = '??';
-//                 Ques[gPoint].textContent = '!!/!!/!!';
-            
-//             },10000)
-          
-//         });
-//     }, 15000);   
-// }
 
 
 
@@ -169,11 +181,12 @@ typeAnswer.onkeydown=function(event){
     if (typeAnswer.value.toUpperCase()===gQues.toUpperCase())
   {
     gQues='kfaoskfoaksfkasfo';
+    check0=false;
     var right={
         username:UserName,
         room:rn,
-        turn:turn,
-        score:parseInt(Score[gPoint].textContent) ,
+        turn:roundInfor.round,
+        score:parseInt(Score[gPoint].querySelector('p').textContent) ,
     }
     socket.emit("IAmRight",right);
    
@@ -184,11 +197,22 @@ typeAnswer.onkeydown=function(event){
 }
 socket.on("TheWinner",function(data)
 {
+    console.log("đã chạy vào đyâ");
    cReduce=false;
+   cGame=false;
     if (data===UserName)
     Congratulation(1);
-else
-Congratulation(0);
+        else
+            Congratulation(0);
+setTimeout(() => {
+    Score[gPoint].querySelector('p').textContent = '??';
+    Ques[gPoint].querySelector('p').textContent = '!!/!!/!!';
+    roundInfor.round+=1;
+    cReduce=true;
+socket.emit("StartGame",roundInfor);
+
+}, 3000);
+
 })
 
 }

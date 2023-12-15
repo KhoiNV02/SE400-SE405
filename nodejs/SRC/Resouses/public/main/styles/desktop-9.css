@@ -616,3 +616,47 @@ align-items: center;
     width: 80%;
   }
 }
+
+
+#Ranking
+{
+  background: url("/main/assets/TheWinner3.gif");
+  background-size: cover;
+  width: 114rem;
+  height: 100%;
+  margin-top: -5px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#Winner
+{
+  width: 20%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  margin-left: 5%;
+  margin-bottom: 5%;
+}
+#Winner img
+{
+  width:auto;
+  height: 100%;
+}
+#NameWinner
+{
+  position: absolute;
+  right: 30%;
+  top:85%;
+}
+#NameWinner p
+{
+  margin: 0rem 0rem 1.426rem 1.5rem;
+  font-size: 8.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: black;
+  font-family: Spicy Rice, 'Source Sans Pro';
+}
