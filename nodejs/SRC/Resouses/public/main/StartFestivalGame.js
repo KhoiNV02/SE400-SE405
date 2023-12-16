@@ -1,9 +1,13 @@
 try
 {
+    var GameEndYet=false;
+
  
     // English vocabulary array++
       var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png','../main/assets/congratulation.png'];
       var backGame=['../main/assets/bumchiu.gif','../main/assets/flow.gif','../main/assets/lolo.gif','../main/assets/tede.gif','../main/assets/money.gif'];
+      var backGroundWinner=['../main/assets/TheWinner.gif','../main/assets/TheWinner2.gif','../main/assets/TheWinner3.gif','../main/assets/TheWinner4.gif']
+      
       var VocabularyArray;
       function rand(max,min)
       {
@@ -17,11 +21,12 @@ try
     var Questions=document.querySelectorAll(".cell");
     var Score=document.querySelectorAll(".Score");
     var Ques=document.querySelectorAll(".question");
-    console.log(Score.length);
-    console.log(Ques.length);
     for (var i=0;i<Score.length;i++)
 
     var audio2=document.querySelector("#audio2");
+    var audio3=document.querySelector("#audio3");
+    var audio4=document.querySelector("#audio4");
+    var audio5=document.querySelector("#audio5");
     var icon1=document.querySelector("#icon1");
     var icon2=document.querySelector("#icon2");
     var typeAnswer=document.querySelector("#typeAnswer");
@@ -50,6 +55,8 @@ var gScore;
 var gQues;
 // hàm để bắt đầu vòng chơi mới.
 function StartRound(data) {
+    if (GameEndYet===false)
+    {
     gScore='fkaoksfaoksfokasf';
     gQues='kfaoskfoaksfkasfo';
     return new Promise(function (resolve) {
@@ -58,6 +65,8 @@ function StartRound(data) {
 
         var i = 0;
         var intervalId = setInterval(function () {
+            if (GameEndYet===true)
+            clearInterval(intervalId);
             if (i <= 33) {
                 runEffect(i);
                 i++;
@@ -65,11 +74,13 @@ function StartRound(data) {
                 clearInterval(intervalId);
                 resolve();
             }
-        }, 70);
+        }, 80);
     }).then(function () {
         return new Promise(function (resolve) {
             var i = 0;
             var intervalId = setInterval(function () {
+                if (GameEndYet===true)
+                clearInterval(intervalId);
                 if (i <= 33) {
                     gPoint = rand(32, 0);
                     runEffect(gPoint);
@@ -99,25 +110,33 @@ function StartRound(data) {
                     clearInterval(intervalId);
                     resolve();
                 }
-            }, 70);
+            }, 80);
         });
     });
+}
 }
 // server gửi về đây là oke, chạy hiệu ứng trận đầu tiên đi và truyền về gồm có sc,qu,gPoint
 // đây là round đầu tiên
 var cReduce=true;
 var cGame=true;
 socket.on("RoundInfor",function(data)
-{   check0=true;
+{  
+ 
+    if (GameEndYet===false)
+    {
+     check0=true;
     // console.log("dữ liệu trận này");
     // console.log(data);
     turn=data.turn;
     VocabularyArray=data.VocabularyArray;
 
     StartRound(data).then(function(){
+        // console.log(`xong round ${roundInfor.round}`,'câu hỏi là: ', gQues);
       var  reduce1=setInterval(function(){
-        if ((parseInt(Score[gPoint].querySelector('p').textContent)-30)<=0&&check0===true)
+        if ((parseInt(Score[gPoint].querySelector('p').textContent)-80)<=0)
         {
+           
+            // console.log(UserName+"đã chạy vào dự đoán");
             Score[gPoint].querySelector('p').textContent ='0';
             gQues='kfaoskfoaksfkasfo';
             var right={
@@ -127,41 +146,47 @@ socket.on("RoundInfor",function(data)
                 score:0 ,
             }
             socket.emit("IAmRight",right);
+            console.log("Tôi đã chạy vào đây");
             clearInterval(reduce1);
         }
         else
         {
-       if (cReduce===true)    Score[gPoint].querySelector('p').textContent =(parseInt(Score[gPoint].querySelector('p').textContent)-30).toString();
-    else
-if (cReduce===false) clearInterval(reduce1);
+            if (isNaN(parseInt(Score[gPoint].querySelector('p').textContent))) {
+                console.log("Giá trị không phải là một số.");
+            } else {
+                Score[gPoint].querySelector('p').textContent =(parseInt(Score[gPoint].querySelector('p').textContent)-80).toString();
+            }
+          
         }
-       },3000);
+       },4000);
      
    })
+}
 })
 
 // bắt đầu round mới ở đây nè
 
-
-
 function Congratulation(choise)
 {
+    if (GameEndYet===false)
+    {
    typeAnswer.value='';
-   var i1=rand(8,0);
+   var i1=rand(9,0);
    var i2=rand(4,0);
    if(choise===1)
    {
     icon1.querySelector('img').setAttribute("src",iconsGame[i1]);
+    audio2.play();
    }
    else
    {
     icon1.querySelector('img').setAttribute("src", '../main/assets/dontgiveup.png');
-   
+    audio3.play();
    }
     icon2.querySelector('img').setAttribute("src",backGame[i2]);
     icon1.style.zIndex='3';
     icon2.style.zIndex='3';
-    audio2.play();
+
     icon1.style.display='block';
     icon2.style.display='block';
     icon1.classList.remove('hide');
@@ -173,15 +198,21 @@ function Congratulation(choise)
 
     }, 1500);
 }
+}
+var k=0;
 typeAnswer.onkeydown=function(event){
     if (event.key === "Enter" || event.keyCode === 13)
    {
     if (typeAnswer.value.toUpperCase()==='1')
-    socket.emit("GameEnd");
+    {
+
+        socket.emit("GameEnd",rn);
+    }
+else
+{
     if (typeAnswer.value.toUpperCase()===gQues.toUpperCase())
   {
     gQues='kfaoskfoaksfkasfo';
-    check0=false;
     var right={
         username:UserName,
         room:rn,
@@ -193,28 +224,53 @@ typeAnswer.onkeydown=function(event){
 //    gửi req về server tôi đã đúng để chặn những người chơi khác lại, sau đó server phải gửi về lại là ai đúng, rồi chạy hiệu ứng chúc
 //mừng cho người đó, còn những người kia sẽ hiển thị you not lucky
   }
+}
    }
 }
+
 socket.on("TheWinner",function(data)
 {
-    console.log("đã chạy vào đyâ");
-   cReduce=false;
-   cGame=false;
+    gQues='ìaisjfojaosjfoajsf';
     if (data===UserName)
     Congratulation(1);
         else
+
             Congratulation(0);
-setTimeout(() => {
-    Score[gPoint].querySelector('p').textContent = '??';
-    Ques[gPoint].querySelector('p').textContent = '!!/!!/!!';
-    roundInfor.round+=1;
-    cReduce=true;
-socket.emit("StartGame",roundInfor);
-
-}, 3000);
-
+            setTimeout(() => {
+                Score[gPoint].querySelector('p').textContent = '??';
+                Ques[gPoint].querySelector('p').textContent = '!!/!!/!!';
+                console.log("vừa chạy xong round:", roundInfor.round);
+                roundInfor.round+=33;
+                // đang bug, chổ này bị nhảy cóc 2 lần dẫn đến nó bị hiện đáp án
+            socket.emit("StartGame",roundInfor);
+            
+            }, 4000);    
 })
-
+// chuẩn bị end game nè
+socket.on("EndGame",function(data){
+    audio5.play();
+    audio4.play();
+    var NameWinner=document.querySelector("#NameWinner");
+    var avtWinner=document.querySelector("#Winner").querySelector('img');
+    NameWinner.querySelector('p').textContent=data.us;
+    Wating.style.display='none';
+    Starting.style.display='none';
+    for (var o=4;o<=7;o++)
+    if (data.us===UI[o].querySelector(".player-Name").querySelector("p").textContent)
+    {
+      
+        avtWinner.setAttribute("src",UI[o].querySelector(".Player-avatar").querySelector("img").src);
+        break;
+    }
+    GameEndYet=true;
+  var backgroundWinner=document.querySelector("#Ranking");
+    backgroundWinner.style.display='flex';
+    backgroundWinner.style.backgroundImage=`url(${backGroundWinner[rand(3,0)]})`;  
+    setTimeout(() => {
+        window.history.go(-1);
+    }, 10000);
+})
+// end game
 }
 catch(error)
 {

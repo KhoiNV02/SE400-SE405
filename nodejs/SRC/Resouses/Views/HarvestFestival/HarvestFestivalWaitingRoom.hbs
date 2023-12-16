@@ -23,6 +23,15 @@
  <audio  id="audio2" preload="auto" >
     <source type="audio/mp3" src="../main/assets/bingo.mp3">
 </audio>
+ <audio  id="audio3" preload="auto" >
+    <source type="audio/mp3" src="../main/assets/lose.mp3">
+</audio>
+ <audio  id="audio4" preload="auto">
+    <source type="audio/mp3" src="../main/assets/Winner.mp3">
+</audio>
+ <audio  id="audio5" preload="auto" loop>
+    <source type="audio/mp3" src="../main/assets/Winner2.mp3">
+</audio>
 <div class="desktop-3-gxM">
   <div class="headeringame-Eiy">
     <p class="code-kofm-MYh" id="code"></p>
@@ -395,7 +404,7 @@
     </div>
   <div id="Ranking" style="display: none;">
     <div id="Winner">
-      <img src="../main/assets/baby-1.png" alt="">
+      <img src="../main/assets/dog-1.png" alt="">
     </div>
     <div id="NameWinner">
       <p>UserName1</p>
@@ -419,13 +428,12 @@
 
 
 <script>
-
+var log=`{{id}}`;
+// js của Waiting-Room
 var Leave=document.querySelector("#Leave");
 Leave.onclick=function(){
   window.history.back();
 }
-var log=`{{id}}`;
-// js của Waiting-Room
  var myDiv = document.getElementById("chat");
  myDiv.innerHTML = '';
 var socket=io("http://localhost:3000");
@@ -496,7 +504,7 @@ i++;
     socket.on("Player-At-TheMoment",function(data){
       disPlayer(data);
       
-      if (data.length===1)
+      if (data.length===4)
       ZoGame(true);
        });
    
@@ -509,7 +517,7 @@ i++;
          socket.on("Player-At-TheMoment",function(data){
       disPlayer(data);
 
-      if (data.length===1)
+      if (data.length===4)
       ZoGame(true);
        });
     }

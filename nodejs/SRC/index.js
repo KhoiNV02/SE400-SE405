@@ -203,17 +203,22 @@ socket.on("send-hello",function(chat){
 //   console.log(Chats);
 
 // bắt đầu game
+
 socket.on("StartGame",function(data){
+
   if (data.round>33)
   {
-    //end game bên kia bắt được thì phải hiển thị giao diện endgame
-    //chưa xử lý khi mọi người out hết thì phải xóa bộ dữ liệu 
-    io.sockets.in(data.room).emit("EndGame");
+      var maxUserScore=maxs(data.room);
+      console.log(data.room);
+       io.sockets.in(data.room).emit("EndGame",maxUserScore);
+       Result=Result.filter(item=>item.room!==data.room);
   }
+  
   else
   {
   if (data.round===1)
   {
+
       // nếu là round đầu tiên thì tiến hành tạo GameQues lần đầu
     var Check = GameQues.some(item => item.Room === data.room);
     if (!Check)
@@ -240,6 +245,7 @@ socket.on("StartGame",function(data){
   else
   {
     // nếu không phải đầu tiên thì tiến hành cập nhật lại turn 
+  
     for (var i=0;i<GameQues.length;i++)
     {
       if (GameQues.Room===data.room){
@@ -250,8 +256,8 @@ socket.on("StartGame",function(data){
   var loca=GameQues.findIndex(function(item){
     return item.Room===data.room;
   });
-  
-   io.sockets.in(data.room).emit("RoundInfor",GameQues[data.round-1+loca].roundInfor);
+   socket.emit("RoundInfor",GameQues[data.round-1+loca].roundInfor);
+
 }
   // xem lại gửi room nào ra room đó oke
   // kết thúc tạo ques
@@ -260,9 +266,11 @@ socket.on("StartGame",function(data){
 
 })
 socket.on("IAmRight",function(data1){
+
   var Check = Result.some(item => (item.room === data1.room&&item.turn===data1.turn));
   if (!Check)
   {
+
     var re=
     {
       winner:data1.username,
@@ -271,8 +279,58 @@ socket.on("IAmRight",function(data1){
       score:data1.score,
     }
     Result.push(re);
+    io.sockets.in(data1.room).emit("TheWinner",data1.username);
+
   }
-  io.sockets.in(data1.room).emit("TheWinner",data1.username);
+
+})
+
+
+function maxs(rn)
+{
+  var ScoreOfUserInRoom=[];
+  var maxUserScore={
+    us:'1',
+    score:-1,
+  };
+  console.log(Result.length);
+  for (var i=0;i<Result.length;i++)
+  if(Result[i].room===rn)
+  {
+    var obj=
+    {
+      us:Result[i].winner,
+      score:Result[i].score,
+    }
+    if (ScoreOfUserInRoom.some(item=>item.us===obj.us))
+    {
+      for (var j=0;j<ScoreOfUserInRoom.length;j++)
+      {
+        if (ScoreOfUserInRoom[j].us===obj.us)
+        {
+          ScoreOfUserInRoom[j].score+=Result[i].score;
+        }
+      }
+    }
+    else
+    ScoreOfUserInRoom.push(obj);
+  }
+  for (var i=0;i<ScoreOfUserInRoom.length;i++)
+  {
+    if (ScoreOfUserInRoom[i].score>maxUserScore.score)
+    {
+      maxUserScore.us=ScoreOfUserInRoom[i].us;
+      maxUserScore.score=ScoreOfUserInRoom[i].score;
+    }
+  }
+  return maxUserScore;
+}
+socket.on("GameEnd",function(rn){
+ var maxUserScore=maxs(rn);
+  // console.log("Bảng điểm")
+  // console.log(maxUserScore);
+  io.sockets.in(rn).emit("EndGame",maxUserScore);
+  Result=Result.filter(item=>item.room!==rn);
 })
 //kết thúc game
 });

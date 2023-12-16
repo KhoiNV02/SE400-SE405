@@ -57,7 +57,7 @@ body {
 .desktop-2-6zR .auto-group-hebm-LnH {
   margin-left: 3rem;
   width: calc(100% - 15rem);
-  height: 64.6rem;
+  height: 61.6rem;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -127,10 +127,10 @@ body {
   background-color: rgba(31, 24, 24, 0.6899999976);
   flex-shrink: 0;
   position: relative;
-  top:0px;  
+  top:12px;  
 }
 .desktop-2-6zR .auto-group-hebm-LnH .auto-group-teip-CbX .chat{
-  height: 450px;
+  height: 430px;
   overflow:auto;
 
 }
@@ -183,5 +183,9 @@ body {
   cursor: pointer;
 }
 .chat::-webkit-scrollbar {
+  display: none;
+}
+
+.desktop-2-6zR::-webkit-scrollbar {
   display: none;
 }
