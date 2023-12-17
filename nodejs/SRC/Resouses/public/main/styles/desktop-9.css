@@ -237,9 +237,9 @@ z-index: 3;
   flex-shrink: 0;
   position: relative;
   left:-100px;
-  top:-190px;
+  top:-160px;
   cursor: pointer;
-  transform: scale(0.8);
+  transform: scale(0.5);
 }
 .desktop-3-gxM .auto-group-49mm-bT3 .auto-group-skfq-yJV {
   box-sizing: border-box;
@@ -403,6 +403,7 @@ top:12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
 }
 .Player1K
 {
@@ -413,13 +414,88 @@ top:12px;
 }
 .PlayerK
 {
-  width: 15%;
+  width: 20rem;
+  /* width: 15%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; */
+  display: flex;
+  gap:1rem;
+  flex-direction: row;
+  margin-left: 8px;
+  margin-top: 15px;
+}
+.character
+{
+  width: 75%;
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+.experience
+{
+width: 25%; 
+height: 90%;
+position: relative;
 
 }
+.head{
+  width: 60%;
+  height: 10%;
+  position: absolute;
+  border-radius: 3px;
+  top:5px;
+  left: 50%; /* Dịch sang phải 50% chiều rộng của cha */
+  transform: translate(-50%, -50%); /* Dịch ngược lại 50% chiều rộng và 50% chiều cao của đối tượng con */
+  background-color: white;
+}
+.exps
+{
+  top:3px;
+  width: 100%; 
+height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+background-color: white;
+border: 2px solid #333;
+}
+.exp
+{
+  max-height: 100%;
+  height:0px;
+  width: 100%;
+  position: absolute;
+   bottom: 0;
+   border-radius: 10px;
+   z-index: 1;
+   /* background-color:#F99C1C; */
+   background-image: url('/main/assets/Water2.gif'); 
+    background-size: cover;
+    font-family: Spicy Rice, 'Source Sans Pro';
+}
 
+.exps p
+{
+/* display: none; */
+  font-size: 4rem;
+  transform: rotate(-90deg);
+  z-index: 2;
+  color:black;
+  /* animation: appearEffect 1s ease-out forwards; */
+}
+.exps img
+{
+  display: none;
+  position: absolute;
+  top: 30%;
+  width: 200%;
+  height: auto;
+  z-index: 3;
+  /* animation: appearEffect2 1s ease-out forwards; */
+}
 .Player-avatar
 {
   height: 70%;

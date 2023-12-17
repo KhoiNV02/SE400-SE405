@@ -203,7 +203,10 @@ socket.on("send-hello",function(chat){
 //   console.log(Chats);
 
 // bắt đầu game
-
+socket.on("DeleteRoomInfor",function(rn){
+  Result=Result.filter(item=>item.room!==rn);
+  socket.emit("DeleteDone");
+})
 socket.on("StartGame",function(data){
 
   if (data.round>33)
@@ -211,7 +214,7 @@ socket.on("StartGame",function(data){
       var maxUserScore=maxs(data.room);
       console.log(data.room);
        io.sockets.in(data.room).emit("EndGame",maxUserScore);
-       Result=Result.filter(item=>item.room!==data.room);
+     
   }
   
   else
@@ -279,7 +282,14 @@ socket.on("IAmRight",function(data1){
       score:data1.score,
     }
     Result.push(re);
-    io.sockets.in(data1.room).emit("TheWinner",data1.username);
+    var ScoreAndUser=
+    {
+      username:data1.username,
+      score:data1.score,
+      mark:data1.Mark,
+      MarkPercent:data1.MarkPercent,
+    }
+    io.sockets.in(data1.room).emit("TheWinner",ScoreAndUser);
 
   }
 
