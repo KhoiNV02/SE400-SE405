@@ -1,4 +1,5 @@
 const Room = require('../models/RoomModel');
+const Vocabulary=require('../models/VoccabularyModel');
 const {mongooseToObject, mutipleMongooseToObject}=require('../../ultil/mongoose');
 class NewsController {
   //[get]/news
@@ -22,5 +23,23 @@ class NewsController {
       })
       .catch((error) => next(error));
   }
+async  database(req,res,next)
+  {
+    const dataToSave = req.query.vocabulary;
+// console.log(dataToSave);
+for (const word of dataToSave)
+{
+await Vocabulary.create({ Word:word });
+}
+// await Vocabulary.create({dataToSave});
+    // Lưu từng từ vựng vào cơ sở dữ liệu
+    // for (const word of dataToSave) {
+    //   await Vocabulary.create({ word });
+    // }
+
+    res.status(200).json({ message: 'Data saved to MongoDB successfully' }); 
+  }
+
+  
 }
 module.exports = new NewsController();

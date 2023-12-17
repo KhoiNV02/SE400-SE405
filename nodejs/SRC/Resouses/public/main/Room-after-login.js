@@ -117,3 +117,18 @@ joinRoom.onclick=function()
     }
 
 }
+
+var Refesh=document.querySelector("#Refresh");
+console.log(Refesh);
+Refesh.onclick=function()
+{
+//    api để lưu 1 lượng lớn từ xuống
+    //   axios.get(`http://localhost:3000/home/data`, { params: { vocabulary: a2Vocabulary } })
+    //   .then(response => {
+    //     console.log("Lưu thành công");
+    //   })
+    //   .catch(error => {
+    //     console.error("Lỗi khi gửi yêu cầu:", error);
+    //   });
+   
+}

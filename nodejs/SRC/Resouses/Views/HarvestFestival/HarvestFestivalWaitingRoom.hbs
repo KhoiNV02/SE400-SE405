@@ -35,6 +35,9 @@
   <audio id="audio5" preload="auto" loop>
     <source type="audio/mp3" src="../main/assets/Winner2.mp3">
   </audio>
+   <audio id="audio6" preload="auto">
+    <source type="audio/mp3" src="../main/assets/countdown-boom-76577.mp3">
+  </audio>
   <div class="desktop-3-gxM">
     <div class="headeringame-Eiy">
       <p class="code-kofm-MYh" id="code"></p>
@@ -542,7 +545,7 @@
     socket.on("Player-At-TheMoment", function (data) {
       disPlayer(data);
 
-      if (data.length ===2)
+      if (data.length ===1)
         ZoGame(true);
     });
 
@@ -554,7 +557,7 @@
       socket.on("Player-At-TheMoment", function (data) {
         disPlayer(data);
 
-        if (data.length ===2)
+        if (data.length ===1)
           ZoGame(true);
       });
     }
@@ -622,52 +625,29 @@
   function ZoGame(check) {
     if (check == true) {
       var dem = 0;
+      var audio6=document.querySelector("#audio6");
+      audio6.play();
       countdown = setInterval(function () {
         countDown.setAttribute("src", DemNguoc[dem]);
         dem++;
       }, 1000);
+      //lấy từ lên
+      var beforeVocabularyArray = [];
+       axios.get(`http://localhost:3000/harvestfestival/GetWord`)
+    .then(response => {
+        console.log(response.data);
+        for (var i=0;i<response.data.length;i++)
+        beforeVocabularyArray.push(response.data[i].Word);
+    })
       countdown1 = setTimeout(function () {
         // Dừng chu kỳ lặp bằng cách truyền ID vào clearInterval
         clearInterval(countdown);
 
         Wating.style.display = 'none';
         Starting.style.display = 'flex';
-        var beforeVocabularyArray = [
-          "Sun",
-          "Clouds",
-          "Ocean",
-          "Mountains",
-          "Rose",
-          "Piano",
-          "Books",
-          "Mobile",
-          "Earth",
-          "Hero",
-          "Moon",
-          "City",
-          "Family",
-          "Park",
-          "Street",
-          "Artist",
-          "food",
-          "Computer",
-          "lights",
-          "Travel",
-          "Adventure",
-          "worker",
-          "Coffee",
-          "Rainbow",
-          "Waves",
-          "nice",
-          "Dreams",
-          "Butterfly",
-          "Serenity",
-          "Galaxy",
-          "Magic",
-          "Journey",
-          "Harmony"
-        ];
-
+        // lấy bộ dữ liệu từ server lên
+        
+        
         roundInfor = {
           ques: beforeVocabularyArray,
           round: 1,

@@ -1,5 +1,6 @@
 const Room = require('../models/RoomModel');
 const {mongooseToObject, mutipleMongooseToObject}=require('../../ultil/mongoose');
+const Vocabulary=require('../models/VoccabularyModel');
 class MeController {
   //[get]/news
 
@@ -80,5 +81,15 @@ class MeController {
   });
 
   }
+
+async GetWord(req,res)
+{
+  const randomVocabularies = await Vocabulary.aggregate([{ $sample: { size: 33 } }]);
+
+    res.status(200).json(randomVocabularies);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+}
 }
 module.exports = new MeController();
