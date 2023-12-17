@@ -29,12 +29,22 @@
 
 try
 { 
-  
+ 
     function DeleteRoomInDatabase(data)
     {   
-        console.log("có xóa gifk hông",data);
-                data=JSON.stringify(data);
-        axios.post(`http://localhost:3000/HarvestFestival/edit`,data)
+        const request={
+            data:JSON.stringify(data),
+            range:range,
+            gameMode:gameMode,
+        }
+        
+                
+        axios.post(`http://localhost:3000/HarvestFestival/edit`,request
+        , {
+            headers: {
+              'Content-Type': 'application/json',
+            },}
+        )
             .then(response => {
             console.log('Dữ liệu nhận được sau khi gửi POST request:', response.data);
             })

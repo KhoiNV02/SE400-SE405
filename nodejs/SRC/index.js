@@ -13,7 +13,8 @@ const { engine } = require('express-handlebars');
 const app = express();
 var server=require("http").Server(app);
 var io=require("socket.io")(server);
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 server.listen(3000);
 // xử lý server
 var Rooms=[];
@@ -236,7 +237,7 @@ socket.on("StartGame",function(data){
         qu:rand(VocabularyArray.length-1,0),
       }
       roundInfor['VocabularyArray'] = VocabularyArray[roundInfor.qu];
-     VocabularyArray=VocabularyArray.filter(item=>item.root!==roundInfor.VocabularyArray.root) ;
+     VocabularyArray=VocabularyArray.filter(item=>item.root!==VocabularyArray[roundInfor.qu]) ;
       var ob={
         roundInfor:roundInfor,
         Room:data.room
@@ -244,6 +245,7 @@ socket.on("StartGame",function(data){
       GameQues.push(ob);
     }
   }
+  console.log(GameQues);
   }
   else
   {

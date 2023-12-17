@@ -95,7 +95,7 @@ function StartRound(data) {
                 clearInterval(intervalId);
                 resolve();
             }
-        }, 70);
+        }, 80);
     }).then(function () {
         return new Promise(function (resolve) {
             var i = 0;
@@ -118,6 +118,7 @@ function StartRound(data) {
                     if (Score[gPoint].querySelector('p')!=null)
                     {
                     Score[gPoint].querySelector('p').textContent = sc.toString();
+                 console.log(Ques[gPoint].querySelector('p').textContent);
                     Ques[gPoint].querySelector('p').textContent=data.VocabularyArray.question;    
                 }
                 else
@@ -131,7 +132,7 @@ function StartRound(data) {
                     clearInterval(intervalId);
                     resolve();
                 }
-            }, 70);
+            }, 80);
         });
     });
 }
@@ -295,7 +296,7 @@ socket.on("TheWinner",function(data)
                 roundInfor.round+=1;
                 // đang bug, chổ này bị nhảy cóc 2 lần dẫn đến nó bị hiện đáp án
             socket.emit("StartGame",roundInfor);
-            
+            cGame=true;
             }, 4000);    
 })
 // chuẩn bị end game nè

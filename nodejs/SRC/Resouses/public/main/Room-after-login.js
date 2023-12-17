@@ -36,7 +36,7 @@ Dance.src="main/assets/harvestfestival-1.png";
 // xong phần lựa chọn gameMode
 
 // Bắt sự kiện chọn loại room Public hay private
-var range=-1;
+var range=1;
 var Public=document.querySelector("#Left");
 
 var Private=document.querySelector("#Right");
@@ -53,6 +53,7 @@ Public.onclick =function(){
     range=1;
     Mid.style.transform = "translateX(0%)";
 }
+
 // kết thúc sự kiện chọn loại hình room
 var Loca;
 // biến để biết là người dùng đang tạo room mới hay là vừa join room
@@ -77,7 +78,7 @@ window.location.href = `http://localhost:3000/bombparty?idplayer=${idplayer}&Use
     {
         var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
         var idplayer=randomNumber;
-        window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}`;  
+        window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
     }
 }
 var joinRoom=document.querySelector("#joinRoom");
@@ -103,7 +104,6 @@ joinRoom.onclick=function()
         {   check=true;
             idplayer=rooms[i].Code;
             var Of=rooms[i].Room;
-            alert("chuyển hướng thành công");
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
             break;
          }
@@ -119,7 +119,6 @@ joinRoom.onclick=function()
 }
 
 var Refesh=document.querySelector("#Refresh");
-console.log(Refesh);
 Refesh.onclick=function()
 {
 //    api để lưu 1 lượng lớn từ xuống

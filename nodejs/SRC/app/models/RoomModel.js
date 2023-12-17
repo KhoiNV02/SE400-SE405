@@ -6,6 +6,8 @@ const ObjectId = Schema.ObjectId;
 const room1 = new Schema({
   Code: {type: String},
   Room:{type: String},
+  Range:{type: String},
+  gameMode:{type: String},
 });
 
 
