@@ -18,10 +18,17 @@ app.use(bodyParser.json());
 server.listen(3000);
 // xử lý server
 var Rooms=[];
+// lưu phòng chơi gồm ids: là socketid, id là code game, UserName: người tạo, Room:tên phòng
 var Players=[];
+// lưu người chơi Room: là room name, Use: là username và id là socketid
 var Chats=[];
+// Lưu đoạn chat 1 dòng là nội dung chat thôi
 var Result=[];
+// lưu kết quả winner: người chiến thắng, room: phòng nào, turn: lượt nào, score: được nhiêu điểm
 var GameQues=[];
+// lưu bộ câu hỏi của mỗi vòng chơi
+
+// begin bộ hàm để tạo mảng random cho câu hỏi
 function rand(max,min)
 {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -74,10 +81,11 @@ NewsArray.push(ob);
   }
   return NewsArray;
 }
+// end bộ hàm để tạo mảng random cho câu hỏi
 
+// khi có người kết nối
 io.on("connection",function(socket){
 console.log("có người đã đăng nhập với id là "+ socket.id);
-
 // xử lý người dùng thoát khỏi room
 socket.on("disconnect",function(){
   console.log("Có người đã out room"+ socket.id);
@@ -131,18 +139,16 @@ socket.on("disconnect",function(){
 })
 // end disconect
 //begin vào phòng game
-
 // begin tạo room
 socket.on("Create-Room",function(data){
- 
- //  dữ liệu được gửi từ client khi tạo room
-  // console.log(data);
+ //  dữ liệu được gửi từ client khi tạo room gồm có UserName, RoomName và Code phòng
+  //begin chổ này kiểm tra disconect liên tục để check là ai vừa out room
 socket.on("disconnect",function(){
   io.sockets.in(socket.room).emit("Player-At-TheMoment",Players.filter(item=>item.Room===data.RoomName));
 })
+// end kiểm tra disconnect
   socket.join(data.RoomName);
   socket.room=data.RoomName;
-  console.log("có người tạo hoặc join room");
   // console.log(socket.adapter.rooms);
   // console.log("phòng trong server trước khi add");
   // console.log(Rooms);
@@ -167,7 +173,6 @@ socket.on("disconnect",function(){
   }
   io.sockets.in(socket.room).emit("chat-text",Chats.filter(item=>item.Room===data.RoomName));
   });
- 
 // end gửi số lượng người về phòng
   for ( room1 of socket.adapter.rooms.keys()) {
       // console.log(room1);
@@ -213,7 +218,6 @@ socket.on("StartGame",function(data){
   if (data.round>33)
   {
       var maxUserScore=maxs(data.room);
-      console.log(data.room);
        io.sockets.in(data.room).emit("EndGame",maxUserScore);
      
   }
@@ -228,6 +232,7 @@ socket.on("StartGame",function(data){
     if (!Check)
   {
     var VocabularyArray=AddQuess(data.ques);
+
     for (var i=0;i<33;i++)
     {
       var roundInfor={
@@ -237,7 +242,7 @@ socket.on("StartGame",function(data){
         qu:rand(VocabularyArray.length-1,0),
       }
       roundInfor['VocabularyArray'] = VocabularyArray[roundInfor.qu];
-     VocabularyArray=VocabularyArray.filter(item=>item.root!==VocabularyArray[roundInfor.qu]) ;
+     VocabularyArray=VocabularyArray.filter(item=>item.root!==VocabularyArray[roundInfor.qu].root) ;
       var ob={
         roundInfor:roundInfor,
         Room:data.room
@@ -245,7 +250,6 @@ socket.on("StartGame",function(data){
       GameQues.push(ob);
     }
   }
-  console.log(GameQues);
   }
   else
   {
@@ -349,7 +353,7 @@ socket.on("GameEnd",function(rn){
 // end tạo roomF
 socket.on("iWantToKnowMember",function(data){
 var num2=0;
-
+// data nhận được là roomname
   for (const [room, roomInfo] of socket.adapter.rooms) {
     // Lấy số lượng người trong phòng
     const numberOfUsers = roomInfo.size;
@@ -379,6 +383,9 @@ app.engine(
       sum: (a,b) => a+b,
       json: function (context) {
         return JSON.stringify(context);
+    },
+    if_eq: function (a, b, opts) {
+      return a == b ? opts.fn(this) : opts.inverse(this);
     }
     }
   }),

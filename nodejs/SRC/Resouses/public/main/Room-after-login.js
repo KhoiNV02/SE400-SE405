@@ -8,6 +8,8 @@ for (var i=0;i<4;i++)
 {
     gameMode[i].onclick=function()
     {  GameMode=gameMode.findIndex(element => element === this);
+        this.classList.add("active");
+        this.classList.remove("active");
         for (var j=0;j<3;j++)
         {
        gameMode[j].style.opacity="1";
@@ -42,8 +44,6 @@ var Public=document.querySelector("#Left");
 var Private=document.querySelector("#Right");
 
 var Mid=document.querySelector("#Mid");
-
-
 Private.onclick =function(){
     range=0;
     Mid.style.transform = "translateX(100%)";
@@ -53,16 +53,14 @@ Public.onclick =function(){
     range=1;
     Mid.style.transform = "translateX(0%)";
 }
-
 // kết thúc sự kiện chọn loại hình room
 var Loca;
 // biến để biết là người dùng đang tạo room mới hay là vừa join room
 // bắt sự kiện tạo mới room 
 // tạo mới room có gì không
-var createNewRoom=document.querySelector("#createNewRoom");
-createNewRoom.onclick=function()
-{ 
-     Loca='my';
+document.getElementById("createNewRoom").addEventListener("mousedown", function() {
+
+    Loca='my';
     if (GameMode==-1)
     {
         alert("Vui lòng chọn chế độ chơi trước khi tạo room");
@@ -80,7 +78,9 @@ window.location.href = `http://localhost:3000/bombparty?idplayer=${idplayer}&Use
         var idplayer=randomNumber;
         window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
     }
-}
+});
+
+
 var joinRoom=document.querySelector("#joinRoom");
 var codeJoinRoom=document.querySelector("#codeJoinRoom");
 joinRoom.onclick=function()
@@ -118,16 +118,26 @@ joinRoom.onclick=function()
 
 }
 
-var Refesh=document.querySelector("#Refresh");
-Refesh.onclick=function()
-{
-//    api để lưu 1 lượng lớn từ xuống
-    //   axios.get(`http://localhost:3000/home/data`, { params: { vocabulary: a2Vocabulary } })
-    //   .then(response => {
-    //     console.log("Lưu thành công");
-    //   })
-    //   .catch(error => {
-    //     console.error("Lỗi khi gửi yêu cầu:", error);
-    //   });
-   
+console.log(room0);
+var RoomGames = document.querySelectorAll(".bombparty-room-TbT");
+var RoomGamesArray = Array.from(RoomGames);
+
+for (var i = 0; i < RoomGamesArray.length; i++) {
+    (function (index) {
+        RoomGamesArray[index].onclick = function () {
+            Loca = "your";
+            console.log(room0[0].code);
+            idplayer = room0[index].Code;
+            var Of = room0[index].Room;
+            window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+        };
+    })(i);
 }
+document.getElementById("Refresh").addEventListener("mousedown", function() {
+    this.classList.add("active");
+    location.reload(true);
+});
+
+document.getElementById("Refresh").addEventListener("mouseup", function() {
+    this.classList.remove("active");
+});

@@ -102,7 +102,7 @@ body {
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('../assets/ramdomize-1-bg.png');
+  background-image: url('../assets/ramdomize-1.png');
 }
 .room-after-login-pgV .auto-group-vjm9-453 .start-the-game-V3s .auto-group-xee7-pEZ .auto-group-5oz3-euj {
   box-sizing: border-box;
@@ -394,6 +394,10 @@ body {
   background-color: #a2e85c;
   border-radius: 2.7768rem;
   cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.auto-group-pycs-sUH:hover{
+  opacity: 0.5;
 }
 .room-after-login-pgV .auto-group-vjm9-453 .banner2-1-f9F {
   width: 154.9rem;
@@ -481,6 +485,10 @@ body {
   font-family: Spicy Rice, 'Source Sans Pro';
   white-space: nowrap;
   cursor: pointer;
+}
+.join-room-dGR:hover
+{
+  opacity: 0.5;
 }
 .room-after-login-pgV .auto-group-vjm9-453 .group-10-dQq {
   width: 57.6301rem;
@@ -726,6 +734,15 @@ body {
   background-color: #5cbee8;
   border-radius: 2.5rem;
   flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.auto-group-ebgf-teq:hover {
+ opacity: 0.5;
+}
+
+.auto-group-ebgf-teq.active {
+ opacity: 0.3;
 }
 .room-after-login-pgV .auto-group-vcr1-G5j .auto-group-heuk-wd7 {
   margin: 0rem 1.766rem 3.406rem 0rem;
@@ -768,7 +785,7 @@ body {
   transform-origin: left bottom; 
 }
 .room-after-login-pgV .auto-group-vcr1-G5j .auto-group-heuk-wd7 .bombparty-room-TbT .bombparty-2-a3o {
-  width: 9.8231rem;
+  width: 13.8231rem;
   height: 11.5594rem;
   position: absolute;
   left: 1.657rem;

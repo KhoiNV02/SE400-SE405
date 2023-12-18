@@ -4,6 +4,7 @@ const Vocabulary=require('../models/VoccabularyModel');
 class MeController {
   //[get]/news
 
+
   JoinRoom(req, res,next) {
       var idPlayer={idPlayer:req.query.idplayer};
       var UserName={UserName:req.query.Username};
@@ -67,12 +68,18 @@ class MeController {
 
 async GetWord(req,res)
 {
+  
   const randomVocabularies = await Vocabulary.aggregate([{ $sample: { size: 33 } }]);
-
-    res.status(200).json(randomVocabularies);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+  
+  res.status(200).json(randomVocabularies);
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ message: 'Internal server error' });
 }
+
+
+    // Lấy một danh sách ngẫu nhiên các từ vựng từ cơ sở dữ liệu
+    // Lấy một danh sách ngẫu nhiên các từ vựng từ cơ sở dữ liệu
+   
 }
 module.exports = new MeController();

@@ -20,7 +20,9 @@ function addParagraph(mes) {
     myDiv.appendChild(newParagraph);
     myDiv.scrollTop = myDiv.scrollHeight;
   }
-
+  function isEmptyOrSpaces(str) {
+    return str === null || str.match(/^ *$/) !== null;
+}
 chat.onkeydown= function handleKeyDown(event) {
     // Kiểm tra xem phím Enter đã được nhấn hay không (keyCode 13 hoặc key "Enter")
     if (event.key === "Enter" || event.keyCode === 13) {
@@ -40,7 +42,11 @@ chat.onkeydown= function handleKeyDown(event) {
     chat:chat.value
     }
 }
-      socket.emit("send-hello",chat1);
+if (!isEmptyOrSpaces(chat1.chat))
+{
+  socket.emit("send-hello",chat1);
+}
+     
       // addParagraph(chat.value);
       chat.value="";
     }

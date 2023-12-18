@@ -88,7 +88,6 @@ var Mang=[];
         // console.log(t);
         countPlayer.textContent=`Waiting for ${t.toString()} Player to start`;
         Mang=[idPlayer1,UserName,Loca,Of];
-       
          });
          //gửi số lượng người còn thiếu
 

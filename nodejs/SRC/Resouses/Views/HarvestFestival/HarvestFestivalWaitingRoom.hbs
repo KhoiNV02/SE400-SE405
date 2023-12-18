@@ -56,19 +56,19 @@
           <div class="auto-group-nt3h-rfo">
             <!-- player2 -->
             <div class="auto-group-cmzm-CUm player" id="player2" style="display: none;">
-              <img class="bat-1-jDo" src="../main/assets/bat-1-T1o.png" />
+              <img class="bat-1-jDo" src="../main/assets/bat-1.png" />
               <p class="username3-rZK playerName" id="Player2-name">Username3</p>
             </div>
             <img class="bm-2-ytq" id="countDown" src="../main/assets/harvestroom-1.png" />
             <!-- player 3 -->
             <div class="auto-group-dw1z-hZw player" id="player3" style="display: none;">
               <p class="username1-3do playerName" id="Player3-name">Username1</p>
-              <img class="baby-1-MPb " src="../main/assets/baby-1-8Ym.png" />
+              <img class="baby-1-MPb " src="../main/assets/baby-1.png" />
             </div>
           </div>
           <!-- player 4 -->
           <div class="auto-group-cmzm-CUm player" id="player4" style="display: none;">
-            <img class="chicken-1-4oo" src="../main/assets/chicken-1-n6Z.png" />
+            <img class="chicken-1-4oo" src="../main/assets/chicken-1.png" />
             <p class="username2-zSZ playerName" id="Player4-name">Username2</p>
           </div>
           <!-- <div class="auto-group-kboh-idT">Leave</div> -->
@@ -538,14 +538,12 @@
   Of = decodeHtmlEntity(Of);
   //tạo room
   if (Loca === 'my') {
-    // socket.emit("Create-Room",UserName+"'s Room");
-    // var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
     socket.emit("Create-Room", { UserName: UserName, RoomName: UserName + "'s Room", Code: code1 });
     socket.emit("Create-Player");
     socket.on("Player-At-TheMoment", function (data) {
       disPlayer(data);
 
-      if (data.length ===4)
+      if (data.length ===1)
         ZoGame(true);
     });
 
@@ -557,7 +555,7 @@
       socket.on("Player-At-TheMoment", function (data) {
         disPlayer(data);
 
-        if (data.length ===4)
+        if (data.length ===1)
           ZoGame(true);
       });
     }
@@ -635,11 +633,13 @@
       var beforeVocabularyArray = [];
        axios.get(`http://localhost:3000/harvestfestival/GetWord`)
     .then(response => {
-        console.log(response.data);
         for (var i=0;i<response.data.length;i++)
         beforeVocabularyArray.push(response.data[i].Word);
+        return beforeVocabularyArray;
     })
-      countdown1 = setTimeout(function () {
+    .then(beforeVocabularyArray)
+    {
+countdown1 = setTimeout(function () {
         // Dừng chu kỳ lặp bằng cách truyền ID vào clearInterval
         clearInterval(countdown);
 
@@ -656,6 +656,8 @@
         socket.emit("StartGame", roundInfor);
         //gửi send bắt đầu room ở đây nè :v mọe
       }, 12000); // Dừng sau 5 giây  
+    }
+      
     }
   }
   //nội dung chat cũ

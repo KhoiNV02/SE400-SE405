@@ -157,87 +157,38 @@
     <!-- các room-->
     <div class="auto-group-heuk-wd7" id="roomContainer">
       <!-- Room1 -->
+      {{#each rooms}}
       <div class="bombparty-room-TbT">
         <div class="rectangle-11-B1f">
         </div>
         <div class="line-1-SiH">
         </div>
-        <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-        <p class="bombparrty-english-gcd">BombParrty (English)</p>
-        <p class="fmhk-m8H">FMHK</p>
-        <p class="username1s-room-gFF">UserName1’s Room</p>
-      </div>
-      <!-- Room2 -->
-      <div class="bombparty-room-TbT">
-        <div class="rectangle-11-B1f">
-        </div>
-        <div class="line-1-SiH">
-        </div>
-        <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-        <p class="bombparrty-english-gcd">BombParrty (English)</p>
-        <p class="fmhk-m8H">FMHK</p>
-        <p class="username1s-room-gFF">UserName1’s Room</p>
-      </div>
-      <!-- Room3 -->
-      <div class="bombparty-room-TbT">
-        <div class="rectangle-11-B1f">
-        </div>
-        <div class="line-1-SiH">
-        </div>
-        <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-        <p class="bombparrty-english-gcd">BombParrty (English)</p>
-        <p class="fmhk-m8H">FMHK</p>
-        <p class="username1s-room-gFF">UserName1’s Room</p>
-      </div>
-          <!-- Room3 -->
-          <div class="bombparty-room-TbT">
-            <div class="rectangle-11-B1f">
-            </div>
-            <div class="line-1-SiH">
-            </div>
-            <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-            <p class="bombparrty-english-gcd">BombParrty (English)</p>
-            <p class="fmhk-m8H">FMHK</p>
-            <p class="username1s-room-gFF">UserName1’s Room</p>
-          </div>    
-        
-           <!-- Room3 -->
-           <div class="bombparty-room-TbT">
-            <div class="rectangle-11-B1f">
-            </div>
-            <div class="line-1-SiH">
-            </div>
-            <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-            <p class="bombparrty-english-gcd">BombParrty (English)</p>
-            <p class="fmhk-m8H">FMHK</p>
-            <p class="username1s-room-gFF">UserName1’s Room</p>
-          </div>    
-        
-           <!-- Room3 -->
-           <div class="bombparty-room-TbT">
-            <div class="rectangle-11-B1f">
-            </div>
-            <div class="line-1-SiH">
-            </div>
-            <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-            <p class="bombparrty-english-gcd">BombParrty (English)</p>
-            <p class="fmhk-m8H">FMHK</p>
-            <p class="username1s-room-gFF">UserName1’s Room</p>
-          </div>    
-           <!-- Room3 -->
-           <div class="bombparty-room-TbT">
-            <div class="rectangle-11-B1f">
-            </div>
-            <div class="line-1-SiH">
-            </div>
-            <img class="bombparty-2-a3o" src="main/assets/bombparty-2-SsP.png"/>
-            <p class="bombparrty-english-gcd">BombParrty (English)</p>
-            <p class="fmhk-m8H">FMHK</p>
-             <p class="username1s-room-gFF">UserName1’s Room</p>
-            {{!-- <p class="username1s-room-gFF">{{rooms}}</p> --}}
-          </div>    
        
-        
+
+   {{#if_eq  this.gameMode 3 }}
+    <img class="bombparty-2-a3o" src="main/assets/roomhavest.png"/>
+      <p class="bombparrty-english-gcd">Harvest Festival (English)</p>
+    {{else}}
+       {{#if_eq  this.gameMode 2 }}
+    <img class="bombparty-2-a3o" src="main/assets/detective-1.png"/>
+     <p class="bombparrty-english-gcd">Dectective Word (English)</p>
+     {{else}}
+       {{#if_eq  this.gameMode 1 }}
+    <img class="bombparty-2-a3o" src="main/assets/bombparty-1.png" style="width: 12.8231rem;height: 12.5594rem;"/>
+     <p class="bombparrty-english-gcd">bomb Party (English)</p>
+     {{else}}
+       {{#if_eq  this.gameMode 0 }}
+    <img class="bombparty-2-a3o" src="main/assets/ramdomize-1.png"/>
+     <p class="bombparrty-english-gcd">Randomize (English)</p>
+           {{/if_eq}}
+           {{/if_eq}}
+           {{/if_eq}}
+    {{/if_eq}}
+
+        <p class="fmhk-m8H">{{this.Code}}</p>
+        <p class="username1s-room-gFF">{{this.Room}}</p>
+      </div>
+        {{/each}}
     </div>
 
    
@@ -251,6 +202,9 @@
 </div>
 <script>
 var Username={{{json Username}}}.Username;
+var room0={{{json rooms}}};
+console.log(Username);
+console.log(room0[0].Code);
 </script>
 <script src="socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
