@@ -11,18 +11,21 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito%3A400" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono%3A400" />
-  <link rel="stylesheet" href="./styles/desktop-4 copy.css" />
-  <link rel="stylesheet" href="./styles/desktop-4 copy 2.css" />
+  <link rel="stylesheet" href="../main/styles/desktop-4 copy.css" />
+  <link rel="stylesheet" href="../main/styles/desktop-4 copy 2.css" />
 </head>
 
 <body>
+     <audio  id="audio" preload="auto" autoplay="auto" loop  >
+    <source type="audio/mp3" src="../main/assets/creepy-devil-dance-166764.mp3">
+</audio>
   <!-- header -->
   <div class="headBomb">
     <div class="codeBomb">
-      <p>Code: KOFM</p>
+      <p id="codeJoinRoom">Code: {{idPlayer.idPlayer}}</p>
     </div>
     <div class="volumeBomb">
-      <img id="nut" src="assets/vector-5s3.png" alt="">
+      <img id="nut" src="../main/assets/vector-5s3.png" alt="">
     </div>
   </div>
   <!--end header  -->
@@ -32,7 +35,7 @@
         <img src="" alt="">
       </div>
       <div class="buttonBomb">
-        <p>Join The Game</p>
+        <p>Start The Game</p>
       </div>
       <!-- end khối bị none khi vào room đợi -->
       <div class="buttonBomb2" style="display: none;">
@@ -45,8 +48,8 @@
       </div>
       <div class="quesInRoomBomb">
         <div class="tresure">
-            <img id="Bom" src="assets/questionBox.png" alt="">
-            <img id="Bom1"  src="./assets/bum.gif" style="position:absolute;"/>
+            <img id="Bom" src="../main/assets/questionBox.png" alt="">
+            <img id="Bom1"  src="./../main/assets/bum.gif" style="position:absolute;"/>
         </div>
         <div class="Ques" id="Ques">
             <p></p>
@@ -58,7 +61,7 @@
              <p> UserName1</p>
             </div>
             <div class="playeravtSpace">
-              <img src="assets/dog1.png" alt="">
+              <img src="../main/assets/dog1.png" alt="">
             </div>
           </div>
           <div class="playerSpace">
@@ -66,7 +69,7 @@
             <p>UserName2</p>
             </div>
             <div class="playeravtSpace">
-              <img src="assets/dog3.png" alt="" >
+              <img src="../main/assets/dog3.png" alt="" >
             </div>
           </div>
           <div class="playerSpace">
@@ -74,7 +77,7 @@
               <p>UserName3</p>
             </div>
             <div class="playeravtSpace">
-              <img src="assets/dog4.png" alt="" style="width: 60%;">
+              <img src="../main/assets/dog4.png" alt="" style="width: 60%;">
             </div>
           </div>
           <div class="playerSpace">
@@ -82,7 +85,7 @@
               <p>UserName4</p>
             </div>
             <div class="playeravtSpace">
-              <img src="assets/dog5.png" alt="">
+              <img src="../main/assets/dog5.png" alt="">
             </div>
           </div>
       </div>
@@ -92,40 +95,44 @@
         <p>Chat Room</p>
       </div>
       <div class="chat" id="chat">
-        <p class="chattextBomb">Usernam1: Hello tất cả mọi người nhá chào mọ người nhá, hello tuyệt vời</p>
-        <p class="chattextBomb">Usernam1: Hello tất cả mọi người nhá chào mọ người nhá, hello tuyệt vời</p>
+    
       </div>
       <input id="chatbar" class="chatboxBomb" type="text" placeholder="Type Here to Text">
     </div>
   </div>
 
 </body>
+<script src="../socket.io/socket.io.js"></script>
 <script>
   var Bom=document.querySelector("#Bom");
   var Bum=document.querySelector("#Bom1");
   var Ques=document.querySelector("#Ques");
 Bom.onclick=mytimer;
-
-
 function mytimer ()
 {
-  // Bom.classList.add('shake-animation');
-  
-  // Remove the shake class after the animation completes
-
-  
-  // setTimeout(() => {
-  //   Bom.classList.remove('shake-animation');
-  // }, 500);
-  // Bom.style.transform= "scale(1.1)";
   setTimeout(()=>{Bom.style.transform= "scale(1.2)";},300); 
   setTimeout(()=>{Bom.style.transform= "scale(1.5)";},600); 
   setTimeout(()=>{Bom.style.transform= "scale(2.)";},800); 
   setTimeout(()=>{Bom.style.transform= "scale(2.5)"; Bum.style.display="block";},1000); 
   setTimeout(()=>{ Bom.style.opacity="0"; Bom.style.transform= "scale(0.8)"; },1200);
   setTimeout(()=>{ Bom.style.opacity="1"; Bum.style.display="none"; Ques.querySelector('p').textContent="Dog"},1600);
-
-  // setTimeout(()=>{Bom.style.transform= "scale(2.0)";},100); 
-  // setTimeout(()=>{Bom.style.transform= "scale(2.5)";},100); 
 }
+var UserName={{{json Username}}}.UserName;
+var idPlayer1={{{json idPlayer}}}.idPlayer;
+var Loca={{{json Loca}}}.Loca;
+var Of={{{json Of}}}.Of;
+var range={{{json range}}}.range;
+var gameMode={{{json gameMode}}}.gameMode;
+function decodeHtmlEntity(encodedString) {
+        var doc = new DOMParser().parseFromString(encodedString, 'text/html');
+        return doc.documentElement.textContent;
+    }
+    Of = decodeHtmlEntity(Of);
+
+      var socket=io("http://localhost:3000");
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="module" src="../main/DetectiveWord.js"></script>
+<script src="../main/ScriptChung.js"></script>

@@ -42,6 +42,7 @@ height:100%;
 display: flex;
 justify-self: center;
 align-items: center;
+margin-right: 50px;
 }
 
 .volumeBomb img

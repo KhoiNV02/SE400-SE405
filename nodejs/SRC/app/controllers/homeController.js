@@ -21,6 +21,7 @@ class NewsController {
   }
 
  getNewRoom(req, res,next) {
+  console.log("oke")
     Room.find({})
       .then((rooms) => {
         if (!rooms) {

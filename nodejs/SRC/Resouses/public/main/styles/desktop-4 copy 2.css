@@ -1,8 +1,141 @@
 .buttonBomb{
   margin-bottom: 0.3%;
 }
+.buttonBomb p
+{
+  padding-top: 10px;
+}
 .leftbodyBomb
 {
-  background-image: url('../assets/detectiveword-3.png'); 
+  background-image: url('../assets/detectiveword-5.png'); 
   background-size:cover;
+}
+
+#leftBodyBombInRoom
+{
+  background-color: rgb(237, 231, 231);
+  background-image: url('../assets/backgame1.gif');
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+.space
+{
+  height: 30%;
+  background-color: black;
+  opacity: 0;
+}
+.quesInRoomBomb
+{
+  height: 60%;
+
+  margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.tresure
+{
+  height: 70%;
+
+  width: 20%;
+  text-align: center;
+  position: relative;
+}
+.tresure img
+{
+  width: 70%;
+  height: auto;
+
+}
+#Bom1
+{
+  left: -80px;
+  top: -100px;
+  position: absolute;
+  width: 150%;
+  display: none;
+}
+.Ques
+{
+height: 30%;
+width: 20%;
+text-align: center;
+}
+.Ques p
+{
+  font-size: 4.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color:#ffffff;
+  font-family: Spicy Rice, 'Source Sans Pro';
+}
+.playerInRoomBomb
+{
+  height: 30%;
+  margin-bottom: 3%;
+  display: flex;
+  justify-content: space-around;
+}
+.playerSpace
+{
+  width: 20%;
+
+}
+.playerNameSpace
+{
+  height: 20%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playerNameSpace p
+{
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #0a0a0a;
+  font-family: Spicy Rice, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.playeravtSpace
+{
+  height: 80%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playeravtSpace img
+{
+  width: 50%;
+  height: auto;
+}
+
+
+.usernam1-hello-DmX
+{ 
+  margin-left: 10px;
+  font-size: 2.3rem;
+  font-weight: 400;
+  line-height: 1.3775;
+  color: #fbf3f3;
+  font-family: Nunito;
+  box-sizing: border-box;
+  word-wrap:break-word;
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
+
+}
+
+#nut
+{
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  width: 4.0051rem;
+  height: 3.2rem;
+  object-fit: contain;
+  vertical-align: top;
 }

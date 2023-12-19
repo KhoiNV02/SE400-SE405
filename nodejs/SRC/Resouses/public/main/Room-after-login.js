@@ -72,6 +72,13 @@ document.getElementById("createNewRoom").addEventListener("mousedown", function(
 window.location.href = `http://localhost:3000/bombparty?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
     }
     else
+    if (GameMode==2)
+    {
+        var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
+        var idplayer=randomNumber;
+        window.location.href = `http://localhost:3000/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
+    }
+    else
     if (GameMode==3)
     {
         var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
@@ -96,7 +103,6 @@ joinRoom.onclick=function()
             console.log('Dữ liệu nhận được sau khi gửi request xem room mới nhất:');
             rooms=response.data;
              var idplayer;
-             
              var check=false;
         for (var i=0;i<rooms.length;i++)
         {
@@ -104,7 +110,11 @@ joinRoom.onclick=function()
         {   check=true;
             idplayer=rooms[i].Code;
             var Of=rooms[i].Room;
+            if (rooms[i].gameMode==3)
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+            else
+            if (rooms[i].gameMode==2)
+            window.location.href = `http://localhost:3000/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
             break;
          }
         }
@@ -113,12 +123,12 @@ joinRoom.onclick=function()
             })
             .catch(error => {
             console.error('Lỗi khi gửi get request:');
+            console.log(error);
             });   
     }
 
 }
-
-console.log(room0);
+// join room public
 var RoomGames = document.querySelectorAll(".bombparty-room-TbT");
 var RoomGamesArray = Array.from(RoomGames);
 
