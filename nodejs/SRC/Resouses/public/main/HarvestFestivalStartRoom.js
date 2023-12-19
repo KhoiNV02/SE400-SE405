@@ -90,7 +90,10 @@ var Mang=[];
         Mang=[idPlayer1,UserName,Loca,Of];
          });
          //gửi số lượng người còn thiếu
-
+         socket.on("Check-people", function () {
+            socket.emit("iWantToKnowMember", rn);
+          })
+          
          joinTheGame.onclick=function(){
             window.location.href = `http://localhost:3000/HarvestFestival/${Mang}`; 
            }

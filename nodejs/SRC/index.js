@@ -364,6 +364,10 @@ var num2=0;
 }
 io.sockets.in(data).emit("memberWating",num2);
 })
+
+socket.on("StartDetec",function(data){
+  io.sockets.in(data).emit("DetecStart");
+})
 });
 // kết thúc xử lý server
 // const handlebars = require('express-handlebars')

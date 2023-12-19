@@ -136,7 +136,6 @@ for (var i = 0; i < RoomGamesArray.length; i++) {
     (function (index) {
         RoomGamesArray[index].onclick = function () {
             Loca = "your";
-            console.log(room0[0].code);
             idplayer = room0[index].Code;
             var Of = room0[index].Room;
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;

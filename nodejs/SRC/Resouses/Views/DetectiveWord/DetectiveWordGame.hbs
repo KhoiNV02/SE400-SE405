@@ -34,11 +34,11 @@
       <div class="bodyofleftbody">
         <img src="" alt="">
       </div>
-      <div class="buttonBomb">
+      <div class="buttonBomb" id="ButtonStart">
         <p>Start The Game</p>
       </div>
       <!-- end khối bị none khi vào room đợi -->
-      <div class="buttonBomb2" style="display: none;">
+      <div class="buttonBomb2" id="ButtonLeave" style="display: none;">
         <p>Leave</p>
       </div>
     </div>
@@ -130,6 +130,10 @@ function decodeHtmlEntity(encodedString) {
     Of = decodeHtmlEntity(Of);
 
       var socket=io("http://localhost:3000");
+
+
+ 
+
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
