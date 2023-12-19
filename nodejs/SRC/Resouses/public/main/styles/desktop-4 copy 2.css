@@ -66,6 +66,11 @@
 height: 30%;
 width: 20%;
 text-align: center;
+
+width:70%;
+color:#d5df00;
+
+text-Shadow:3px 2px 1px rgba(0, 0, 0, 1);
 }
 .Ques p
 {
@@ -180,4 +185,13 @@ width: 100%;
 {
   margin-bottom: 1%;
     margin-right: 2%;
+}
+
+:root {
+  --primary-color:#f9b82a;
+}
+@keyframes glow {
+  0% { box-shadow: 0 0 10px 5px  var(--primary-color); }
+  50% { box-shadow: 0 0 20px 10px  var(--primary-color); }
+  100% { box-shadow: 0 0 10px 5px var(--primary-color); }
 }

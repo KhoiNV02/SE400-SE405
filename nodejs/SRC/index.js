@@ -364,11 +364,58 @@ var num2=0;
 }
 io.sockets.in(data).emit("memberWating",num2);
 })
-
+var k=[];
 socket.on("StartDetec",function(data){
-  io.sockets.in(data).emit("DetecStart");
+  k.push("Trận đấu bắt đầu");
+  io.sockets.in(data.rn).emit("DetecStart");
+ 
+  socket.on("DecStartRound",function(round){
+    k.push("Bắt đầu trận để chuẩn bị gửi ques");
+ var obj={
+  ques:data.Ques[round-1],
+  imposter:rand(3,0),
+    }
+    Voted=Voted.filter(item=>item.rn!==data.rn);
+    io.sockets.in(data.rn).emit("RoundInforDec",obj);
+  })
+})
+socket.on("Voted",function(data){
+  k.push("gửi voted");
+  Voted.push(data);
+  var c1=0;
+  var Imposter=[0,0,0,0];
+  for (var i=0;i<Voted.length;i++)
+  {
+    if (Voted[i].rn===data.rn)
+    {
+      c1++;
+    Imposter[Voted[i].Vote]++;
+    }
+  }
+  console.log(c1);
+  if (c1==1)
+  {
+    c1=0;
+    console.log(Voted);
+    var maxposition,maxscore=-1;
+    for (var i=0;i<Imposter.length;i++)
+    {
+      if (Imposter[i]>maxscore)
+      {
+        maxscore=Imposter[i];
+        maxposition=i;
+      }
+    }
+    io.sockets.in(data.rn).emit("TheImposter",maxposition);
+  }
+  else
+  {
+    c1=0;
+  }
+
 })
 });
+var Voted=[];
 // kết thúc xử lý server
 // const handlebars = require('express-handlebars')
 const port = 3000;

@@ -49,7 +49,7 @@
       <div class="quesInRoomBomb">
         <div class="tresure">
             <img id="Bom" src="../main/assets/questionBox.png" alt="">
-            <img id="Bom1"  src="./../main/assets/bum.gif" style="position:absolute;"/>
+            <img id="Bom1"  src="../main/assets/bum.gif" style="position:absolute;"/>
         </div>
         <div class="Ques" id="Ques">
             <p></p>
@@ -104,19 +104,7 @@
 </body>
 <script src="../socket.io/socket.io.js"></script>
 <script>
-  var Bom=document.querySelector("#Bom");
-  var Bum=document.querySelector("#Bom1");
-  var Ques=document.querySelector("#Ques");
-Bom.onclick=mytimer;
-function mytimer ()
-{
-  setTimeout(()=>{Bom.style.transform= "scale(1.2)";},300); 
-  setTimeout(()=>{Bom.style.transform= "scale(1.5)";},600); 
-  setTimeout(()=>{Bom.style.transform= "scale(2.)";},800); 
-  setTimeout(()=>{Bom.style.transform= "scale(2.5)"; Bum.style.display="block";},1000); 
-  setTimeout(()=>{ Bom.style.opacity="0"; Bom.style.transform= "scale(0.8)"; },1200);
-  setTimeout(()=>{ Bom.style.opacity="1"; Bum.style.display="none"; Ques.querySelector('p').textContent="Dog"},1600);
-}
+  
 var UserName={{{json Username}}}.UserName;
 var idPlayer1={{{json idPlayer}}}.idPlayer;
 var Loca={{{json Loca}}}.Loca;

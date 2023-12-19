@@ -74,10 +74,6 @@ if (Location=="your")
     });
 }
 
-
-
-console.log(players.length);
-console.log(wating[0].style.backgroundImage);
 var rn;
 if (Loca==='my')
 rn=Of+"'s Room";
@@ -127,7 +123,7 @@ function zoGame()
       }, 2000); // Change 2000 to match the total duration of your transition effect
 }
 var Ques=[
-    { Word: 'Dog', WordRelative: 'Cat' },
+  { Word: 'Dog', WordRelative: 'Cat' },
   { Word: 'Sun', WordRelative: 'Moon' },
   { Word: 'City', WordRelative: 'Countryside' },
   { Word: 'Ocean', WordRelative: 'Island' },
@@ -163,7 +159,8 @@ var Ques=[
   { Word: '18', WordRelative: '5' },
   { Word: 'Grass', WordRelative: 'Tree' },
 ];
-
+var Round=1;
+var Vote=Math.floor(Math.random() * (3 - 0 + 1)) +0;
 ButtonStart.onclick=function()
 {
 
@@ -174,12 +171,144 @@ alert("Vui lòng chờ đủ 4 người chơi để bắt đầu");
 else
 if (t==0)
 {
-    socket.emit("StartDetec",rn);
+    var obj=
+    {
+        rn:rn,
+        Ques:Ques,
+    }
+    socket.emit("StartDetec",obj);
 }
+}
+var Bom=document.querySelector("#Bom");
+  var Bum=document.querySelector("#Bom1");
+  var Ques1=document.querySelector("#Ques");
+function mytimer (ques)
+{
+  setTimeout(()=>{Bom.style.transform= "scale(1.2)";},300); 
+  setTimeout(()=>{Bom.style.transform= "scale(1.5)";},600); 
+  setTimeout(()=>{Bom.style.transform= "scale(2.)";},800); 
+  setTimeout(()=>{Bom.style.transform= "scale(2.5)"; Bum.style.display="block";},1000); 
+  setTimeout(()=>{ Bom.style.opacity="0"; Bom.style.transform= "scale(0.8)"; },1200);
+  setTimeout(()=>{ Bom.style.opacity="1"; Bum.style.display="none"; Ques1.querySelector('p').textContent=ques},1600);
 }
 socket.on("DetecStart",function(){
-    zoGame(rn);
+        zoGame(rn);
+        setTimeout(() => {
+            socket.emit("DecStartRound",Round);
+        }, 3000);
 })
+socket.on("RoundInforDec",function(data){
+    console.log("Thông tin vòng chơi");
+    console.log(data);
+   if (players[data.imposter].querySelector('.playerNameSpace').querySelector('p').textContent===UserName)
+    mytimer(data.ques.WordRelative);
+else
+    mytimer(data.ques.Word);
+
+setTimeout(function(){
+    var r=10;
+ var timeover= setInterval(function(){
+    Ques1.style.marginTop='-3%';
+    Ques1.querySelector('p').textContent=`The Time comming Over,please Voted Who is Imposter ${r}`;
+    r--;
+    if (r<0)
+    {
+        clearInterval(timeover);
+      
+    var obj={
+        Vote:Vote,
+        rn:rn,
+    }
+    socket.emit("Voted",obj);
+    socket.on("TheImposter",function(data1){
+     
+        Ques1.style.marginTop='0';
+        var name=players[data1].querySelector('.playerNameSpace').querySelector('p').textContent;
+          Ques1.querySelector('p').textContent=`'${name}' got the most votes`;
+          var avt=players[data1].querySelector('.playeravtSpace').querySelector('img').src;
+    if(data1===1)
+    {
+        Bom.style.width='50%';
+    }
+    Bom.setAttribute("src",avt);
+    players[data1].style.opacity=0;
+    
+    Bom1.setAttribute("src","../main/assets/prison.png");
+    Bom1.style.display='block';
+    Bom1.style.width='80%';
+    Bom1.style.top='-10px';
+    Bom1.style.left='10%';
+    Bom1.style.opacity='0.8';
+    var tt;
+    setTimeout(function(){
+        Ques1.querySelector('p').textContent=`The Imposter is ${name}`;
+        if (data1==data.imposter)
+        {   if (data1===1)
+            Bom.style.width='80%';
+            Bom1.style.top='-30px';
+            avt='main/assets/Virus.png';
+            Bom.setAttribute("src",avt);  
+            tt= players[data.imposter].querySelector('.playeravtSpace').querySelector('img').src;
+        }
+        else
+        {
+        players[data.imposter].querySelector('.playeravtSpace').querySelector('img').style.width='90%';
+         tt= players[data.imposter].querySelector('.playeravtSpace').querySelector('img').src;
+        players[data.imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src","main/assets/Virus.png");
+        }
+    
+        setTimeout(function(){
+            Ques1.querySelector('p').style.display='none'
+            Bom.setAttribute("src","../main/assets/questionBox.png");
+         players[data.imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src",tt)
+          players[data.imposter].querySelector('.playeravtSpace').querySelector('img').style.width='50%';
+         Bom.style.width='70%';
+         Bom.style.transform='1';
+        Ques1.style.marginTop='0';
+        Bom1.style.display='none';
+        Bom1.style.width='150%';
+        Bom1.style.top='-100px';
+        Bom1.style.left='-80px';
+        Bom1.style.opacity='1';
+        players[data1].style.opacity=1;
+        setTimeout(function(){
+    if (rn===UserName+"'s Room")
+        {
+        Round++;
+        console.log("tôi là chủ room");
+        socket.emit("DecStartRound",Round);
+        }
+        },3000);
+        },3000);
+
+    },5000);
+   
+    })
+  
+    }
+    },100);
+    
+  
+},1000);
+})
+for (var i=0;i<players.length;i++)
+{   
+    (function (index) {
+    players[index].onclick=function(){
+    for (var j=0;j<players.length;j++)
+    players[j].style.animation='none';
+    players[index].style.animation='glow 2s infinite';
+    Vote=index;
+    console.log(Vote);
+            }
+        })(i);
+}
+
+// setInterval(function(){
+//     Round+=1;
+//     socket.emit("DecStartRound",Round);
+// },10000)
+
      socket.on("Check-people", function () {
         socket.emit("iWantToKnowMember", rn);
 
