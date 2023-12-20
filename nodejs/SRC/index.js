@@ -88,6 +88,7 @@ io.on("connection",function(socket){
 console.log("có người đã đăng nhập với id là "+ socket.id);
 // xử lý người dùng thoát khỏi room
 socket.on("disconnect",function(){
+  io.sockets.in(socket.room).emit("OutSoEndGame");
   console.log("Có người đã out room"+ socket.id);
   for (var i=0;i<Chats.length;i++)
   {
@@ -136,7 +137,7 @@ socket.on("disconnect",function(){
   // console.log(Chats);
   io.sockets.emit("Server-Send-Room",Rooms);
   io.sockets.in(socket.room).emit("Check-people");
-})
+});
 // end disconect
 //begin vào phòng game
 // begin tạo room
@@ -363,24 +364,23 @@ var num2=0;
     }
 }
 io.sockets.in(data).emit("memberWating",num2);
-})
-var k=[];
+});
 socket.on("StartDetec",function(data){
-  k.push("Trận đấu bắt đầu");
+ console.log("Trận đấu bắt đầu");
   io.sockets.in(data.rn).emit("DetecStart");
- 
+ console.log("Gửi thông tin về để xác thực là bắt đầu game");
   socket.on("DecStartRound",function(round){
-    k.push("Bắt đầu trận để chuẩn bị gửi ques");
+   console.log("bắt đầu round đấu để gửi ques",round);
  var obj={
   ques:data.Ques[round-1],
   imposter:rand(3,0),
     }
     Voted=Voted.filter(item=>item.rn!==data.rn);
     io.sockets.in(data.rn).emit("RoundInforDec",obj);
-  })
-})
+  });
+});
 socket.on("Voted",function(data){
-  k.push("gửi voted");
+console.log("Gửi voted")
   Voted.push(data);
   var c1=0;
   var Imposter=[0,0,0,0];
@@ -392,11 +392,9 @@ socket.on("Voted",function(data){
     Imposter[Voted[i].Vote]++;
     }
   }
-  console.log(c1);
-  if (c1==1)
+  if (c1==4)
   {
     c1=0;
-    console.log(Voted);
     var maxposition,maxscore=-1;
     for (var i=0;i<Imposter.length;i++)
     {
@@ -406,14 +404,14 @@ socket.on("Voted",function(data){
         maxposition=i;
       }
     }
+    console.log("Kết quả vote");
+    console.log(Voted);
     io.sockets.in(data.rn).emit("TheImposter",maxposition);
   }
-  else
-  {
-    c1=0;
-  }
-
-})
+});
+socket.on("EndGameDec",function(re){
+  io.sockets.in(re.rn).emit("TurnBack",re.reason);
+}); 
 });
 var Voted=[];
 // kết thúc xử lý server

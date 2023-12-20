@@ -97,6 +97,7 @@ socket.on("memberWating",function(data){
     wating[0].style.backgroundImage="url('main/assets/detectiveWord-2.png')";   
 
 });
+var imposter;
 function zoGame()
 {
     var set
@@ -159,18 +160,19 @@ var Ques=[
   { Word: '18', WordRelative: '5' },
   { Word: 'Grass', WordRelative: 'Tree' },
 ];
-var Round=1;
-var Vote=Math.floor(Math.random() * (3 - 0 + 1)) +0;
+var Round=0;
+var Vote=0;
 ButtonStart.onclick=function()
 {
 
     // dùng xong nhớ xóa đoạn t=0;
-    t=0;
 if (t>0)
 alert("Vui lòng chờ đủ 4 người chơi để bắt đầu");
 else
 if (t==0)
 {
+
+ 
     var obj=
     {
         rn:rn,
@@ -194,103 +196,152 @@ function mytimer (ques)
 socket.on("DetecStart",function(){
         zoGame(rn);
         setTimeout(() => {
+            Round++;
             socket.emit("DecStartRound",Round);
         }, 3000);
-})
+});
+var r;
 socket.on("RoundInforDec",function(data){
+    imposter=data.imposter;
     console.log("Thông tin vòng chơi");
     console.log(data);
    if (players[data.imposter].querySelector('.playerNameSpace').querySelector('p').textContent===UserName)
+   {
+    console.log("có imposter");
     mytimer(data.ques.WordRelative);
+   }
 else
-    mytimer(data.ques.Word);
-
+{
+    console.log("không có imposter");
+   mytimer(data.ques.Word);
+}
+// gửi đi vote của mọi người, trong khoảng thời gian trước đó là chơi
 setTimeout(function(){
-    var r=10;
- var timeover= setInterval(function(){
-    Ques1.style.marginTop='-3%';
-    Ques1.querySelector('p').textContent=`The Time comming Over,please Voted Who is Imposter ${r}`;
-    r--;
-    if (r<0)
-    {
-        clearInterval(timeover);
-      
-    var obj={
-        Vote:Vote,
-        rn:rn,
-    }
-    socket.emit("Voted",obj);
-    socket.on("TheImposter",function(data1){
-     
-        Ques1.style.marginTop='0';
-        var name=players[data1].querySelector('.playerNameSpace').querySelector('p').textContent;
-          Ques1.querySelector('p').textContent=`'${name}' got the most votes`;
-          var avt=players[data1].querySelector('.playeravtSpace').querySelector('img').src;
-    if(data1===1)
-    {
-        Bom.style.width='50%';
-    }
-    Bom.setAttribute("src",avt);
-    players[data1].style.opacity=0;
-    
-    Bom1.setAttribute("src","../main/assets/prison.png");
-    Bom1.style.display='block';
-    Bom1.style.width='80%';
-    Bom1.style.top='-10px';
-    Bom1.style.left='10%';
-    Bom1.style.opacity='0.8';
-    var tt;
-    setTimeout(function(){
-        Ques1.querySelector('p').textContent=`The Imposter is ${name}`;
-        if (data1==data.imposter)
-        {   if (data1===1)
-            Bom.style.width='80%';
-            Bom1.style.top='-30px';
-            avt='main/assets/Virus.png';
-            Bom.setAttribute("src",avt);  
-            tt= players[data.imposter].querySelector('.playeravtSpace').querySelector('img').src;
-        }
-        else
-        {
-        players[data.imposter].querySelector('.playeravtSpace').querySelector('img').style.width='90%';
-         tt= players[data.imposter].querySelector('.playeravtSpace').querySelector('img').src;
-        players[data.imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src","main/assets/Virus.png");
-        }
-    
-        setTimeout(function(){
-            Ques1.querySelector('p').style.display='none'
-            Bom.setAttribute("src","../main/assets/questionBox.png");
-         players[data.imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src",tt)
-          players[data.imposter].querySelector('.playeravtSpace').querySelector('img').style.width='50%';
-         Bom.style.width='70%';
-         Bom.style.transform='1';
-        Ques1.style.marginTop='0';
-        Bom1.style.display='none';
-        Bom1.style.width='150%';
-        Bom1.style.top='-100px';
-        Bom1.style.left='-80px';
-        Bom1.style.opacity='1';
-        players[data1].style.opacity=1;
-        setTimeout(function(){
-    if (rn===UserName+"'s Room")
-        {
-        Round++;
-        console.log("tôi là chủ room");
-        socket.emit("DecStartRound",Round);
-        }
-        },3000);
-        },3000);
+   console.log("Timeout này được thực hiện");
 
-    },5000);
-   
-    })
-  
+        r=10;
+        var timeover= setInterval(function(){
+       Ques1.style.marginTop='-3%';
+       Ques1.querySelector('p').textContent=`The Time comming Over,please Voted Who is Imposter ${r}`;
+       r--;
+       if (r<0)
+       {
+        var obj={
+            Vote:Vote,
+            rn:rn,
+        }
+           clearInterval(timeover);
+           socket.emit("Voted",obj);
+       }
+       },1000);
+      
+},30000);
+});
+// hiển thị ai bị nhốt, và sau đó ai là import tở
+socket.on("TheImposter",function(data1){
+    Ques1.style.marginTop='0';
+    var name=players[data1].querySelector('.playerNameSpace').querySelector('p').textContent;
+      Ques1.querySelector('p').textContent=`'${name}' got the most votes`;
+       name=players[imposter].querySelector('.playerNameSpace').querySelector('p').textContent;
+      var avt=players[data1].querySelector('.playeravtSpace').querySelector('img').src;
+if(data1===1)
+{
+    Bom.style.width='50%';
+}
+Bom.setAttribute("src",avt);
+players[data1].style.opacity=0;
+
+Bom1.setAttribute("src","../main/assets/prison.png");
+Bom1.style.display='block';
+Bom1.style.width='80%';
+Bom1.style.top='-10px';
+Bom1.style.left='10%';
+Bom1.style.opacity='0.8';
+var tt;
+setTimeout(function(){
+    Ques1.querySelector('p').textContent=`The Imposter is ${name}`;
+
+    if (data1==imposter)
+    {   
+        console.log("virus đã bị bắt");
+        if (data1===1)
+        Bom.style.width='80%';
+        Bom1.style.top='-30px';
+        avt='main/assets/Virus.png';
+        Bom.setAttribute("src",avt);  
+        tt= players[imposter].querySelector('.playeravtSpace').querySelector('img').src;
     }
-    },100);
-    
-  
-},1000);
-})
+    else
+    {
+        console.log("Virus ở bên ngoài");
+    players[imposter].querySelector('.playeravtSpace').querySelector('img').style.width='90%';
+     tt= players[imposter].querySelector('.playeravtSpace').querySelector('img').src;
+    players[imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src","main/assets/Virus.png");
+    }
+
+    setTimeout(function(){
+        console.log("Tôi sẽ reset lại");
+        Ques1.querySelector('p').textContent='';
+        Bom.setAttribute("src","../main/assets/questionBox.png");
+        Bom1.setAttribute("src","../main/assets/bum.gif");
+     players[imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src",tt)
+      players[imposter].querySelector('.playeravtSpace').querySelector('img').style.width='50%';
+     Bom.style.width='70%';
+     Bom.style.transform='1';
+    Ques1.style.marginTop='0';
+    Bom1.style.display='none';
+    Bom1.style.width='150%';
+    Bom1.style.top='-100px';
+    Bom1.style.left='-80px';
+    Bom1.style.opacity='1';
+    players[data1].style.opacity=1;
+    if (rn===UserName+"'s Room")
+    { 
+        setTimeout(function(){
+            StartNewRound();
+        },3000);
+    }
+    },5000);
+
+},5000);
+   });
+//    kết thúc round đấu vì đã xong hoặc là có người out
+   socket.on("TurnBack",function(reason){
+    if (reason===1)
+    alert("Trò chơi đã kết thúc, nhấn OK để quay lại phòng");
+    else
+    alert("Trò chơi buộc phải kết thúc vì có người đã rời phòng");
+    location.reload(true);
+   });
+//    hàm để qua round mới
+function StartNewRound() {
+    if (rn === UserName + "'s Room") {
+        Round++;
+        if (Round===10)
+        {
+            var re={
+                rn:rn,
+                reason:1,
+            }
+        socket.emit("EndGameDec",re);
+        }
+    else
+        socket.emit("DecStartRound", Round);
+    }
+}
+// bắt sự kiện có người out
+socket.on("OutSoEndGame",function(){
+    console.log(Round);
+    if(Round!=0&&Round!=2)
+    {
+        var re={
+            rn:rn,
+            reason:0,
+        }
+        if (UserName+"'s Room"===rn)
+    socket.emit("EndGameDec",re);
+    }
+});
 for (var i=0;i<players.length;i++)
 {   
     (function (index) {
@@ -303,12 +354,6 @@ for (var i=0;i<players.length;i++)
             }
         })(i);
 }
-
-// setInterval(function(){
-//     Round+=1;
-//     socket.emit("DecStartRound",Round);
-// },10000)
-
      socket.on("Check-people", function () {
         socket.emit("iWantToKnowMember", rn);
 
