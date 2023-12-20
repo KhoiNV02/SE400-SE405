@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "body-parser": "^1.20.2",
-    "favicon": "^0.0.2",
-    "server": "^1.0.38"
-  }
-}
