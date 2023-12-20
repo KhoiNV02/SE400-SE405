@@ -21,21 +21,30 @@ function DeleteRoomInDatabase(data)
         console.error('Lỗi khi gửi POST request:', error);
         }); 
 }
+var back=[
+    "url('../main/assets/backgame1.gif')",  "url('../main/assets/backgame2.gif')"
+]
+var left12=document.querySelector("#leftBodyBombInRoom");
+console.log(left12);
+left12.style.backgroundImage=back[Math.floor(Math.random() * (1 - 0 + 1))];
+
 var wating=document.querySelectorAll(".leftbodyBomb");
 var ButtonStart=document.querySelector("#ButtonStart");
 var ButtonLeave=document.querySelector("#ButtonLeave");
 var audio=document.querySelector("#audio");
+var audio2=document.querySelector("#audio2");
+var audio3=document.querySelector("#audio3");
+var audio4=document.querySelector("#audio4");
+var audio5=document.querySelector("#audio5");
+
 var players=document.querySelectorAll(".playerSpace");
 var Location=Loca;
 ButtonLeave.onclick=function()
 {
     window.history.back();
 }
-// console.log(Location);
 if (Location=='my')
 {  
-// socket.emit("Create-Room",UserName+"'s Room");
-// var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
 socket.emit("Create-Room", { UserName: UserName, RoomName: UserName + "'s Room",Code:idPlayer1 });
 socket.on("Server-Send-Room",function(data)
 { 
@@ -115,7 +124,7 @@ function zoGame()
       setTimeout(function () {
         setTimeout(function(){
             audio.currentTime = 0;
-            audio.volume=1;
+            audio.volume=0.5;
         },500)
         
         wating[0].style.display='none';
@@ -166,13 +175,14 @@ ButtonStart.onclick=function()
 {
 
     // dùng xong nhớ xóa đoạn t=0;
+    // nhớ xóa đoạn này chữ ko là ăn lol
+ t=0;
 if (t>0)
 alert("Vui lòng chờ đủ 4 người chơi để bắt đầu");
 else
 if (t==0)
 {
 
- 
     var obj=
     {
         rn:rn,
@@ -186,10 +196,11 @@ var Bom=document.querySelector("#Bom");
   var Ques1=document.querySelector("#Ques");
 function mytimer (ques)
 {
+
   setTimeout(()=>{Bom.style.transform= "scale(1.2)";},300); 
   setTimeout(()=>{Bom.style.transform= "scale(1.5)";},600); 
   setTimeout(()=>{Bom.style.transform= "scale(2.)";},800); 
-  setTimeout(()=>{Bom.style.transform= "scale(2.5)"; Bum.style.display="block";},1000); 
+  setTimeout(()=>{Bom.style.transform= "scale(2.5)"; Bum.style.display="block";  audio2.play();},1000); 
   setTimeout(()=>{ Bom.style.opacity="0"; Bom.style.transform= "scale(0.8)"; },1200);
   setTimeout(()=>{ Bom.style.opacity="1"; Bum.style.display="none"; Ques1.querySelector('p').textContent=ques},1600);
 }
@@ -203,25 +214,24 @@ socket.on("DetecStart",function(){
 var r;
 socket.on("RoundInforDec",function(data){
     imposter=data.imposter;
-    console.log("Thông tin vòng chơi");
-    console.log(data);
    if (players[data.imposter].querySelector('.playerNameSpace').querySelector('p').textContent===UserName)
    {
-    console.log("có imposter");
     mytimer(data.ques.WordRelative);
    }
 else
 {
-    console.log("không có imposter");
+
    mytimer(data.ques.Word);
 }
 // gửi đi vote của mọi người, trong khoảng thời gian trước đó là chơi
 setTimeout(function(){
-   console.log("Timeout này được thực hiện");
+
 
         r=10;
         var timeover= setInterval(function(){
        Ques1.style.marginTop='-3%';
+       audio3.play();
+       audio3.volume=0.2;
        Ques1.querySelector('p').textContent=`The Time comming Over,please Voted Who is Imposter ${r}`;
        r--;
        if (r<0)
@@ -235,13 +245,16 @@ setTimeout(function(){
        }
        },1000);
       
-},30000);
+},5000);
 });
 // hiển thị ai bị nhốt, và sau đó ai là import tở
 socket.on("TheImposter",function(data1){
+    audio3.pause();
+   
     Ques1.style.marginTop='0';
     var name=players[data1].querySelector('.playerNameSpace').querySelector('p').textContent;
       Ques1.querySelector('p').textContent=`'${name}' got the most votes`;
+      audio2.play();
        name=players[imposter].querySelector('.playerNameSpace').querySelector('p').textContent;
       var avt=players[data1].querySelector('.playeravtSpace').querySelector('img').src;
 if(data1===1)
@@ -263,7 +276,7 @@ setTimeout(function(){
 
     if (data1==imposter)
     {   
-        console.log("virus đã bị bắt");
+        audio4.play();
         if (data1===1)
         Bom.style.width='80%';
         Bom1.style.top='-30px';
@@ -273,14 +286,14 @@ setTimeout(function(){
     }
     else
     {
-        console.log("Virus ở bên ngoài");
+     audio5.play();
     players[imposter].querySelector('.playeravtSpace').querySelector('img').style.width='90%';
      tt= players[imposter].querySelector('.playeravtSpace').querySelector('img').src;
     players[imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src","main/assets/Virus.png");
     }
 
     setTimeout(function(){
-        console.log("Tôi sẽ reset lại");
+       
         Ques1.querySelector('p').textContent='';
         Bom.setAttribute("src","../main/assets/questionBox.png");
         Bom1.setAttribute("src","../main/assets/bum.gif");
@@ -331,8 +344,8 @@ function StartNewRound() {
 }
 // bắt sự kiện có người out
 socket.on("OutSoEndGame",function(){
-    console.log(Round);
-    if(Round!=0&&Round!=2)
+
+    if(Round!=0&&Round!=10)
     {
         var re={
             rn:rn,
@@ -350,7 +363,7 @@ for (var i=0;i<players.length;i++)
     players[j].style.animation='none';
     players[index].style.animation='glow 2s infinite';
     Vote=index;
-    console.log(Vote);
+  
             }
         })(i);
 }

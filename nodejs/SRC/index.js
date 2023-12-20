@@ -366,11 +366,10 @@ var num2=0;
 io.sockets.in(data).emit("memberWating",num2);
 });
 socket.on("StartDetec",function(data){
- console.log("Trận đấu bắt đầu");
+
   io.sockets.in(data.rn).emit("DetecStart");
- console.log("Gửi thông tin về để xác thực là bắt đầu game");
   socket.on("DecStartRound",function(round){
-   console.log("bắt đầu round đấu để gửi ques",round);
+
  var obj={
   ques:data.Ques[round-1],
   imposter:rand(3,0),
@@ -380,7 +379,7 @@ socket.on("StartDetec",function(data){
   });
 });
 socket.on("Voted",function(data){
-console.log("Gửi voted")
+
   Voted.push(data);
   var c1=0;
   var Imposter=[0,0,0,0];
@@ -392,7 +391,7 @@ console.log("Gửi voted")
     Imposter[Voted[i].Vote]++;
     }
   }
-  if (c1==4)
+  if (c1==1)
   {
     c1=0;
     var maxposition,maxscore=-1;
@@ -404,8 +403,7 @@ console.log("Gửi voted")
         maxposition=i;
       }
     }
-    console.log("Kết quả vote");
-    console.log(Voted);
+
     io.sockets.in(data.rn).emit("TheImposter",maxposition);
   }
 });

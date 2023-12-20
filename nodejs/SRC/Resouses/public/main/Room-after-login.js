@@ -138,7 +138,11 @@ for (var i = 0; i < RoomGamesArray.length; i++) {
             Loca = "your";
             idplayer = room0[index].Code;
             var Of = room0[index].Room;
+            if(room0[index].gameMode==='3')
             window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+             else
+            if(room0[index].gameMode==='2')
+            window.location.href = `http://localhost:3000/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
         };
     })(i);
 }
