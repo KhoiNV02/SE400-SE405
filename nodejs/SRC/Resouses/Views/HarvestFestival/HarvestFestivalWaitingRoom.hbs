@@ -49,7 +49,7 @@
         <div class="auto-group-avlb-zEH">
           <!-- player 1 -->
           <div class="auto-group-cmzm-CUm player" id="player1" style="display: none;">
-            <img class="mokey-1-JEy" src="../main/assets/mokey-1-WKP.png" />
+            <img class="mokey-1-JEy" src="../main/assets/mokey-1.png" />
             <p class="username4-XtR playerName" id="Player1-name">Username4</p>
           </div>
 
@@ -543,7 +543,7 @@
     socket.on("Player-At-TheMoment", function (data) {
       disPlayer(data);
 
-      if (data.length ===1)
+      if (data.length ===4)
         ZoGame(true);
     });
 
@@ -555,7 +555,7 @@
       socket.on("Player-At-TheMoment", function (data) {
         disPlayer(data);
 
-        if (data.length ===1)
+        if (data.length ===4)
           ZoGame(true);
       });
     }

@@ -391,7 +391,7 @@ socket.on("Voted",function(data){
     Imposter[Voted[i].Vote]++;
     }
   }
-  if (c1==1)
+  if (c1==4)
   {
     c1=0;
     var maxposition,maxscore=-1;
