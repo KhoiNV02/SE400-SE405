@@ -85,6 +85,7 @@ NewsArray.push(ob);
 
 // khi có người kết nối
 io.on("connection",function(socket){
+  console.log(Mic);
 console.log("có người đã đăng nhập với id là "+ socket.id);
 // xử lý người dùng thoát khỏi room
 socket.on("disconnect",function(){
@@ -408,6 +409,7 @@ socket.on("Voted",function(data){
   }
 });
 socket.on("EndGameDec",function(re){
+  Mic=Mic.filter(item=>item.rn!==re.rn);
   io.sockets.in(re.rn).emit("TurnBack",re.reason);
 }); 
 socket.on("MyMic",function(mic){
