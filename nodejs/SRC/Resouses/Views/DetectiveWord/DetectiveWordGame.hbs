@@ -56,7 +56,6 @@
     </div>
     <div class="leftbodyBomb" id="leftBodyBombInRoom">
       <div class="space">
-
       </div>
       <div class="quesInRoomBomb">
         <div class="tresure">
@@ -104,19 +103,102 @@
     </div>
     <div class="rightbodyBomb">
       <div class="titlechatBomb">
-        <p>Chat Room</p>
+        <p id="fa">Chat Room</p>
       </div>
       <div class="chat" id="chat">
     
       </div>
       <input id="chatbar" class="chatboxBomb" type="text" placeholder="Type Here to Text">
+      <img src="../main/assets/mic.png" alt="" class="mic" id="mic">
     </div>
   </div>
-
+  <audio id="localAudio"></audio>
+  <audio id="remoteAudio"></audio>
 </body>
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 <script src="../socket.io/socket.io.js"></script>
 <script>
+  var c=false;
+  var UserName={{{json Username}}}.UserName;
+  var chatb=document.querySelector("#chatbar");
+  function openStream() {
+      const config = { audio: true, video: false };
+      return navigator.mediaDevices.getUserMedia(config);
+    }
+     function playStream(idAudioTag, stream) {
+      const audio = document.getElementById(idAudioTag);
+      audio.srcObject = stream;
+      audio.play();
+    }
+    let micEnabled = false;
+    let localStream;
+    document.getElementById('mic').addEventListener('click', toggleMicrophone);
+    function toggleMicrophone() {
+      console.log(UserName,c);
+    
+      if (localStream) {
+        const audioTracks = localStream.getAudioTracks();
+        console.log('Audio tracks:', audioTracks);
+        if (audioTracks.length > 0) {
+          micEnabled = !micEnabled;
+
+          audioTracks.forEach(track => {
+            console.log('hello',track.enabled);
+            track.enabled = micEnabled;
+            console.log('hello1',track.enabled);
+          });
+
+          console.log(`Microphone is ${micEnabled ? 'enabled' : 'disabled'}`);
+        }
+      }
+
+    }
+   var peer = new Peer();
+   var micID;
+    peer.on('open', function(id) {
+      console.log('My peer ID is: ' + id);
+    micID=id;
+    });
   
+     function calling(id1,id2,id3)
+    {
+      console.log(UserName);
+      openStream()
+        .then(stream => {
+          localStream = stream;
+          {{!-- const call = peer.call(id, stream); --}}
+          const call2 = peer.call(id2, stream);
+          {{!-- call.on('stream', remoteStream => playStream('remoteAudio', remoteStream)); --}}
+          call2.on('stream', remoteStream => playStream('remoteAudio', remoteStream));
+             const call3 = peer.call(id3, stream);
+          const call4 = peer.call(id1, stream);
+          call3.on('stream', remoteStream => playStream('remoteAudio', remoteStream));
+          call4.on('stream', remoteStream => playStream('remoteAudio', remoteStream));
+        });
+    }
+peer.on('call', function(call) {
+      openStream()
+        .then(stream => {
+          localStream = stream;
+          call.answer(stream);
+
+          call.on('stream', remoteStream => playStream('remoteAudio', remoteStream));
+          const audioTracks = localStream.getAudioTracks();
+          if (audioTracks.length > 0) {
+            
+            audioTracks.forEach(track => {
+              track.enabled = false;
+              const audioControl = track.getSettings().volumeControl;
+      if (audioControl) {
+        track.applyConstraints(0.5);
+      } else {
+        console.warn('Volume control is not supported for this audio track.');
+      }
+
+            });
+          }
+        });
+    })
 var UserName={{{json Username}}}.UserName;
 var idPlayer1={{{json idPlayer}}}.idPlayer;
 var Loca={{{json Loca}}}.Loca;
@@ -131,7 +213,20 @@ function decodeHtmlEntity(encodedString) {
 
       var socket=io("http://localhost:3000");
 
+var mic=document.querySelector("#mic");
 
+mic.onclick=function(){
+  if (c==false)
+  {
+    mic.setAttribute("src",'../main/assets/mic2.png');
+    c=!c;
+  }
+  else
+  {   
+    mic.setAttribute("src",'../main/assets/mic.png');
+    c=!c;
+  }
+}
  
 
 </script>

@@ -107,8 +107,29 @@ socket.on("memberWating",function(data){
 
 });
 var imposter;
+
 function zoGame()
 {
+    var mic={
+        MicID:micID,
+        rn:rn,
+        UserName:UserName,
+    }
+    socket.emit("MyMic",mic);
+socket.on("Mic",function(data123)
+{
+   if (data123.length===2)
+   {
+    var ids=[];
+    console.log(data123[0].UserName);
+    for (var i=0;i<2;i++)
+    {
+        if (data123[i].UserName!==UserName)
+        ids.push(data123[i].MicID);
+    }
+    calling(ids[0],ids[1],ids[2]);
+    }
+})
     var set
     set=setInterval(() => {
         audio.volume-=0.04;
@@ -173,9 +194,6 @@ var Round=0;
 var Vote=0;
 ButtonStart.onclick=function()
 {
-
-    // dùng xong nhớ xóa đoạn t=0;
-    // nhớ xóa đoạn này chữ ko là ăn lol
  t=0;
 if (t>0)
 alert("Vui lòng chờ đủ 4 người chơi để bắt đầu");
@@ -245,7 +263,7 @@ setTimeout(function(){
        }
        },1000);
       
-},5000);
+},30000);
 });
 // hiển thị ai bị nhốt, và sau đó ai là import tở
 socket.on("TheImposter",function(data1){

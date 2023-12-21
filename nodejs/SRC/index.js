@@ -391,7 +391,7 @@ socket.on("Voted",function(data){
     Imposter[Voted[i].Vote]++;
     }
   }
-  if (c1==4)
+  if (c1==1)
   {
     c1=0;
     var maxposition,maxscore=-1;
@@ -410,8 +410,13 @@ socket.on("Voted",function(data){
 socket.on("EndGameDec",function(re){
   io.sockets.in(re.rn).emit("TurnBack",re.reason);
 }); 
+socket.on("MyMic",function(mic){
+Mic.push(mic);
+io.sockets.in(mic.rn).emit("Mic",Mic);
+})
 });
 var Voted=[];
+var Mic=[];
 // kết thúc xử lý server
 // const handlebars = require('express-handlebars')
 const port = 3000;
