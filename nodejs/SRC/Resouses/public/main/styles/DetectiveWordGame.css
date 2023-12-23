@@ -7,7 +7,7 @@
 }
 .leftbodyBomb
 {
-  background-image: url('../assets/detectiveword-5.png'); 
+  background-image: url('/main/assets/detectiveWord-5.png'); 
   background-size:cover;
   opacity: 1;
   transition: opacity 1s ease-in-out;

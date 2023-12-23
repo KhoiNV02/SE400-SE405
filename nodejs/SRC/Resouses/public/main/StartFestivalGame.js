@@ -28,8 +28,8 @@ pkl=0;
     var MarkPercent=0;
  
     // English vocabulary array++
-      var iconsGame=['../main/assets/nicework.png','../main/assets/amazing.png','../main/assets/champion.png','../main/assets/Cool.png','../main/assets/greatjob.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png','../main/assets/congratulation.png'];
-      var backGame=['../main/assets/bumchiu.gif','../main/assets/flow.gif','../main/assets/lolo.gif','../main/assets/tede.gif','../main/assets/money.gif'];
+      var iconsGame=['../main/assets/amazing.png','../main/assets/congratulation.png','../main/assets/greatjob.png','../main/assets/Cool.png','../main/assets/nicework.png','../main/assets/nicework2.png','../main/assets/weldon.png','../main/assets/welldone.png','../main/assets/youdoit.png','../main/assets/champion.png'];
+      var backGame=['../main/assets/bumchiu.gif','../main/assets/flow.gif','../main/assets/money.gif','../main/assets/lolo.gif','../main/assets/tede.gif'];
       var backGroundWinner=['../main/assets/TheWinner.gif','../main/assets/TheWinner2.gif','../main/assets/TheWinner3.gif','../main/assets/TheWinner4.gif']
       
       var VocabularyArray;

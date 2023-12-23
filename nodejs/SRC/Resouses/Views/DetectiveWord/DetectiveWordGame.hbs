@@ -37,7 +37,7 @@
       <p id="codeJoinRoom">Code: {{idPlayer.idPlayer}}</p>
     </div>
     <div class="volumeBomb">
-      <img id="nut" src="../main/assets/vector-5s3.png" alt="">
+      <img id="nut" src="../main/assets/vector.png" alt="">
     </div>
   </div>
   <!--end header  -->
@@ -211,7 +211,7 @@ function decodeHtmlEntity(encodedString) {
     }
     Of = decodeHtmlEntity(Of);
 
-      var socket=io("http://localhost:3000");
+      var socket=io(`{{local}}`);
 
 var mic=document.querySelector("#mic");
 
@@ -228,7 +228,7 @@ mic.onclick=function(){
   }
 }
  
-
+var local=`{{local}}`;
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

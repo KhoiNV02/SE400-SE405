@@ -65,7 +65,7 @@ if (!isEmptyOrSpaces(chat1.chat))
       var p=document.querySelector("#audio");
       if (i%2==0)
       {
-          audio.setAttribute("src","../main/assets/vector-5s3.png");
+          audio.setAttribute("src","../main/assets/vector.png");
       p.play();
       }
   else

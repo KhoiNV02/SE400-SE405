@@ -41,7 +41,7 @@
   <div class="desktop-3-gxM">
     <div class="headeringame-Eiy">
       <p class="code-kofm-MYh" id="code"></p>
-      <img class="vector-Gff" id="nut" src="../main/assets/volumne1.png" />
+      <img class="vector-Gff" id="nut" src="../main/assets/vector.png" />
     </div>
     <div class="auto-group-49mm-bT3">
       <div class="auto-group-vegk-w17" id="Wating" style="display: block;" >
@@ -59,7 +59,7 @@
               <img class="bat-1-jDo" src="../main/assets/bat-1.png" />
               <p class="username3-rZK playerName" id="Player2-name">Username3</p>
             </div>
-            <img class="bm-2-ytq" id="countDown" src="../main/assets/harvestroom-1.png" />
+            <img class="bm-2-ytq" id="countDown" src="../main/assets/harvestroom-1.png"/>
             <!-- player 3 -->
             <div class="auto-group-dw1z-hZw player" id="player3" style="display: none;">
               <p class="username1-3do playerName" id="Player3-name">Username1</p>
@@ -501,7 +501,7 @@
   }
   var myDiv = document.getElementById("chat");
   myDiv.innerHTML = '';
-  var socket = io("http://localhost:3000");
+  var socket = io(`{{local}}`);
 
 
   //tách đoạn code
@@ -543,7 +543,7 @@
     socket.on("Player-At-TheMoment", function (data) {
       disPlayer(data);
 
-      if (data.length ===4)
+      if (data.length ===1)
         ZoGame(true);
     });
 
@@ -555,7 +555,7 @@
       socket.on("Player-At-TheMoment", function (data) {
         disPlayer(data);
 
-        if (data.length ===4)
+        if (data.length ===1)
           ZoGame(true);
       });
     }
@@ -631,7 +631,7 @@
       }, 1000);
       //lấy từ lên
       var beforeVocabularyArray = [];
-       axios.get(`http://localhost:3000/harvestfestival/GetWord`)
+       axios.get(`{{local}}/harvestfestival/GetWord`)
     .then(response => {
         for (var i=0;i<response.data.length;i++)
         beforeVocabularyArray.push(response.data[i].Word);
@@ -684,7 +684,7 @@ countdown1 = setTimeout(function () {
   })
   //end chat nội dung cũ
   //xóa room khi out lần cuối
-
+var local=`{{local}}`;
 </script>
 <script src="../main/StartFestivalGame.js"></script>
 <script src="../main/ScriptChung.js"></script>

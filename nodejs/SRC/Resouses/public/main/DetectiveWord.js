@@ -8,7 +8,7 @@ function DeleteRoomInDatabase(data)
     }
     
             
-    axios.post(`http://localhost:3000/HarvestFestival/edit`,request
+    axios.post(`${local}/HarvestFestival/edit`,request
     , {
         headers: {
           'Content-Type': 'application/json',
@@ -94,16 +94,16 @@ socket.emit("iWantToKnowMember",rn);
 socket.on("memberWating",function(data){
      t=4-data;
     if (t==3)
-    wating[0].style.backgroundImage="url('main/assets/detectiveWord-5.png')";
+    wating[0].style.backgroundImage="url('../main/assets/detectiveWord-5.png')";
    else
     if (t==2)
-    wating[0].style.backgroundImage="url('main/assets/detective-4.png')";
+    wating[0].style.backgroundImage="url('../main/assets/detective-4.png')";
     else
     if (t==1)
-    wating[0].style.backgroundImage="url('main/assets/detective-3.png')";   
+    wating[0].style.backgroundImage="url('../main/assets/detective-3.png')";   
     else
     if (t==0)
-    wating[0].style.backgroundImage="url('main/assets/detectiveWord-2.png')";   
+    wating[0].style.backgroundImage="url('../main/assets/detectiveWord-2.png')";   
 
 });
 var imposter;
@@ -298,7 +298,7 @@ setTimeout(function(){
         if (data1===1)
         Bom.style.width='80%';
         Bom1.style.top='-30px';
-        avt='main/assets/Virus.png';
+        avt='../main/assets/Virus.png';
         Bom.setAttribute("src",avt);  
         tt= players[imposter].querySelector('.playeravtSpace').querySelector('img').src;
     }
@@ -307,14 +307,14 @@ setTimeout(function(){
      audio5.play();
     players[imposter].querySelector('.playeravtSpace').querySelector('img').style.width='90%';
      tt= players[imposter].querySelector('.playeravtSpace').querySelector('img').src;
-    players[imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src","main/assets/Virus.png");
+    players[imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src","../main/assets/Virus.png");
     }
 
     setTimeout(function(){
        
         Ques1.querySelector('p').textContent='';
         Bom.setAttribute("src","../main/assets/questionBox.png");
-        Bom1.setAttribute("src","../main/assets/bum.gif");
+        Bom1.setAttribute("src"," ../main/assets/bum.gif");
      players[imposter].querySelector('.playeravtSpace').querySelector('img').setAttribute("src",tt)
       players[imposter].querySelector('.playeravtSpace').querySelector('img').style.width='50%';
      Bom.style.width='70%';

@@ -68,11 +68,14 @@
 </div>
 
 </body>
+<script>
+  var local=`{{local}}`;
+</script>
 <script src="../socket.io/socket.io.js"></script>
 <script src="../main/ScriptChung.js"></script>
 <script>
   var idPlayer=0;
-  var socket=io("http://localhost:3000");
+  var socket=io(`{{local}}`);
 
  function getDataFromServer() {
   return new Promise(function(resolve, reject) {

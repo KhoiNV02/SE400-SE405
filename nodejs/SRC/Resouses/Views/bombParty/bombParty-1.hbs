@@ -40,6 +40,7 @@
   </div>
 </div>
 </body>
+<script>var local=`{{local}}`;</script>
 <script src="./main/ScriptChung.js"></script>
 <script>
 var joinGame=document.querySelector("#join-game");
@@ -48,6 +49,6 @@ var UserName=`{{UserName}}`;
 var Mang=[idPlayer,UserName];
 joinGame.onclick=function()
 { 
-   window.location.href = `http://localhost:3000/bombparty/${Mang}`;
+   window.location.href = `{{local}}/bombparty/${Mang}`;
 }
 </script>

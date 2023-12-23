@@ -452,7 +452,7 @@ app.set('views', path.join(__dirname, 'Resouses','views'));
 //render đến các trang đó thông qua đường dẫn
 // app.set('views', path.join(__dirname, 'Resouses','public'));
 const route = require('./routes/');
-
+app.locals.local = 'http://localhost:3000';
 const db=require('./config/db');
 const { availableParallelism } = require('os');
 db.connect();

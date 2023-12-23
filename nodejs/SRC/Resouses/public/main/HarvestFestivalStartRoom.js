@@ -39,7 +39,7 @@ try
         }
         
                 
-        axios.post(`http://localhost:3000/HarvestFestival/edit`,request
+        axios.post(`${local}/HarvestFestival/edit`,request
         , {
             headers: {
               'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ var Mang=[];
           })
           
          joinTheGame.onclick=function(){
-            window.location.href = `http://localhost:3000/HarvestFestival/${Mang}`; 
+            window.location.href = `${local}/HarvestFestival/${Mang}`; 
            }
 }
 catch

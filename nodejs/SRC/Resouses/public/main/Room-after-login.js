@@ -33,7 +33,7 @@ function dancing()
     if (dance%2==0)
     Dance.src="main/assets/harvest.gif";
 else
-Dance.src="main/assets/harvestfestival-1.png"; 
+Dance.src="../main/assets/harvestfestival-1.png"; 
 }
 // xong phần lựa chọn gameMode
 
@@ -69,21 +69,23 @@ document.getElementById("createNewRoom").addEventListener("mousedown", function(
     if (GameMode==1)
     {
     var idplayer=Math.floor(Math.random()*4)+1;
-window.location.href = `http://localhost:3000/bombparty?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
+
+    window.location.href = `${local}/bombparty?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}`;
     }
     else
     if (GameMode==2)
     {
         var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
         var idplayer=randomNumber;
-        window.location.href = `http://localhost:3000/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
+        console.log(`${local}/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`);
+        window.location.href = `${local}/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
     }
     else
     if (GameMode==3)
     {
         var randomNumber = Math.floor(Math.random() * (9000)) + 1000;
         var idplayer=randomNumber;
-        window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
+        window.location.href = `${local}/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Username}&range=${range}&gameMode=${GameMode}`;  
     }
 });
 
@@ -98,7 +100,7 @@ joinRoom.onclick=function()
     else
     {   
         // call API để lấy được data mới nhất
-        axios.get(`http://localhost:3000/home/edit`)
+        axios.get(`${local}/home/edit`)
             .then(response => {
             console.log('Dữ liệu nhận được sau khi gửi request xem room mới nhất:');
             rooms=response.data;
@@ -111,10 +113,10 @@ joinRoom.onclick=function()
             idplayer=rooms[i].Code;
             var Of=rooms[i].Room;
             if (rooms[i].gameMode==3)
-            window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+            window.location.href = `${local}/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
             else
             if (rooms[i].gameMode==2)
-            window.location.href = `http://localhost:3000/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+            window.location.href = `${local}/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
             break;
          }
         }
@@ -139,10 +141,10 @@ for (var i = 0; i < RoomGamesArray.length; i++) {
             idplayer = room0[index].Code;
             var Of = room0[index].Room;
             if(room0[index].gameMode==='3')
-            window.location.href = `http://localhost:3000/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+            window.location.href = `${local}/HarvestFestival?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
              else
             if(room0[index].gameMode==='2')
-            window.location.href = `http://localhost:3000/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
+            window.location.href = `${local}/DetectiveWord?idplayer=${idplayer}&Username=${Username}&Loca=${Loca}&Of=${Of}`;
         };
     })(i);
 }
