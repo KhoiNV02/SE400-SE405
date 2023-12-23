@@ -443,7 +443,6 @@ app.engine(
     }
     }
   }),
-  
 );
 app.use(methodOverride('_method'))
 app.set('view engine', '.hbs');
