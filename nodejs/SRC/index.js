@@ -451,6 +451,7 @@ app.set('views', path.join(__dirname, 'Resouses','views'));
 //render đến các trang đó thông qua đường dẫn
 // app.set('views', path.join(__dirname, 'Resouses','public'));
 const route = require('./routes/');
+//cập nhật link mới
 app.locals.local = 'https://explosiveword.onrender.com';
 const db=require('./config/db');
 const { availableParallelism } = require('os');
