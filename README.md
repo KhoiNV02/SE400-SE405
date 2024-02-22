@@ -1,4 +1,4 @@
-# Tên Dự Án
+# Tên Dự Án Explosive_Word_Game 
 
 ## Mô tả
 [ExplosiveWord] là một bộ các trò chơi học tiếng anh kết nối nhiều người chơi trên nền tảng Website. 
