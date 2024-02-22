@@ -30,8 +30,11 @@
   sẽ nhận được cùng 1 từ giống nhau, và người chơi còn lại sẽ nhận được từ khác biệt hoàn toàn, nhiệm vụ của các người chơi là mô tả từ vựng mình nhận được nhưng mà không được
   để cho các người chơi khác biết được từ vựng của mình là gì, sau 45s mô tả thì sẽ tiến hành bình chọn ai là người có từ vựng khác biệt để tiến hành tiêu diệt. 
 - Chat: tính năng trò chuyện trong game, có tích hợp mic để nói chuyện.
+## Mô tả API
+- /home: Tìm kiếm để hiển thị các room hiện có (room vừa được tạo ra) để tải lên trang Home cho người dùng có thể join.
+- /home/edit: 
 ## Tác Giả
 - Tên tác giả: Nguyễn Văn Khôi.
-- Liên hệ: khoikakaka123@gmail.com
+- Liên hệ:khoinguyenvan2002.se@gmail.com
 
 
