@@ -2,7 +2,7 @@
 
 ## Mô tả
 [ExplosiveWord] là một bộ các trò chơi học tiếng anh kết nối nhiều người chơi trên nền tảng Website. 
-
+## Demo: https://explosiveword.onrender.com/
 ## Hướng Dẫn Cài Đặt
 
 1. **Yêu cầu Hệ Thống:**
