@@ -31,8 +31,14 @@
   để cho các người chơi khác biết được từ vựng của mình là gì, sau 45s mô tả thì sẽ tiến hành bình chọn ai là người có từ vựng khác biệt để tiến hành tiêu diệt. 
 - Chat: tính năng trò chuyện trong game, có tích hợp mic để nói chuyện.
 ## Mô tả API
+- /: Render giao diện đăng nhập của trò chơi.
 - /home: Tìm kiếm để hiển thị các room hiện có (room vừa được tạo ra) để tải lên trang Home cho người dùng có thể join.
-- /home/edit: 
+- /home/join: Kiểm tra mã code người dùng nhập vào có tồn tại trong cơ sở dữ liệu hay không, mã code này là id phòng chơi của người dùng khác đã tạo với trạng thái public.
+- /HarvestFestival: Lưu trữ thông tin người chơi và tiến hành tải giao diện phòng game Harvest Festival.
+- /HarvestFestival/:id :Từ phòng game tiến vào phòng chuẩn bị để bắt đầu game ( trạng thái người chơi được chuyển sang sẵn sàng).
+- /HarvestFestival/edit: Cập nhật lại dữ liệu về room trong database (bao gồm việc xóa room không còn tồn tại và thêm room mới vào).
+- /HarvestFestival/GetWord: Lấy ngẫu nhiêm bộ từ vựng trong database để chuẩn bị cho trò chơi.
+- /DetectiveWord: Hiển thị giao diện phòng chơi để kết nối các người chơi với nhau.
 ## Tác Giả
 - Tên tác giả: Nguyễn Văn Khôi.
 - Liên hệ:khoinguyenvan2002.se@gmail.com
